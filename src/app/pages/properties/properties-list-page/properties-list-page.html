@@ -1,0 +1,278 @@
+<div class="main-container">
+
+<div style="position: absolute; top: 20px; left: 20px; z-index: 100;" >
+    <input type="text" id="i_search" name="i_search" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar:" class="input-search">
+    <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 150px;" (change)="onChangeStatus($event)">
+        <option value="All">TODOS</option>
+        <option value="Libre">LIBRE</option>
+        <option value="Separado">SEPARADO</option>
+        <option value="Bloqueado">BLOQUEADO</option>
+    </select>
+</div>
+
+<div class="button" style="position: absolute; top: 30px; right: 20px; z-index: 100;">
+    <a href="#">Crear nueva</a>
+</div>
+
+
+<div class="properties-list" style="position: absolute; top: 75px; z-index: 100; width: 100%; height: calc(100% - 130px);">
+
+    <div class="row-header">
+        <div class="col" style="max-width: 50px;">#</div>
+        <div class="col" style="max-width: 200px;">ID</div>
+        <div class="col" style="max-width: 100px;">ÁREA</div>
+        <div class="col" style="max-width: 90px;">ANCHO</div>
+        <div class="col" style="max-width: 90px;">LARGO</div>
+        <div class="col" style="max-width: 200px;">ULT. ACTUALIZACIÓN</div>
+        <div class="col" style="max-width: auto;">ESTADO</div>
+        <div class="col-image"></div>
+    </div>
+
+    <div class="table-content">
+        @for (item of this.propertyService.properties; track $index) 
+        {
+            <!--
+            <div class="row">
+                <div class="col" style="max-width: 50px;"><b>{{item.code}}</b></div>
+                <div class="col" style="max-width: 200px;">{{item.objectId}}</div>
+                <div class="col" style="max-width: 100px;">{{item.area}}</div>
+                <div class="col" style="max-width: 90px;">{{item.width}}</div>
+                <div class="col" style="max-width: 90px;">{{item.depth}}</div>
+                <div class="col" style="max-width: 200px;">{{item.updatedAt}}</div>
+                <div class="col" style="max-width: auto;">{{item.status}}</div>
+                @if(item.agent != '' && item.agent != undefined) {
+                    <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
+                }@else {
+                    <div class="col-image">&nbsp;</div>
+                }
+            </div>
+        -->
+        }
+
+
+         <div class="row">
+            <div class="col" style="max-width: 50px;"><b>M32</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image">&nbsp;</div>
+        </div>
+
+        <div class="row">
+            <div class="col" style="max-width: 50px;"><b>J80</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
+        </div>
+
+        <div class="row">
+            <div class="col" style="max-width: 50px;"><b>M32</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image">&nbsp;</div>
+        </div>
+
+        <div class="row">
+            <div class="col" style="max-width: 50px;"><b>J80</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
+        </div>
+
+                 <div class="row">
+            <div class="col" style="max-width: 50px;"><b>M32</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image">&nbsp;</div>
+        </div>
+
+        <div class="row">
+            <div class="col" style="max-width: 50px;"><b>J80</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
+        </div>
+
+        <div class="row">
+            <div class="col" style="max-width: 50px;"><b>M32</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image">&nbsp;</div>
+        </div>
+
+        <div class="row">
+            <div class="col" style="max-width: 50px;"><b>J80</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
+        </div>
+
+                <div class="row">
+            <div class="col" style="max-width: 50px;"><b>M32</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image">&nbsp;</div>
+        </div>
+
+        <div class="row">
+            <div class="col" style="max-width: 50px;"><b>J80</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
+        </div>
+
+                <div class="row">
+            <div class="col" style="max-width: 50px;"><b>M32</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image">&nbsp;</div>
+        </div>
+
+        <div class="row">
+            <div class="col" style="max-width: 50px;"><b>J80</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
+        </div>
+
+                <div class="row">
+            <div class="col" style="max-width: 50px;"><b>M32</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image">&nbsp;</div>
+        </div>
+
+        <div class="row">
+            <div class="col" style="max-width: 50px;"><b>J80</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
+        </div>
+
+                <div class="row">
+            <div class="col" style="max-width: 50px;"><b>M32</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image">&nbsp;</div>
+        </div>
+
+        <div class="row">
+            <div class="col" style="max-width: 50px;"><b>J80</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
+        </div>
+
+                <div class="row">
+            <div class="col" style="max-width: 50px;"><b>M32</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image">&nbsp;</div>
+        </div>
+
+        <div class="row">
+            <div class="col" style="max-width: 50px;"><b>J80</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
+        </div>
+
+                <div class="row">
+            <div class="col" style="max-width: 50px;"><b>M32</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image">&nbsp;</div>
+        </div>
+
+        <div class="row">
+            <div class="col" style="max-width: 50px;"><b>J80</b></div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: 100px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 90px;">fdfd</div>
+            <div class="col" style="max-width: 200px;">fdfd</div>
+            <div class="col" style="max-width: auto;">fdfd</div>
+            <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<app-menu-component></app-menu-component>
+<!--<app-project-selector></app-project-selector>-->

@@ -1,0 +1,371 @@
+/* You can add global styles to this file, and also import other style files */
+/* You can add global styles to this file, and also import other style files */
+::-webkit-input-placeholder { color: var(--gray); opacity: 0.6;} /* WebKit */
+:-moz-placeholder { color: var(--gray); opacity: 0.6; } /* Firefox 18- */
+::-moz-placeholder { color: var(--gray); opacity: 0.6; } /* Firefox 19+ */
+:-ms-input-placeholder { color: var(--gray); opacity: 0.6; } /* IE 10+ */
+
+:root{
+    --background-login: #1f1d1d;
+
+    --color-a: #194b49;
+    --color-b: #35a09c;
+
+    --light-1: #f9fbfb;
+    --light-2: #fefefe;
+
+    --background: #fefefe;
+    --background-form-gray: #e3e7e9;
+
+    --border-line: #4e4e4e;
+
+    --dark: #232a2e;    
+    --gray: #848a91;
+
+    --light: #f3f3f3;
+    --white: #ffffff;
+
+    --yellow: #F8FFA2;
+
+    --green: #258133;
+    --red: #c0392b;
+    --disconnected: #777575;
+    --warning: #f39c12;
+    --info: #3498db;
+
+    --card-green: #dcedce;
+    --card-green-text: #748663;
+    --card-blue:#bae4ee;
+    --card-blue-text: #5a8b9c;
+}
+
+
+
+@font-face {
+  font-family: 'CustomFont';
+  src: url('./assets/fonts/monserrat-variable.otf');
+}
+
+*{
+    padding: 0px;
+    margin: 0px;
+}
+
+body 
+{
+    background-color: var(--background);
+    width: auto;
+    margin: 0 auto;
+    color: black;
+    font-family: 'Montserrat', sans-serif;
+    height: 100%;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html
+{
+    background-color: var(--background);
+    color: black;
+}
+
+.button-big a
+{
+    width: 80px;
+    height: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size:14px;
+    color: #FFFFFF;
+    text-decoration: none;
+    /*background: var(--color-a);*/
+    padding-left: 40px;
+    padding-right: 40px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    transition: background 0.2s ease, transform 0.2s ease;
+    /*
+    background: var(--primary-color, var(--color-b));*/
+    background: var(--primary-color, var(--color-a));
+}
+
+.button-big a:hover
+{
+    cursor: pointer;
+    text-decoration: none;
+    background: var(--hover-color, var(--color-b));
+}
+
+.button-big a:active
+{
+    background: var(--active-color, var(--color-a));
+}
+
+.a-link a
+{
+    padding-top: 4px;
+    color: var(--color-a);
+    text-decoration: none;
+    display: block;
+    cursor: pointer;
+    z-index: 10000;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    /*backdrop-filter: blur(5px);*/
+    border: none;
+}
+
+.a-link a:hover
+{
+    color: var(--color-b);
+    border: none;
+}
+
+.button a
+{
+    width: 80px;
+    height: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size:14px;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    background: var(--primary-color, var(--color-a));
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button a:hover
+{
+    background: var(--hover-color, var(--color-b));
+    color: var(--white);
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.button-flat a
+{
+    width: 80px;
+    height: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size:14px;
+    color: #FFFFFF;
+    text-decoration: none;
+    padding-left: 15px;
+    padding-right: 15px;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    background: var(--primary-color, var(--color-a));
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button-flat a:hover
+{
+    cursor: pointer;
+    background: var(--hover-color, var(--color-b));
+    color: var(--white);
+    text-decoration: none;
+}
+
+.button-circle a
+{
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    /*background: var(--primary-color, #593a97);*/
+    background: var(--primary-color, var(--color-a));
+    color: var(--white, #FFFFFF);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+    transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.button-circle a:hover
+{
+    /*background: var(--hover-color, #E83E33);*/
+    background: var(--hover-color, var(--color-b));
+    transform: scale(1.05);
+}
+
+
+
+.select-field
+{
+    width: 180px;
+    height: 40px;
+    font-family: 'Montserrat', sans-serif;
+    font-size:16px;
+    color: #FFFFFF;
+    text-decoration: none;
+    transition: background 0.3s ease, transform 0.2s ease;
+    background: var(--primary-color, #40affb);
+    border-radius: 100px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25);
+    text-transform: uppercase;
+    outline: 0;
+    padding-left: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-family: 'Montserrat', sans-serif;
+    border: none;
+    -moz-appearance: none;
+    text-indent: 0.01px;
+    text-overflow: '';
+
+   -webkit-appearance:none;
+   -ms-appearance:none;
+   -o-appearance:none;
+    appearance:none;
+}
+
+.select-field:hover
+{
+    background: var(--hover-color, #338cc9);
+    color: var(--white);
+    text-decoration: none;
+    border: none;
+    
+}
+
+.title-section
+{
+    font-family: 'Montserrat', sans-serif;
+    font-size: 20px;
+    color: var(--gray);
+    margin-bottom: 20px;
+    text-transform: uppercase;
+}
+
+.field-row
+{
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 20px;
+    display: grid;
+
+    label
+    {
+        font-family: 'Montserrat', sans-serif;
+        font-size: 16px;
+        color: var(--gray);
+        margin-right: 10px;
+        margin-bottom: 2px;
+    }
+
+    input{
+        max-width: 350px;
+        border: 1px solid #cccccc;
+        height: 34px;
+        font-size: 16px;
+        text-transform: uppercase;
+        padding-left: 10px;
+        border-radius: 4px;
+    }
+
+    select{
+        max-width: 300px;
+        border: 1px solid #cccccc;
+        min-height: 37px;
+        text-transform: uppercase;
+        padding-left: 10px;
+        padding-top: 4px;
+        font-size: 16px;
+        padding-bottom: 4px;
+        border-radius: 4px;
+    }
+
+    input:hover, select:hover
+    {
+        border: 1px solid var(--color-a);
+    }
+
+    input:focus, select:focus{
+        border: 1px solid var(--color-a);
+        background-color: var(--color-a);
+        color: var(--white);
+        outline: none;
+    }
+}
+
+.input-search{
+    min-width: 300px;
+    border: 1px solid #cccccc;
+    height: 34px;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding-left: 10px;
+    border-radius: 4px;
+}
+
+.select-search{
+    min-width: 300px;
+    border: 1px solid #cccccc;
+    height: 38px;
+    text-transform: uppercase;
+    padding-left: 10px;
+    border-radius: 4px;
+}
+
+.input-search:hover, .select-search:hover
+{
+    border: 1px solid var(--color-a);
+}
+
+.input-search:focus, .select-search:focus{
+    border: 1px solid var(--color-a);
+    background-color: var(--color-a);
+    color: var(--white);
+    outline: none;
+}
+
+.input-search-fit{
+    min-width: 200px;
+    border: 1px solid #cccccc;
+    height: 34px;
+    font-size: 15px;
+    text-transform: uppercase;
+    padding-left: 10px;
+    border-radius: 100px;
+    background-color: var(--info);
+
+}
+
+.input-search-fit:hover, .select-search:hover
+{
+    border: 1px solid var(--color-a);
+}
+
+.input-search-fit:focus, .select-search:focus{
+    border: 1px solid var(--color-a);
+    background-color: var(--color-a);
+    color: var(--white);
+    outline: none;
+}
+
+.flex-container {
+  display: flex;
+  width: 800px;
+  flex-direction: row;
+}
+
+.flex-container-flat {
+  display: flex;
+  flex-direction: row;
+}
+
+.flex-container > div {
+  width: 170px;
+  height: 50px;
+}

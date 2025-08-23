@@ -1,0 +1,12 @@
+.form-content
+{
+    overflow-y: auto; 
+    max-height: calc(100% - 130px); 
+    min-height: calc(100% - 130px);
+    top: 50px; 
+    width: calc(100% - 0px); 
+    position: absolute; 
+    color:black;
+    padding: 40px;
+    padding-left: 70px;
+}

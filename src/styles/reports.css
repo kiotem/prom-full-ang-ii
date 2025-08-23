@@ -1,0 +1,101 @@
+.row-header{
+    background-color: #f3f3f3;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    border-radius: 3px;
+    padding-top: 0px;
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+    font-weight: bold;
+    font-size: 14px;
+
+    .col
+    {
+        color: #444444;
+        flex: 1;
+        padding: 10px;
+        border-right: 0.5px solid gainsboro;
+    }
+
+    .col-image
+    {
+        min-width: 40px;
+        max-width: 40px;
+        align-items: end;
+        padding: 0px;
+        padding-top: 4px;
+        padding-left: 10px;
+    }
+}
+
+.row
+{
+    padding-top: 3px;
+    padding-bottom: 3px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    /*border: 1px solid gainsboro;*/
+
+    .col
+    {
+        color: #444444;
+        flex: 1;
+        padding: 10px;
+        border-right: 0.5px solid gainsboro;
+    }
+
+    .col-image
+    {
+        min-width: 40px;
+        max-width: 40px;
+        align-items: end;
+        padding: 0px;
+        padding-top: 4px;
+        padding-left: 10px;
+    }
+}
+
+.row:nth-child(odd) {
+  background-color: #ffffff; /* Un color claro para las filas impares */
+}
+
+/* Tabla: fila pares */
+.row:nth-child(even) {
+  background-color: #f7f9fa; /* Un color diferente para las filas pares */
+}
+
+
+.row:hover
+{
+
+    
+    cursor: pointer;
+
+    .col
+    {
+        color: var(--color-b);
+    }
+}
+
+.table-content
+{
+    overflow-y: auto; 
+    max-height: calc(100% - 0px); 
+    width: calc(100% - 0px); 
+    /*position: absolute; */
+    color:black;
+}
+
+.main-container{
+    position: absolute; 
+    top: 60px; 
+    left: 20px; 
+    width: calc(100% - 40px); 
+    height: calc(100% - 80px); 
+    border: 1px solid #d8dcdd; 
+    border-radius: 10px; 
+    background-color: white; 
+    z-index: 50;
+}

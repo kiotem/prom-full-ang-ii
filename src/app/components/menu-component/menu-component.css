@@ -1,0 +1,122 @@
+#header
+{
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    background-color: var(--light-1);
+    font-size: 11.5px;
+    margin: 0;
+    height: 45px;
+    left: 0px;
+    z-index: 20000;
+    right: 0;
+    border-bottom: 2px solid #d8dcdd;
+}
+
+#div_menu
+{
+    background-color: var(--light-1);
+    height: 45px; 
+    width: 100%; 
+    z-index: 20000; 
+}
+
+ul, ol{
+    list-style: none;
+    z-index: 20000;
+}
+
+.nav li a{
+    background-color: var(--light-1);
+    color: var(--color-a);
+    text-decoration: none;
+    padding: 14px 15px;
+    display: block;
+    cursor: pointer;
+    z-index: 20000;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 14px;
+    backdrop-filter: blur(5px);
+    text-transform: uppercase;
+    border: 0.5px solid #FFFFFF;
+    /*background: var(--primary-color, #40affb);*/
+}
+
+.nav li a:hover{
+    background-color: var(--color-a);
+    color: white;
+    color: var(--white);
+}
+
+.nav li a:active{
+    background-color: var(--color-b);
+    color: white;
+    color: var(--white);
+}
+
+.nav > li{
+    float: left;
+}
+
+.nav li ul{
+    display: none;
+    position: absolute;
+    font-size: 12px;
+    min-width: 160px;
+}
+
+.nav li:hover > ul{
+    display: block;
+}
+
+.nav li ul li{
+    position: relative;
+}
+
+.nav li ul li ul{
+    right: -160px;
+    top: 0px;
+}
+
+.m-arrow{
+    margin-left: 10px;
+}
+
+#login_info
+{
+    position: absolute; 
+    right: 10px; 
+    bottom: 10px; 
+    z-index: 20000; 
+    font-size: 16px;
+    text-align: start;
+}
+
+#select_project
+{
+    position: absolute; 
+    right: 10px; 
+    top: 13px; 
+    z-index: 20000; 
+    font-size: 16px;
+    text-align: end;
+}
+
+.img_profile
+{
+  width: 200px; /* Ensure equal width and height for a perfect circle */
+  height: 200px;
+  border-radius: 50%;
+}
+
+@media (max-width: 900px) 
+{
+    #header
+    {
+        visibility: hidden;
+    }
+
+    #div_menu
+    {
+        visibility: hidden;;
+    }
+}

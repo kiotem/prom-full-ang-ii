@@ -1,0 +1,60 @@
+<div id='div_menu'>
+        <div id='header'>
+                <div>
+                    <ul class="nav">
+                        @for (m of menuItems; track $index)
+                        {
+                            @if(m.subitems.length > 0)
+                            {
+                                <li>
+                                    <a (click)="launchOption(m)">
+                                        <i class="{{m.icon}}"></i>&nbsp;&nbsp;{{m.name}}<i class="fa fa-angle-down m-arrow"></i>
+                                    </a>
+
+                                    <ul>
+                                        @for (sub of m.subitems; track $index)
+                                        {
+
+                                            @if(sub.subitems.length > 0)
+                                            {
+                                                <li>
+                                                    <a (click)="launchOption(sub)">
+                                                        <i class="{{sub.icon}}"></i>&nbsp;&nbsp;{{sub.name}}<i class="fa fa-angle-right m-arrow"></i>
+                                                    </a>
+                                                    <ul>
+                                                        @for (sub2 of sub.subitems; track $index)
+                                                        {
+                                                            <li>
+                                                                <a (click)="launchOption(sub2)">
+                                                                    <i class="{{sub2.icon}}"></i>&nbsp;&nbsp;{{sub2.name}}
+                                                                </a>
+                                                            </li>
+                                                        }
+                                                    </ul>
+                                                </li>
+                                            }@else {
+                                            <li>
+                                                <a (click)="launchOption(sub)">
+                                                    <i class="{{sub.icon}}"></i>&nbsp;&nbsp;{{sub.name}}
+                                                </a>
+                                            </li>
+                                            }
+                                        }
+                                    </ul>
+                                </li>
+                            }@else 
+                            {
+                                <li>
+                                    <a (click)="launchOption(m)">
+                                        <i class="{{m.icon}}"></i>&nbsp;&nbsp;{{m.name}}
+                                    </a>
+                                </li>
+                            }
+
+                        }
+                    </ul>
+                </div>
+
+        </div>
+
+</div>

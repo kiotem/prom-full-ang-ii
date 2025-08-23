@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <title>Promotoras Full</title>
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
+
+    <link rel="icon" href="imgs/favico_pmfull.png" sizes="32x32" type="image/png">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body style='background-color: var(--background-form);'>
+
+    <div class="fondo"></div>
+
+    <div class="container-form">
+        <div align="center">
+            <img src="/imgs/logo_pmfull_black.png" alt="Image" style="width: 200px; height: auto; ">
+        </div>
+
+        <form [formGroup]="loginForm" style="width: 100%; " autocomplete="off">
+            <div id = 'login_form' style='display: block;'>
+                <div id='div_fields'>
+                    <div style="margin-bottom: 15px; margin-top:70px;">
+                        <label for="username" style="margin-bottom: 3px;">Usuario</label>
+                        <input type="text" id="i_username" name="i_username" class='input-login' placeholder='Escribe tu usuario' autocomplete="aus"  text='' (keydown)="onKeydown($event)" required formControlName="username">
+                    </div>
+                    <div style="margin-bottom: 5px; margin-top: 20px;">
+                        <label for="password" style="margin-bottom: 3px;">Contraseña</label>
+                        <input type="password" id="i_password" name="i_password" class='input-login' placeholder='Escribe tu contraseña' (keydown)="onKeydown($event)" text='' required formControlName="password">
+                    </div>
+                    <div style="margin-bottom: 15px; margin-top: 10px;">
+                        <input type="checkbox" id="show-password" (click)="tooglePassword()" style="margin-right: 5px; ">
+                        <label for="show-password" style='font-size: 14px;'>Mostrar contraseña</label>
+                    </div>
+                </div>
+                
+                <div class='button-big' style='margin-top: 80px; height:90px; display: block;' align='center' id='bt_login'>
+                    <a (click)="handleSubmit()" >Iniciar Sesión</a>
+                </div>
+            </div>
+        </form>
+    
+        <div id='div_footer' align="center">
+            GRUPO EMPRESARIAL PROMOTORAS FULL &copy; 2025
+        </div>
+    </div>
+</body>
+</html>
+
+<!--<app-verification-code-component></app-verification-code-component>-->
+
+<app-loader-component></app-loader-component>

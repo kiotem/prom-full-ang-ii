@@ -1,0 +1,29 @@
+export default interface Project{
+    objectId: string;
+    createdAt: Date;
+    updatedAt: Date;
+    name: string;
+    code?: string;
+    details?: string;
+    category: string;
+    levels?: string;
+    condition: string;
+    year?: string;
+    area: number;
+    city: string;
+    departament?: string;
+    address?: string;
+    stratum?: number;
+    services: any[];
+    zone?: string;
+    amenities?: any[];
+    coordinates?: { latitude: number; longitude: number };
+    meterValue: number;
+    roadType?: string;
+    totalUnits: number;
+    progress?: number;
+    propertiesGroup?: any[];
+    propertyTypes?: any[];
+    photo?: string;
+    status?: string;
+}
