@@ -6,6 +6,7 @@ import { UserService } from '../../services/user-service';
 import { StorageService } from '../../services/storage-service';
 import { Router } from '@angular/router';
 import { tooglePasswordVisibility } from '../../commons/controls';
+import { ProjectService } from '../../services/project-service';
 
 @Component({
   selector: 'app-login-page',
@@ -24,7 +25,7 @@ tempUser: any;
   //@ViewChild(VerificationCodeComponent) verificationCodeChild: VerificationCodeComponent | undefined;
 
 
-  constructor(private renderer: Renderer2, private loaderService: LoaderService, private userService: UserService, private cdr: ChangeDetectorRef, private storageService: StorageService, private router: Router) {
+  constructor(private renderer: Renderer2, private loaderService: LoaderService, private userService: UserService, private cdr: ChangeDetectorRef, private storageService: StorageService, private router: Router, public projectService: ProjectService) {
     this.launchVerificationCode = false; // Initialize the flag for verification code component
     // Initialize form controls or services if needed
     this.username = new FormControl('');
@@ -94,6 +95,7 @@ tempUser: any;
 
             //quitar PAso directo
             
+            /*
             let tempUser = this.storageService.getItem('tempUser');
             if(tempUser)
             {
@@ -102,7 +104,7 @@ tempUser: any;
 
               this.doDashboard();
             } 
-
+            */
             //fin quitar paso direct
 
             /*
@@ -127,5 +129,24 @@ tempUser: any;
 
   doDashboard() {
     this.router.navigate(['/dashboard']);
+  }
+
+  testFunction() {
+    this.loaderService.show();
+    this.projectService.getProjectsByUser({}).subscribe({
+        next: (response) => 
+          {      
+            console.log('Projects successful', response);
+            this.loaderService.hide();
+
+            this.cdr.detectChanges(); // Trigger change detection to update the view
+          },
+        error: (error) => 
+        {
+          this.loaderService.hide();
+          console.error('Projects failed', error);
+
+        }
+      });
   }
 }

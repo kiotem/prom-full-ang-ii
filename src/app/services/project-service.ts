@@ -34,7 +34,8 @@ export class ProjectService {
     let storedProjects = this.storageService.getItem('projects');
     if (storedProjects) {
       this.projects = JSON.parse(storedProjects) as Project[];
-    } else {
+    }else 
+    {
       console.warn('No projects found in session storage');
     }
 
@@ -83,5 +84,11 @@ export class ProjectService {
     // This method is not needed in services, remove it.
     // If you need to perform initialization logic, do it in the constructor or create a separate init method.
     
+  }
+
+  getProjectsByUser(json: any)
+  {
+    console.log('getProjectsByUser method called with search:', json);
+    return this.http.post<any>(API_URL+'getProjectsByUser', json, httpOptions)
   }
 }

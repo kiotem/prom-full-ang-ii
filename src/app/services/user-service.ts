@@ -18,7 +18,8 @@ export class UserService {
 
     login(data: any) {
         console.log('Login method called');
-        return this.http.post<any>(API_URL+'login', data, httpOptions)
+        //return this.http.post<any>(API_URL+'login', data, httpOptions)
+        return this.http.post<any>(API_URL+'loginWithProjects', data, httpOptions)
     }
 
     logout()

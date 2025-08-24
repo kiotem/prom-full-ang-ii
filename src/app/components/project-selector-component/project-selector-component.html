@@ -1,0 +1,16 @@
+<div id="project-selector" style="display: block;">
+    <div id="panel-project-selector">
+        <div  id="close-project-selector"><a (click)="closeProjectSelector()"><i class="fa fa-times"></i></a></div>
+        <div style="font-size: 24px; margin-bottom: 20px;" align="center">SELECCIONAR PROYECTO</div>
+        <div id="panel-project-selector-content">
+            @for(p of projects; track $index)
+            {
+                <app-project-card-component [project]="p"></app-project-card-component>
+            }
+        </div>
+    </div>
+</div>
+
+<div id='select_project_button' class ='button-flat'>
+    <a (click)="openProjectSelector()"><i class="fa fa-list-ul" style="font-size: 14px;"></i>&nbsp;&nbsp;<span id='button-project-name'>Seleccionar Proyecto</span></a>
+</div>

@@ -1,0 +1,62 @@
+import { Component } from '@angular/core';
+import { ProjectService } from '../../services/project-service';
+import Project from '../../models/Project';
+import { UserService } from '../../services/user-service';
+import { Router } from '@angular/router';
+import { ProjectCardComponent } from '../project-card-component/project-card-component';
+
+@Component({
+  selector: 'app-project-selector-component',
+  imports: [ProjectCardComponent],
+  templateUrl: './project-selector-component.html',
+  styleUrl: './project-selector-component.css'
+})
+export class ProjectSelectorComponent {
+  projects: Project[];
+
+  constructor(public projectService: ProjectService, public userService: UserService, private router: Router)
+  {
+    this.projects = projectService.reloadProjects();
+  }
+  ngOnInit(): void 
+  {
+    if(this.projects.length === 0) 
+    {
+      //download projects
+    }
+  }
+
+  openProjectSelector()
+  {
+    let projectSelector = document.getElementById('project-selector');
+    if(projectSelector) 
+    {
+      projectSelector.style.display = 'block';
+    }
+  }
+
+  closeProjectSelector() 
+  {
+    console.log('Toggling project selector visibility');
+
+    let projectSelector = document.getElementById('project-selector');
+    if (projectSelector) 
+    {
+      if(projectSelector.style.display === 'block') 
+      {
+        projectSelector.style.display = 'none';
+
+        let currentProject = this.projectService.getCurrentProject();
+        if(!currentProject)
+        {
+          this.userService.clearUser();
+          console.log('User logged out');
+          this.router.navigate(['login']);
+        }
+      }else 
+      {
+        projectSelector.style.display = 'block';
+      }
+    }
+  }
+}

@@ -35,4 +35,6 @@ export class PropertyService {
       console.log('getPropertiesAvailable method called with search:', json);
       return this.http.post<any>(API_URL+'getPropertiesAvailable', json, httpOptions)
     }
+
+
 }
