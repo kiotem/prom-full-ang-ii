@@ -9,11 +9,12 @@ import { StorageService } from './storage-service';
 })
 export class UserService {
   user: User | undefined;
+  userTemp: User | undefined;
 
     constructor(private http: HttpClient, public storageService: StorageService) 
     {
-        // Initialize user if needed
         this.user = undefined;
+        this.userTemp = undefined;
     }
 
     login(data: any) {
@@ -24,6 +25,8 @@ export class UserService {
 
     logout()
     {
+        this.userTemp = undefined;
+        this.user = undefined;
         this.storageService.clear();
     }
 
@@ -34,8 +37,14 @@ export class UserService {
         this.storageService.setItem('sessionToken', user.sessionToken);
     }
 
+    setTempUser(user: User) {
+        this.userTemp = user;
+        this.storageService.setItem('tempUser', JSON.stringify(user));
+    }
+
     clearUser() {
         this.user = undefined;
+        this.userTemp = undefined;
         this.storageService.setItem('user', '');
     }
 
@@ -53,5 +62,38 @@ export class UserService {
             this.loadUser();
         }
         return this.user;
+    }
+
+    getTempUser(): User | undefined 
+    {
+        const tempUserData = this.storageService.getItem('tempUser');
+        if (tempUserData) {
+            this.userTemp = JSON.parse(tempUserData);
+        } else {
+            this.userTemp = undefined;
+        }
+        return this.userTemp;
+    }
+
+    confirmLogin(): Boolean
+    {
+        if(this.userTemp)
+        {
+            this.user = this.userTemp;
+            this.userTemp = undefined;
+
+            console.log('User confirmed: ', this.user);
+            return true;
+        }
+
+        return false;
+    }
+
+    isLoggedIn(): boolean {
+        if(this.user)
+        {
+            return true;
+        }
+        return false;
     }
 }

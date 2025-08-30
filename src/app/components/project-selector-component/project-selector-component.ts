@@ -12,18 +12,15 @@ import { ProjectCardComponent } from '../project-card-component/project-card-com
   styleUrl: './project-selector-component.css'
 })
 export class ProjectSelectorComponent {
-  projects: Project[];
+  //projects: Project[];
 
   constructor(public projectService: ProjectService, public userService: UserService, private router: Router)
   {
-    this.projects = projectService.reloadProjects();
+    //this.projects = projectService.reloadProjects();
   }
   ngOnInit(): void 
   {
-    if(this.projects.length === 0) 
-    {
-      //download projects
-    }
+    
   }
 
   openProjectSelector()
@@ -46,7 +43,7 @@ export class ProjectSelectorComponent {
       {
         projectSelector.style.display = 'none';
 
-        let currentProject = this.projectService.getCurrentProject();
+        let currentProject = this.projectService.getSelected();
         if(!currentProject)
         {
           this.userService.clearUser();

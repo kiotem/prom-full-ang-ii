@@ -24,7 +24,7 @@ project = input<Project>();
       if(newProject != undefined) {
       this.currentProject = newProject;
 
-      this.projectService.setCurentProject(this.currentProject);
+      this.projectService.setSelected(this.currentProject);
 
       let button = document.getElementById('button-project-name');
 
@@ -43,7 +43,7 @@ project = input<Project>();
         
       }
 
-      window.location.reload();
+      //window.location.reload();
       this.router.navigate(['dashboard']);
     }
     

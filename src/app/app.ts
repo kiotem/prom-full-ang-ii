@@ -13,13 +13,22 @@ export class App {
   protected readonly title = signal('prom-full-ang-ii');
 
   constructor(public userService: UserService, private router: Router, private storageService: StorageService){
-    if(this.storageService.getItem('user') != undefined) {
+   /*if(this.storageService.getItem('user') != undefined) {
         this.router.navigate(['dashboard']);
 
     }else
     {
       console.log('User not logged in');
       this.router.navigate(['login']);
-    }
+    }*/
+
+      if(this.userService.isLoggedIn())
+      {
+          this.router.navigate(['dashboard']);
+      }else
+      {
+          console.log('User not logged in');
+          this.router.navigate(['login']);
+      } 
   }
 }

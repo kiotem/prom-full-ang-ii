@@ -85,26 +85,28 @@ tempUser: any;
         next: (response) => 
           {          
             console.log('Login successful', response);
-            this.tempUser = response.result;
+            this.tempUser = response.result.user;
+            //console.log('TempUser', this.tempUser);
 
-            this.storageService.setItem('tempUser', JSON.stringify(this.tempUser));
+            this.userService.setTempUser(this.tempUser);
+            //this.storageService.setItem('tempUser', JSON.stringify(this.tempUser));
+            this.projectService.fill(response.result.projects);
 
             //this.storageService.setItem('vendorsList', JSON.stringify(response.result.vendorsList));
 
             this.loaderService.hide();
 
-            //quitar PAso directo
+            //quitar  directo
             
-            /*
-            let tempUser = this.storageService.getItem('tempUser');
-            if(tempUser)
+            //let tempUser = this.storageService.getItem('tempUser');
+            if(this.userService.confirmLogin())
             {
-              this.storageService.setItem('user', tempUser);
-              this.storageService.removeItem('tempUser');
+              //this.storageService.setItem('user', tempUser);
+              //this.storageService.removeItem('tempUser');
 
               this.doDashboard();
             } 
-            */
+            
             //fin quitar paso direct
 
             /*
@@ -132,6 +134,7 @@ tempUser: any;
   }
 
   testFunction() {
+/*
     this.loaderService.show();
     this.projectService.getProjectsByUser({}).subscribe({
         next: (response) => 
@@ -148,5 +151,6 @@ tempUser: any;
 
         }
       });
+      */
   }
 }

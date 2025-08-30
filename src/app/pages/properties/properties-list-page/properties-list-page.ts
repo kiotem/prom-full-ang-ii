@@ -31,7 +31,7 @@ export class PropertiesListPage
 
   checkFilter(): void
   {
-    let currentProject = this.projectService.getCurrentProject();
+    let currentProject = this.projectService.getSelected() ;
     
     if (currentProject) {
         let jsonSearch: any = {project: currentProject.objectId};

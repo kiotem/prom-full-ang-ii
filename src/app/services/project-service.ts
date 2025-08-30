@@ -10,11 +10,44 @@ import { StorageService } from './storage-service';
 })
 export class ProjectService {
   projects: Project[] = [];
+  selectedProject: Project | undefined;
 
   constructor(private http: HttpClient, public storageService: StorageService) {
-    // Initialize projects if needed
     this.projects = [];
+    this.selectedProject = undefined;
   }
+
+  download(user: User)
+  {
+      console.log('downloadProjects method called');
+      return this.http.post<any>(API_URL+'getProjects', user, httpOptions)
+  }
+
+  ngOnInit(): void 
+  {
+    // This method is not needed in services, remove it.
+    // If you need to perform initialization logic, do it in the constructor or create a separate init method.
+    
+  }
+
+  fill(projects: Project[]): void 
+  {
+    this.projects = projects;
+
+    console.log('Projects filled:', this.projects);
+  }
+
+  setSelected(project: Project): void 
+  {
+    this.selectedProject = project;
+  }
+
+  getSelected(): Project | undefined 
+  {
+    return this.selectedProject;
+  }
+
+/*
   // Angular services do not implement OnInit; remove ngOnInit.
   // Add useful methods for managing projects:
 
@@ -78,17 +111,12 @@ export class ProjectService {
 
   deleteProject(id: string): void {
     this.projects = this.projects.filter(project => project.objectId !== id);
-  }
+  }*/
 
-  ngOnInit(): void {
-    // This method is not needed in services, remove it.
-    // If you need to perform initialization logic, do it in the constructor or create a separate init method.
-    
-  }
-
+/*
   getProjectsByUser(json: any)
   {
     console.log('getProjectsByUser method called with search:', json);
     return this.http.post<any>(API_URL+'getProjectsByUser', json, httpOptions)
-  }
+  }*/
 }
