@@ -43,7 +43,7 @@ project = input<Project>();
         
       }
 
-      //window.location.reload();
+      window.location.reload();
       this.router.navigate(['dashboard']);
     }
     

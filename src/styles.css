@@ -305,8 +305,8 @@ html
     height: 34px;
     font-size: 15px;
     text-transform: uppercase;
-    padding-left: 10px;
-    border-radius: 4px;
+    padding-left: 15px;
+    border-radius: 50px;
 }
 
 .select-search{
@@ -314,8 +314,8 @@ html
     border: 1px solid #cccccc;
     height: 38px;
     text-transform: uppercase;
-    padding-left: 10px;
-    border-radius: 4px;
+    padding-left: 15px;
+    border-radius: 50px;
 }
 
 .input-search:hover, .select-search:hover

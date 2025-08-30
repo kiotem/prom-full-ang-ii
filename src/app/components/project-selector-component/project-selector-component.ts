@@ -16,11 +16,15 @@ export class ProjectSelectorComponent {
 
   constructor(public projectService: ProjectService, public userService: UserService, private router: Router)
   {
+    console.log('ProjectSelectorComponent initialized');
     //this.projects = projectService.reloadProjects();
   }
   ngOnInit(): void 
   {
-    
+    if(this.projectService.getSelected())
+    {
+      this.closeProjectSelector();
+    }
   }
 
   openProjectSelector()

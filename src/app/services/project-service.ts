@@ -33,17 +33,32 @@ export class ProjectService {
   fill(projects: Project[]): void 
   {
     this.projects = projects;
+    this.storageService.setItem('projects', JSON.stringify(this.projects));
+    this.storageService.removeItem('selectedProject');
 
     console.log('Projects filled:', this.projects);
   }
 
+  getProjects(): Project[] {
+    let storedProjects = this.storageService.getItem('projects');
+    if (storedProjects) {
+      this.projects = JSON.parse(storedProjects) as Project[];
+    }
+    return this.projects;
+  }
+
   setSelected(project: Project): void 
   {
+    this.storageService.setItem('selectedProject', JSON.stringify(project));
     this.selectedProject = project;
   }
 
   getSelected(): Project | undefined 
   {
+    const storedProject = this.storageService.getItem('selectedProject');
+    if (storedProject) {
+      this.selectedProject = JSON.parse(storedProject) as Project;
+    }
     return this.selectedProject;
   }
 

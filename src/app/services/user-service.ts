@@ -45,7 +45,9 @@ export class UserService {
     clearUser() {
         this.user = undefined;
         this.userTemp = undefined;
-        this.storageService.setItem('user', '');
+        this.storageService.removeItem('user');
+        this.storageService.removeItem('tempUser');
+        this.storageService.removeItem('sessionToken');
     }
 
     loadUser() {    
@@ -61,6 +63,7 @@ export class UserService {
         if (!this.user) {
             this.loadUser();
         }
+        
         return this.user;
     }
 
@@ -79,6 +82,7 @@ export class UserService {
     {
         if(this.userTemp)
         {
+            this.storageService.setItem('user', JSON.stringify(this.userTemp));
             this.user = this.userTemp;
             this.userTemp = undefined;
 
@@ -90,6 +94,7 @@ export class UserService {
     }
 
     isLoggedIn(): boolean {
+        this.loadUser();
         if(this.user)
         {
             return true;
