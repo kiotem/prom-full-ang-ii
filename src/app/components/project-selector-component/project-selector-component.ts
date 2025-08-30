@@ -21,8 +21,17 @@ export class ProjectSelectorComponent {
   }
   ngOnInit(): void 
   {
-    if(this.projectService.getSelected())
+    let selected = this.projectService.getSelected();
+    if(selected)
     {
+
+      let button = document.getElementById('button-project-name');
+
+      if(button != null) {
+
+          button.innerHTML = selected.name;        
+      }
+
       this.closeProjectSelector();
     }
   }

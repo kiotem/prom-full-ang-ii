@@ -40,7 +40,8 @@ project = input<Project>();
               projectSelector.style.display = 'none';
             }
         }
-        
+      }else{
+        console.log('Button not found');
       }
 
       window.location.reload();

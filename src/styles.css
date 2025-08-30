@@ -153,7 +153,7 @@ html
     width: 80px;
     height: 25px;
     font-family: 'Montserrat', sans-serif;
-    font-size:14px;
+    font-size:12px;
     color: #FFFFFF;
     text-decoration: none;
     padding-left: 15px;
@@ -199,7 +199,16 @@ html
     transform: scale(1.05);
 }
 
+select {
+  -webkit-appearance: none; /* For Webkit browsers like Chrome, Safari */
+  -moz-appearance: none;    /* For Mozilla Firefox */
+  appearance: none;         /* Standard property */
+}
 
+/* For Internet Explorer 10 and 11 */
+select::-ms-expand {
+  display: none;
+}
 
 .select-field
 {
@@ -217,17 +226,13 @@ html
     outline: 0;
     padding-left: 15px;
     padding-top: 10px;
+    padding-right: 50px;
     padding-bottom: 10px;
     font-family: 'Montserrat', sans-serif;
     border: none;
     -moz-appearance: none;
     text-indent: 0.01px;
     text-overflow: '';
-
-   -webkit-appearance:none;
-   -ms-appearance:none;
-   -o-appearance:none;
-    appearance:none;
 }
 
 .select-field:hover
@@ -300,7 +305,7 @@ html
 }
 
 .input-search{
-    min-width: 300px;
+    width: 300px;
     border: 1px solid #cccccc;
     height: 34px;
     font-size: 15px;
@@ -310,7 +315,7 @@ html
 }
 
 .select-search{
-    min-width: 300px;
+    width: 300px;
     border: 1px solid #cccccc;
     height: 38px;
     text-transform: uppercase;
@@ -318,9 +323,21 @@ html
     border-radius: 50px;
 }
 
+#b_icon
+{
+    color: #333333;
+    font-size: 16px;
+}
+
 .input-search:hover, .select-search:hover
 {
     border: 1px solid var(--color-a);
+
+    #b_icon{
+        color: #ffffff;
+    }
+
+    
 }
 
 .input-search:focus, .select-search:focus{

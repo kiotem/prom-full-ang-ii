@@ -24,16 +24,16 @@ export default class MenuItems {
                 "subitems":[]
             },
             {
-                "id": 'properties_add',
-                "name": "Crear",
-                "icon": "fa-solid fa-plus",
+                "id": 'properties_cotizar',
+                "name": "Separar",
+                "icon": "fa-solid fa-house-laptop",
                 "url": "vehicles_add.php",
                 "is_action": true,
                 "subitems":[]
             },
             {
-                "id": 'properties_separate',
-                "name": "Separar",
+                "id": 'properties_create',
+                "name": "Crear",
                 "icon": "fa-solid fa-plus",
                 "url": "vehicles_add.php",
                 "is_action": true,

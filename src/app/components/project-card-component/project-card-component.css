@@ -1,7 +1,7 @@
 .project-card 
 {
     align-items: center;
-    border: 1px solid var(--color-a);
+    /*border: 1px solid var(--color-a);*/
     border-radius: 15px;
     background-color: var(--color-a);
     padding: 12px;

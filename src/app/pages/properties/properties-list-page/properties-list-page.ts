@@ -1,26 +1,41 @@
-import { ChangeDetectorRef, Component } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MenuComponent } from '../../../components/menu-component/menu-component';
-import Property from '../../../models/Property';
 import { ProjectService } from '../../../services/project-service';
 import { PropertyService } from '../../../services/property-service';
+import { ProjectSelectorComponent } from '../../../components/project-selector-component/project-selector-component';
+
 
 @Component({
   selector: 'app-properties-list-page',
-  imports: [MenuComponent],
+  imports: [MenuComponent, ProjectSelectorComponent],
   templateUrl: './properties-list-page.html',
   styleUrls: ['./properties-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css']
 })
 
-export class PropertiesListPage 
+export class PropertiesListPage implements OnInit
 {
   constructor(public propertyService: PropertyService, private cdr: ChangeDetectorRef, public projectService: ProjectService) {
     
   }
-  
+  ngOnInit(): void {
+  let selectedProject = this.projectService.getSelected();
+  if(selectedProject?.objectId) {
+  let json = {project: selectedProject.objectId};
+      console.log('Search criteria:', json);
+    this.download(json);
+  }
+}
+
   onKeyup(event: KeyboardEvent): void
   {
       console.log('Key pressed:', event.key);
       this.checkFilter();
+  }
+
+  convertTimeToLocal(time: any): string 
+  {
+      const date = new Date(time);
+      return date.toLocaleString();
   }
 
   onChangeStatus(event: any): void 
@@ -54,11 +69,11 @@ export class PropertiesListPage
         jsonSearch = {project: currentProject.objectId, search: searchValue, status: statusValue}
       }
 
-      this.getProperties(jsonSearch);
+      this.download(jsonSearch);
     }
   }
 
-    getProperties(json: any) {
+    download(json: any) {
     this.propertyService.getProperties(json).subscribe({
       next: (data) => {
         console.log('Properties fetched successfully:', data);

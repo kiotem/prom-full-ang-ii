@@ -40,11 +40,11 @@ menuItems = MenuItems.items;
       case 'properties_list':
         this.router.navigate(['properties/list']);
         break;
-      case 'properties_add':
+      case 'properties_create':
         this.router.navigate(['properties/create']);
         break;
-      case 'properties_separate':
-        this.router.navigate(['properties/separate']);
+      case 'properties_quote':
+        this.router.navigate(['properties/quote']);
         break;
       case 'settings':
         this.router.navigate(['settings']);

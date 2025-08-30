@@ -1,10 +1,10 @@
 #select_project_button
 {
     position: absolute; 
-    right: 10px; 
-    top: 13px; 
+    right: 15px; 
+    bottom: 13px; 
     z-index: 20000; 
-    font-size: 16px;
+    font-size: 12px;
     text-align: end;
 }
 
@@ -48,7 +48,6 @@
     background-color: #eff6f9; 
     visibility: visible; 
     border-radius: 15px; 
-    border: 1px solid #ccc; 
     z-index: 0; 
     box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.25); 
     padding: 30px;
@@ -63,4 +62,34 @@
     display: grid; 
     grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); 
     gap: 30px;
+}
+
+.button-selector a
+{
+    width: 80px;
+    height: 25px;
+    font-family: 'Montserrat', sans-serif;
+    font-size:12px;
+    color: var(--color-a);
+    text-decoration: none;
+    padding-left: 12px;
+    padding-right: 12px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-radius: 50px;
+    text-transform: uppercase;
+    border: 1px solid var(--color-a);
+}
+
+.button-selector a:hover
+{
+    cursor: pointer;
+    background: var(--hover-color, var(--color-a));
+    color: var(--white);
+    text-decoration: none;
+}
+
+.button-selector a:active
+{
+    background: var(--hover-color, var(--color-b));
 }

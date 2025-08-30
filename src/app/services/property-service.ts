@@ -8,10 +8,12 @@ import { API_URL, httpOptions } from '../commons/enviroments';
 })
 export class PropertyService {
   properties: Property[];
+  propertiesFiltered: Property[];
 
     constructor(private http: HttpClient)
     {
       this.properties = [];
+      this.propertiesFiltered = [];
     }
 
     create(data: Property)
@@ -22,6 +24,7 @@ export class PropertyService {
 
     setData(properties: Property[]) {
       this.properties = properties;
+      this.propertiesFiltered = properties;
     }
 
     getProperties(json: any)
@@ -36,5 +39,14 @@ export class PropertyService {
       return this.http.post<any>(API_URL+'getPropertiesAvailable', json, httpOptions)
     }
 
+    filterProperties(searchTerm: string) {
+      if (!searchTerm) {
+        this.propertiesFiltered = this.properties;
+      } else {
+        this.propertiesFiltered = this.properties.filter(property =>
+          property.objectId.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+      }
+    }
 
 }
