@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
+import { Component, OnInit, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { UserService } from './services/user-service';
 import { StorageService } from './services/storage-service';
+import { BnNgIdleService } from 'bn-ng-idle';
 
 @Component({
   selector: 'app-root',
@@ -9,19 +10,10 @@ import { StorageService } from './services/storage-service';
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
-export class App {
+export class App implements OnInit {
   protected readonly title = signal('prom-full-ang-ii');
 
-  constructor(public userService: UserService, private router: Router, private storageService: StorageService){
-   /*if(this.storageService.getItem('user') != undefined) {
-        this.router.navigate(['dashboard']);
-
-    }else
-    {
-      console.log('User not logged in');
-      this.router.navigate(['login']);
-    }*/
-
+  constructor(public userService: UserService, private router: Router, private storageService: StorageService, private bnIdle: BnNgIdleService){
       if(this.userService.isLoggedIn())
       {
           this.router.navigate(['dashboard']);
@@ -30,5 +22,17 @@ export class App {
           console.log('User not logged in');
           this.router.navigate(['login']);
       } 
+  }
+
+  ngOnInit(): void {
+    // Start watching for idle activity with a 600-second (10-minute) timeout
+    this.bnIdle.startWatching(600).subscribe((isIdle: boolean) => {
+      if (isIdle) {
+        console.log('Session expired due to inactivity. Logging out...');
+        // Implement your logout logic here, e.g., clear tokens, navigate to login page
+        this.router.navigate(['login']); 
+        location.reload();
+      }
+    });
   }
 }

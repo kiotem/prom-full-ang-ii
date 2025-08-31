@@ -66,6 +66,11 @@
   background-color: #f7f9fa; /* Un color diferente para las filas pares */
 }
 
+.row:last-child {
+  /* Your styles for the last table row */
+  border-bottom: 1px solid gainsboro;
+}
+
 
 .row:hover
 {

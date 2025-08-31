@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import MenuItems from './menuItems';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user-service';
+import { MenuService } from '../../services/menu-service';
 
 @Component({
   selector: 'app-menu-component',
@@ -13,7 +14,7 @@ export class MenuComponent {
 menuItems = MenuItems.items;
 
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private router: Router, private userService: UserService, public menuService: MenuService) {
     console.log('Menu component initialized: '+this.menuItems.length + ' items loaded');
   
   }
@@ -38,12 +39,15 @@ menuItems = MenuItems.items;
         this.router.navigate(['dashboard']);
         break;
       case 'properties_list':
+        this.menuService.setPathPage('Propiedades / Lista');
         this.router.navigate(['properties/list']);
         break;
       case 'properties_create':
+        this.menuService.setPathPage('Propiedades / Crear');
         this.router.navigate(['properties/create']);
         break;
       case 'properties_quote':
+        this.menuService.setPathPage('Propiedades / Cotizar');
         this.router.navigate(['properties/quote']);
         break;
       case 'settings':
@@ -53,9 +57,11 @@ menuItems = MenuItems.items;
         this.router.navigate(['links/create']);
       break;
       case 'clients_create':
+        this.menuService.setPathPage('Clientes / Crear');
         this.router.navigate(['clients/create']);
       break;
       case 'clients_list':
+        this.menuService.setPathPage('Clientes / Lista');
         this.router.navigate(['clients/list']);
       break;
       case 'logout':

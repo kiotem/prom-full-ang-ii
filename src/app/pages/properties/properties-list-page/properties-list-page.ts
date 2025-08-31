@@ -3,19 +3,21 @@ import { MenuComponent } from '../../../components/menu-component/menu-component
 import { ProjectService } from '../../../services/project-service';
 import { PropertyService } from '../../../services/property-service';
 import { ProjectSelectorComponent } from '../../../components/project-selector-component/project-selector-component';
-
+import { LoaderComponent } from "../../../components/loader-component/loader-component";
+import { LoaderService } from '../../../services/loader-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-properties-list-page',
-  imports: [MenuComponent, ProjectSelectorComponent],
+  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent],
   templateUrl: './properties-list-page.html',
   styleUrls: ['./properties-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css']
 })
 
 export class PropertiesListPage implements OnInit
 {
-  constructor(public propertyService: PropertyService, private cdr: ChangeDetectorRef, public projectService: ProjectService) {
-    
+  constructor(public router: Router, public propertyService: PropertyService, private cdr: ChangeDetectorRef, public projectService: ProjectService, public loaderService: LoaderService) {
+
   }
   ngOnInit(): void {
   let selectedProject = this.projectService.getSelected();
@@ -74,8 +76,10 @@ export class PropertiesListPage implements OnInit
   }
 
     download(json: any) {
+      this.loaderService.show();
     this.propertyService.getProperties(json).subscribe({
       next: (data) => {
+        this.loaderService.hide();
         console.log('Properties fetched successfully:', data);
         //this.properties = data.result;
 
@@ -84,9 +88,14 @@ export class PropertiesListPage implements OnInit
         this.cdr.detectChanges();
       },
       error: (error) => {
+        this.loaderService.hide();
         console.error('Error fetching properties:', error);
       }
     });
+  }
+
+  goCreate(): void {
+    this.router.navigate(['properties/create']);
   }
 
 }

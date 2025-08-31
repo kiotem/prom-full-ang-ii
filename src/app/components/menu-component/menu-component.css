@@ -108,6 +108,17 @@ ul, ol{
   border-radius: 50%;
 }
 
+#path-page
+{
+    position: absolute;
+    font-family: 'Montserrat', sans-serif;
+    font-size: 13px;
+    color: var(--gray);
+    bottom: 20px;
+    left: 20px;
+    text-transform: uppercase;
+}
+
 @media (max-width: 900px) 
 {
     #header
