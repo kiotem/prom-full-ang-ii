@@ -12,5 +12,5 @@ export default interface Client
     pmsId: string;
     pmsType: string;
     createdAt: Date;
-    agent: string;
+    agent?: string;
 }
