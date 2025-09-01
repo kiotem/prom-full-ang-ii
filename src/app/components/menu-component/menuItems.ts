@@ -18,6 +18,15 @@ export default class MenuItems {
         "is_action": false,
         "subitems":[
             {
+                "id": 'properties_map',
+                "name": "Mapa",
+                "icon": "fa-solid fa-map",
+                "router": "properties/map",
+                "is_action": true,
+                "title": "Propiedades / Mapa",
+                "subitems":[]
+            },
+            {
                 "id": 'properties_list',
                 "name": "Listar",
                 "icon": "fa-solid fa-clipboard-list",

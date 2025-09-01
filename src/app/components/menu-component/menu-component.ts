@@ -11,8 +11,7 @@ import { MenuService } from '../../services/menu-service';
   styleUrl: './menu-component.css'
 })
 export class MenuComponent {
-menuItems = MenuItems.items;
-
+  menuItems = MenuItems.items;
 
   constructor(private router: Router, private userService: UserService, public menuService: MenuService) {
     console.log('Menu component initialized: '+this.menuItems.length + ' items loaded');
@@ -26,7 +25,6 @@ menuItems = MenuItems.items;
     this.userService.logout();
     console.log('User logged out');
     this.router.navigate(['login']);
-    // Redirect to login page or perform other actions as needed
   }
 
   launchOption(item: any) {

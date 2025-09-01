@@ -6,9 +6,6 @@
     <div style="display: flex; align-items: center; margin-left:-10px; width: 200px;" >
     <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 180px;" (change)="onChangeStatus($event)">
         <option value="All">TODOS</option>
-        <option value="Libre">LIBRE</option>
-        <option value="Separado">SEPARADO</option>
-        <option value="Bloqueado">BLOQUEADO</option>
     </select>
     
     <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
@@ -27,14 +24,13 @@
 
     <div class="row-header">
         <div class="col" style="max-width: 30px;" align="right"></div>
-        <div class="col" style="max-width: 50px;" align="right">#</div>
-        <div class="col" style="max-width: 150px;">ID</div>
-        <div class="col" style="max-width: 100px;">ÁREA</div>
-        <div class="col" style="max-width: 90px;">ANCHO</div>
-        <div class="col" style="max-width: 90px;">LARGO</div>
-        <div class="col" style="max-width: 200px;">ULT. ACTUALIZACIÓN</div>
-        <div class="col" style="max-width: auto;">ESTADO</div>
-        <div class="col-image"></div>
+        <div class="col" style="max-width: 80px;">ID</div>
+        <div class="col" style="max-width: 80px;">DOCUMENTO</div>
+        <div class="col" style="max-width: auto;">NOMBRES</div>
+        <div class="col" style="max-width: 250px;">APELLIDOS</div>
+        <div class="col" style="max-width: 120px;">CIUDAD</div>
+        <div class="col" style="max-width: 100px;">TELÉFONO</div>
+        <div class="col" style="max-width: 150px;">EMAIL</div>
     </div>
 
     <div class="table-content">
@@ -60,6 +56,17 @@
             
             }
         -->
+
+        <div class="row">
+            <div class="col" style="max-width: 30px;" align="right"></div>
+            <div class="col" style="max-width: 80px;">ab654652</div>
+            <div class="col" style="max-width: 80px;">92641000</div>
+            <div class="col" style="max-width: auto;">JUAN J</div>
+            <div class="col" style="max-width: 250px;">PELAEZ NIRVANA</div>
+            <div class="col" style="max-width: 120px;">COROZAL</div>
+            <div class="col" style="max-width: 100px;">3243434</div>
+            <div class="col" style="max-width: 150px;">CORREO@MAIL.COM</div>
+        </div>
     </div>
 </div>
 
