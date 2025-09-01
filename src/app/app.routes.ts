@@ -4,6 +4,8 @@ import { DashboardPage } from './pages/dashboard-page/dashboard-page';
 import { PropertiesListPage } from './pages/properties/properties-list-page/properties-list-page';
 import { PropertiesCreatePage } from './pages/properties/properties-create-page/properties-create-page';
 import { ClientsListPage } from './pages/clients/clients-list-page/clients-list-page';
+import { PropertiesMapPage } from './pages/properties/properties-map-page/properties-map-page';
+import { ClientsCreatePage } from './pages/clients/clients-create-page/clients-create-page';
 
 export const routes: Routes = [
     {
@@ -19,6 +21,10 @@ export const routes: Routes = [
         component: DashboardPage
     },
     {
+        path: 'properties/map',
+        component: PropertiesMapPage
+    },
+    {
         path: 'properties/list',
         component: PropertiesListPage
     },
@@ -29,5 +35,9 @@ export const routes: Routes = [
     {
         path: 'clients/list',
         component: ClientsListPage
+    },
+    {
+        path: 'clients/create',
+        component: ClientsCreatePage
     },
 ];

@@ -1,7 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MenuComponent } from '../../../components/menu-component/menu-component';
 import { ProjectSelectorComponent } from '../../../components/project-selector-component/project-selector-component';
 import { LoaderComponent } from '../../../components/loader-component/loader-component';
+import { ClientService } from '../../../services/client-service';
 
 @Component({
   selector: 'app-clients-list-page',
@@ -11,7 +12,7 @@ import { LoaderComponent } from '../../../components/loader-component/loader-com
 })
 export class ClientsListPage implements OnInit 
 {
-  constructor() 
+  constructor(public clientService: ClientService, private cdr: ChangeDetectorRef) 
   {
 
   }
@@ -30,10 +31,27 @@ export class ClientsListPage implements OnInit
 
   ngOnInit(): void {
     // Logic to execute on component initialization
+    this.getClients({});
   }
 
   goCreate() {
     // Logic to navigate to the client creation page
+  }
+
+    getClients(json: any) {
+    this.clientService.getClients(json).subscribe({
+      next: (data) => {
+        console.log('Clients fetched successfully:', data);
+        //this.clients = data.result;
+        this.clientService.fill(data.result);
+        
+        // Then here:
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error fetching clients:', error);
+      }
+    });
   }
 
 }

@@ -1,0 +1,94 @@
+<div class="main-container" >
+
+<div style="position: absolute; top: 20px; left: 20px; z-index: 100; display: inline-flex; justify-content: space-between;" >
+
+    
+</div>
+
+<div class="button" style="position: absolute; top: 30px; right: 20px; z-index: 100;">
+    <!--<a href="#">Crear nueva</a>-->
+</div>
+
+    <div class="title-section">Creación de cliente</div>
+    <br>
+    <form [formGroup]="clientForm" style="width: 90%; max-width: 300px; padding: 30px; margin-top: 50px;" autocomplete="off">
+        <div class="flex-container">
+            <div class="field-row">
+                <label for="i_pmsType">Tipo de documento</label>
+                <div style="display: flex; align-items: center; margin-left:0px; width: 200px;" >
+                <select id="i_pmsType" name="i_pmsType"  formControlName="pmsType" class="select-field" style="width: 240px;">
+                    <option value="CC">CÉDULA</option>
+                    <option value="NIT">NIT</option>
+                    <option value="PS">PASAPORTE</option>
+                </select>
+                <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
+                    <i class="fas fa-angle-down"></i>
+                </button>
+                </div>
+            </div>
+            <div class="field-row" style="margin-left: 100px;">
+                <label for="i_number">Número documento *</label>
+                <input type="text" id="i_number" name="i_number" required formControlName="pmsId" class="input-field" style="width: 230px;">
+            </div>
+        </div>
+
+        <br>
+        <div class="field-row">
+            <label for="i_name">Nombre *</label>
+            <input type="text" id="i_name" name="i_name" class="input-field" formControlName="name" style="width: 230px;">
+        </div>
+
+        <div class="flex-container">
+            <div class="field-row">
+                <label for="i_last_name_1">Primer apellido *</label>
+                <input type="text" id="i_last_name_1" name="i_last_name_1" required formControlName="lastName1" class="input-field" style="width: 230px;">
+            </div>
+            <div class="field-row" style="margin-left: 100px;">
+                <label for="i_last_name_2">Segundo apellido</label>
+                <input type="text" id="i_last_name_2" name="i_last_name_2" required formControlName="lastName2" class="input-field" style="width: 280px;">
+            </div>
+        </div>
+        <br>
+        <div class="flex-container">
+            <div class="field-row">
+                <label for="i_phone">Celular *</label>
+                <input type="text" id="i_phone" name="i_phone" required formControlName="phone" class="input-field" style="width: 230px;">
+            </div>
+            <div class="field-row" style="margin-left: 100px;">
+                <label for="i_email">Correo electrónico *</label>
+                <input type="email" id="i_email" name="i_email" required formControlName="email" class="input-field" style="width: 280px;">
+            </div>
+        </div>
+        <br>
+        <div class="field-row">
+            <label for="i_address">Dirección *</label>
+            <input type="text" id="i_address" name="i_address" class="input-field" formControlName="address" style="width: 400px;">
+        </div>
+
+        <br>
+        <div class="flex-container">
+            <div class="field-row">
+                <label for="i_state">Departamento</label>
+                <input type="text" id="i_state" name="i_state" required formControlName="state" class="input-field" style="width: 230px;">
+            </div>
+            <div class="field-row" style="margin-left: 100px;">
+                <label for="i_city">Ciudad *</label>
+                <input type="text" id="i_city" name="i_city" required formControlName="city" class="input-field" style="width: 280px;">
+            </div>
+        </div>
+
+        <br>
+        <div class="button" id='bt_create' style="display: block;">
+            <a (click)="handleSubmit()" >Crear cliente</a>
+        </div>   
+
+        <div id='p_loader_create' style='color: var(--color-a); font-size: 18px; text-align: center;  display: none;  height:70px'>
+            <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw" aria-hidden="true"></i>
+        </div>
+    </form>
+
+</div>
+
+<app-menu-component></app-menu-component>
+<app-project-selector-component></app-project-selector-component>
+<app-loader-component></app-loader-component>

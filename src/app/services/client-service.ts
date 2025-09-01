@@ -19,6 +19,7 @@ export class ClientService implements OnInit {
     
   }
 
+
   create(data: Client)
   {
       console.log('downloadProjects method called');
@@ -45,6 +46,7 @@ export class ClientService implements OnInit {
   fill(clients: Client[])
   {
     this.clients = clients;
+    console.log('Clients filled:', this.clients);
   }
 
   clear()

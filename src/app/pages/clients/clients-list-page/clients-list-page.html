@@ -24,49 +24,45 @@
 
     <div class="row-header">
         <div class="col" style="max-width: 30px;" align="right"></div>
-        <div class="col" style="max-width: 80px;">ID</div>
-        <div class="col" style="max-width: 80px;">DOCUMENTO</div>
+        <div class="col" style="max-width: 90px;">ID</div>
+        <div class="col" style="max-width: 90px;">DOCUMENTO</div>
         <div class="col" style="max-width: auto;">NOMBRES</div>
-        <div class="col" style="max-width: 250px;">APELLIDOS</div>
+        <div class="col" style="max-width: 200px;">APELLIDOS</div>
         <div class="col" style="max-width: 120px;">CIUDAD</div>
         <div class="col" style="max-width: 100px;">TELÉFONO</div>
-        <div class="col" style="max-width: 150px;">EMAIL</div>
+        <div class="col" style="max-width: 200px;">EMAIL</div>
     </div>
 
     <div class="table-content">
-        <!--
-            @for (item of this.propertyService.propertiesFiltered; track $index) 
+    
+            @for (item of this.clientService.clients; track $index) 
             {
-                
                 <div class="row">
-                    <div class="col" style="max-width: 30px;" align="center"><i class="fa fa-home" style="font-size: 14px;"></i></div>
-                    <div class="col" style="max-width: 50px;" align="right">{{item.code}}</div>
-                    <div class="col" style="max-width: 150px;">{{item.objectId}}</div>
-                    <div class="col" style="max-width: 100px;">{{item.area}}</div>
-                    <div class="col" style="max-width: 90px;">{{item.width}}</div>
-                    <div class="col" style="max-width: 90px;">{{item.depth}}</div>
-                    <div class="col" style="max-width: 200px;">{{convertTimeToLocal(item.updatedAt)}}</div>
-                    <div class="col" style="max-width: auto;">{{item.status}}</div>
-                    @if(item.agent != '' && item.agent != undefined) {
-                        <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
-                    }@else {
-                        <div class="col-image">&nbsp;</div>
-                    }
+                    <div class="col" style="max-width: 30px;" align="center"><i class="fa fa-user" style="font-size: 14px;"></i></div>
+                    <div class="col" style="max-width: 90px;">{{item.objectId}}</div>
+                    <div class="col" style="max-width: 90px;">{{item.pmsId}}</div>
+                    <div class="col" style="max-width: auto;">{{item.name}}</div>
+                    <div class="col" style="max-width: 200px;">{{item.lastName1}} {{item.lastName2}}</div>
+                    <div class="col" style="max-width: 120px;">{{item.city}}</div>
+                    <div class="col" style="max-width: 100px;">{{item.phone}}</div>
+                    <div class="col" style="max-width: 200px;">{{item.email}}</div>
                 </div>
             
             }
-        -->
-
+        
+    <!--
         <div class="row">
             <div class="col" style="max-width: 30px;" align="right"></div>
             <div class="col" style="max-width: 80px;">ab654652</div>
             <div class="col" style="max-width: 80px;">92641000</div>
             <div class="col" style="max-width: auto;">JUAN J</div>
-            <div class="col" style="max-width: 250px;">PELAEZ NIRVANA</div>
+            <div class="col" style="max-width: 200px;">PELAEZ NIRVANA</div>
             <div class="col" style="max-width: 120px;">COROZAL</div>
             <div class="col" style="max-width: 100px;">3243434</div>
-            <div class="col" style="max-width: 150px;">CORREO@MAIL.COM</div>
+            <div class="col" style="max-width: 200px;">CORREO@MAIL.COM</div>
         </div>
+    -->
+
     </div>
 </div>
 
