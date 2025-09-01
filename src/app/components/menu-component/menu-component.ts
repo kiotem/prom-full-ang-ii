@@ -31,44 +31,13 @@ menuItems = MenuItems.items;
 
   launchOption(item: any) {
     console.log('Launching option:', item.name);
-    switch(item.id) {
-      case 'map':
-        this.router.navigate(['map']);
-      break;
-      case 'dashboard':
-        this.router.navigate(['dashboard']);
-        break;
-      case 'properties_list':
-        this.menuService.setPathPage('Propiedades / Lista');
-        this.router.navigate(['properties/list']);
-        break;
-      case 'properties_create':
-        this.menuService.setPathPage('Propiedades / Crear');
-        this.router.navigate(['properties/create']);
-        break;
-      case 'properties_quote':
-        this.menuService.setPathPage('Propiedades / Cotizar');
-        this.router.navigate(['properties/quote']);
-        break;
-      case 'settings':
-        this.router.navigate(['settings']);
-        break;
-      case 'create_link':
-        this.router.navigate(['links/create']);
-      break;
-      case 'clients_create':
-        this.menuService.setPathPage('Clientes / Crear');
-        this.router.navigate(['clients/create']);
-      break;
-      case 'clients_list':
-        this.menuService.setPathPage('Clientes / Lista');
-        this.router.navigate(['clients/list']);
-      break;
-      case 'logout':
-        this.logout();
-        break;
-      default:
-        console.warn('No action defined for item:', item.id);    
-    } 
+
+    if(item.id == 'logout') {
+      this.logout();
+    }else if(item.is_action == true && item.router != '-') 
+      {
+      this.router.navigate([item.router]);
+      this.menuService.setPathPage(item.title);
+    }
   }
 }
