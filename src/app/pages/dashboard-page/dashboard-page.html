@@ -1,3 +1,28 @@
-<div class="fondo"></div>
+<!--<div class="fondo">
+
+</div>
+-->
+<div class="main-container" >
+    
+</div>
+<div style="position: absolute; top: 100px; left: 40px; z-index: 10000;">
+    <highcharts-chart
+      [constructorType]="chartConstructor"
+      [options]="chartOptions"
+      [(update)]="updateFlag"
+      [oneToOne]="oneToOneFlag"
+      class="chart"
+    />
+</div>
+
+<div style="position: absolute; top: 470px; left: 40px; z-index: 10000;">
+    <highcharts-chart
+      [constructorType]="chartConstructor"
+      [options]="chartOptionsPayments"
+      [(update)]="updateFlag"
+      [oneToOne]="oneToOneFlag"
+      class="chart"
+    />
+</div>
 <app-menu-component></app-menu-component>
 <app-project-selector-component></app-project-selector-component>
