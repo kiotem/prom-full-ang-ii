@@ -77,11 +77,11 @@
 
                 <div class="field-row">
                     <label for="iInitialNumberOfQuotas">% C. Inicial</label>
-                    <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iInitialPercent" name="iInitialPercent" required  class="input-field">
+                    <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iInitialPercent" name="iInitialPercent" formControlName="initialPercent" required  class="input-field">
                 </div>
                 &nbsp;&nbsp;&nbsp;
                 <div class="field-row">
-                    <label for="iInitialBalance">Saldo c. inicial 30%</label>
+                    <label for="iInitialBalance">Saldo c. inicial</label>
                     <input style="margin-top: 3px; width: 150px;" type="number" id="iInitialBalance" name="iInitialBalance" required readonly="true" formControlName="initialBalance" class="input-field">
                 </div>
                 
@@ -105,7 +105,7 @@
         <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
             <div class="flex-container-flat">
                 <div class="field-row">
-                    <label for="iFinalBalance">Saldo final%</label>
+                    <label for="iFinalBalance">Saldo final</label>
                     <input style="margin-top: 3px; width: 150px;" type="number" id="iFinalBalance" name="iFinalBalance" required formControlName="finalBalance" class="input-field">
                 </div>
             
@@ -127,7 +127,8 @@
         <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
             <div class="field-row">
                 <label for="iAgent">Asesor comercial *</label>
-                    <select type="text" id="s_agent" name="s_agent" class="form-control" required placeholder="Buscar:" class="select-search" style="margin-left: 0px; width: 200px; font-size: 14px;" formControlName="agentId">
+                <div style="display: flex; align-items: center; margin-left:0px;" >
+                    <select type="text" id="s_agent" name="s_agent" class="form-control" required placeholder="Buscar:" class="select-search" style="margin-left: 0px; width: 300px; font-size: 14px;" formControlName="agentId">
                         <option value="">Seleccione un asesor</option>
                         <!--
                         @for(agent of agents; track $index) {
@@ -135,6 +136,11 @@
                         }
                         -->
                     </select>
+
+                    <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                </div>
             </div>
         </div>
     </form>

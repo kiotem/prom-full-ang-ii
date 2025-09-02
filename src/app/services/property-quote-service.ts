@@ -15,6 +15,7 @@ export class PropertyQuoteService
   project: Project;
 
   separationQuotaValue: number = 1000000;
+  initialPercentValue: number = 30;
   initialBalanceValue: number = 0;
   initialNumberOfQuotasValue: number = 6;
   initialQuotaValue: number = 0;
@@ -66,7 +67,10 @@ export class PropertyQuoteService
   calculate(): void
   {
     // Implement your calculation logic here
-    
+    this.initialBalanceValue = (this.property.amount * (this.initialPercentValue / 100)) - this.separationQuotaValue;
+
+    this.finalBalanceValue = this.property.amount -  this.initialBalanceValue - this.separationQuotaValue;
+
   }
 
 }

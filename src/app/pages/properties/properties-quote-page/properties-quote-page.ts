@@ -26,6 +26,7 @@ export class PropertiesQuotePage implements OnInit
 
   separationForm: FormGroup;
   separationQuota: FormControl;
+  initialPercent: FormControl;
   initialBalance: FormControl;
   initialNumberOfQuotas: FormControl;
   initialQuota: FormControl;
@@ -41,12 +42,13 @@ export class PropertiesQuotePage implements OnInit
   constructor(public propertyQuoteService: PropertyQuoteService, private clientService: ClientService, public loaderService: LoaderService, public cdr: ChangeDetectorRef, public projectService: ProjectService, public propertyService: PropertyService) 
   {
     this.separationQuota = new FormControl('1000000');
-    this.initialBalance = new FormControl('');
+    this.initialBalance = new FormControl(this.propertyQuoteService.initialBalanceValue);
+    this.initialPercent = new FormControl('30');
     this.initialNumberOfQuotas = new FormControl('6');
     this.initialQuota = new FormControl('');
-    this.finalBalance = new FormControl('');
+    this.finalBalance = new FormControl(this.propertyQuoteService.finalBalanceValue);
     this.finalNumberOfQuotas = new FormControl('36');
-    this.finalQuota = new FormControl('');
+    this.finalQuota = new FormControl(this.propertyQuoteService.finalQuotaValue);
     this.agentId = new FormControl('');
     this.clientId = new FormControl('');
     this.propertyId = new FormControl('');  
@@ -54,6 +56,7 @@ export class PropertiesQuotePage implements OnInit
 
     this.separationForm = new FormGroup({
       separationQuota: this.separationQuota,
+      initialPercent: this.initialPercent,
       initialBalance: this.initialBalance,
       initialNumberOfQuotas: this.initialNumberOfQuotas,
       initialQuota: this.initialQuota,
@@ -108,7 +111,8 @@ export class PropertiesQuotePage implements OnInit
       panel_separation.style.display = 'block';
     }
 
-    this.propertyQuoteService.calculate();
+    this.process();
+    //this.propertyQuoteService.calculate();
   }
 
   getClientByPms(json: any) {
@@ -172,8 +176,8 @@ export class PropertiesQuotePage implements OnInit
 
       let i_search_property = document.getElementById('i_search_property');
       
-
-      if (i_search_property) {
+      if (i_search_property) 
+      {
         let searchValue = (i_search_property as HTMLInputElement).value.toUpperCase();
         jsonSearch = {project: this.selectedProject.objectId, search: searchValue, status: "Libre"}
       }
@@ -208,7 +212,9 @@ export class PropertiesQuotePage implements OnInit
   process()
   {
     let iSeparationQuota = document.getElementById('iSeparationQuota');
-    if (iSeparationQuota) {
+
+    if(iSeparationQuota) 
+    {
       this.propertyQuoteService.separationQuotaValue = parseFloat((iSeparationQuota as HTMLInputElement).value);
     }else
     {
@@ -217,8 +223,41 @@ export class PropertiesQuotePage implements OnInit
 
     this.separationQuota.setValue(this.propertyQuoteService.separationQuotaValue);
 
+
+    let iInitialPercent = document.getElementById('iInitialPercent');
+
+    if(iInitialPercent)
+    {
+      this.propertyQuoteService.initialPercentValue = parseFloat((iInitialPercent as HTMLInputElement).value);
+    }else
+    {
+      this.propertyQuoteService.initialPercentValue = 0;
+    }
+
+    this.propertyQuoteService.calculate();
+
+    this.initialBalance.setValue(this.propertyQuoteService.initialBalanceValue);
+
+
+/*
+    this.initialPercent.setValue(this.propertyQuoteService.initialPercentValue);
+
+    let initialBalance = this.propertyQuoteService.property.amount * (this.propertyQuoteService.initialPercentValue / 100);
+
+    this.initialBalance.setValue(initialBalance);
+
+
+
+    this.propertyQuoteService.initialBalanceValue = initialBalance;
+
+    console.log('Initial Balance calculated:', this.propertyQuoteService.initialBalanceValue);
+    */
+
+    
+/*
       let iInitialNumberOfQuotas = document.getElementById('iInitialNumberOfQuotas');
-      if (iInitialNumberOfQuotas) {
+      if (iInitialNumberOfQuotas) 
+      {
         this.propertyQuoteService.initialNumberOfQuotasValue = parseFloat((iInitialNumberOfQuotas as HTMLInputElement).value);
       }else
       {
@@ -226,7 +265,7 @@ export class PropertiesQuotePage implements OnInit
       }
 
       this.initialNumberOfQuotas.setValue(this.propertyQuoteService.initialNumberOfQuotasValue);
-
+*/
 
   }
 

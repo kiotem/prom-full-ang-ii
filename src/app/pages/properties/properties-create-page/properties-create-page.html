@@ -44,19 +44,19 @@
                 <label for="i_propertiesGroup">Grupo o Manzana *</label>
 
                 <div style="display: flex; align-items: center; margin-left:0px; width: 200px;" >
-                <select id="i_propertiesGroup" name="i_propertiesGroup" required formControlName="propertiesGroup" class="select-field" style="width: 150px;">
+                    <select id="i_propertiesGroup" name="i_propertiesGroup" required formControlName="propertiesGroup" class="select-field" style="width: 150px;">
 
-                    @if(currentProject != undefined) {
-                        @for(group of currentProject.propertiesGroup; track $index) 
-                        {
-                            <option value="{{group}}">{{group}}</option>
+                        @if(currentProject != undefined) {
+                            @for(group of currentProject.propertiesGroup; track $index) 
+                            {
+                                <option value="{{group}}">{{group}}</option>
+                            }
                         }
-                    }
-                </select>
+                    </select>
 
-                <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
-                    <i class="fas fa-angle-down"></i>
-                </button>
+                    <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
+                        <i class="fas fa-angle-down"></i>
+                    </button>
 
                 </div>
             </div>
@@ -115,10 +115,6 @@
         <div class="button" id='bt_create' style="display: block;">
             <a (click)="handleSubmit()" ><i class="fa-regular fa-floppy-disk"></i>&nbsp;Crear Propiedad</a>
         </div>   
-
-        <div id='p_loader_create' style='color: var(--color-a); font-size: 18px; text-align: center;  display: none;  height:70px'>
-            <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw" aria-hidden="true"></i>
-        </div>
         </form> 
 </div>
 
