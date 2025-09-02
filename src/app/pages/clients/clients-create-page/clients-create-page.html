@@ -1,4 +1,4 @@
-<div class="main-container" >
+<div class="main-container" style=" overflow-y: auto;">
 
 <div style="position: absolute; top: 20px; left: 20px; z-index: 100; display: inline-flex; justify-content: space-between;" >
 
@@ -9,9 +9,8 @@
     <!--<a href="#">Crear nueva</a>-->
 </div>
 
-    <div class="title-section">Creación de cliente</div>
-    <br>
-    <form [formGroup]="clientForm" style="width: 90%; max-width: 300px; padding: 30px; margin-top: 50px;" autocomplete="off">
+    <!--<div class="title-section">Creación de cliente</div>-->
+    <form [formGroup]="clientForm" style="width: 90%; padding: 30px; margin-top: 10px;" autocomplete="off">
         <div class="flex-container">
             <div class="field-row">
                 <label for="i_pmsType">Tipo de documento</label>
@@ -79,7 +78,7 @@
 
         <br>
         <div class="button" id='bt_create' style="display: block;">
-            <a (click)="handleSubmit()" >Crear cliente</a>
+            <a (click)="handleSubmit()" ><i class="fa-regular fa-floppy-disk"></i>&nbsp;Crear cliente</a>
         </div>   
 
         <div id='p_loader_create' style='color: var(--color-a); font-size: 18px; text-align: center;  display: none;  height:70px'>

@@ -13,24 +13,24 @@
         <br>
         <form [formGroup]="propertyForm" style="width: 90%; max-width: 300px; padding: 30px; margin-top: 50px;" autocomplete="off">
         <div class="field-row">
-                <label for="i_propertyType">Tipo de propiedad</label>
+            <label for="i_propertyType">Tipo de propiedad</label>
 
-                <div style="display: flex; align-items: center; margin-left:0px; width: 200px;" >
-                <select id="i_propertyType" name="i_propertyType"  formControlName="propertyType" class="select-field" style="width: 200px;">
+            <div style="display: flex; align-items: center; margin-left:0px; width: 200px;" >
+            <select id="i_propertyType" name="i_propertyType"  formControlName="propertyType" class="select-field" style="width: 200px;">
 
-                    @if(currentProject != undefined) 
+                @if(currentProject != undefined) 
+                {
+                    @for(type of currentProject.propertyTypes; track $index) 
                     {
-                        @for(type of currentProject.propertyTypes; track $index) 
-                        {
-                            <option value="{{type}}">{{type}}</option>  
-                        }
+                        <option value="{{type}}">{{type}}</option>  
                     }
-                </select>
-                
-                <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
-                    <i class="fas fa-angle-down"></i>
-                </button>
-                </div>
+                }
+            </select>
+            
+            <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
+                <i class="fas fa-angle-down"></i>
+            </button>
+            </div>
         </div>
         
 
@@ -113,14 +113,13 @@
 
         <br>
         <div class="button" id='bt_create' style="display: block;">
-            <a (click)="handleSubmit()" >Crear Propiedad</a>
+            <a (click)="handleSubmit()" ><i class="fa-regular fa-floppy-disk"></i>&nbsp;Crear Propiedad</a>
         </div>   
 
         <div id='p_loader_create' style='color: var(--color-a); font-size: 18px; text-align: center;  display: none;  height:70px'>
             <i class="fa fa-circle-o-notch fa-spin fa-2x fa-fw" aria-hidden="true"></i>
         </div>
         </form> 
-
 </div>
 
 <app-menu-component></app-menu-component>

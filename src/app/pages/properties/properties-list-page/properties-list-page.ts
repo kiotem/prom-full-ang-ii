@@ -98,4 +98,7 @@ export class PropertiesListPage implements OnInit
     this.router.navigate(['properties/create']);
   }
 
+  goMap(): void {
+    this.router.navigate(['properties/map']);
+  }
 }

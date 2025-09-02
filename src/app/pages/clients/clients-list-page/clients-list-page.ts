@@ -3,6 +3,7 @@ import { MenuComponent } from '../../../components/menu-component/menu-component
 import { ProjectSelectorComponent } from '../../../components/project-selector-component/project-selector-component';
 import { LoaderComponent } from '../../../components/loader-component/loader-component';
 import { ClientService } from '../../../services/client-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-clients-list-page',
@@ -12,7 +13,7 @@ import { ClientService } from '../../../services/client-service';
 })
 export class ClientsListPage implements OnInit 
 {
-  constructor(public clientService: ClientService, private cdr: ChangeDetectorRef) 
+  constructor(public clientService: ClientService, private cdr: ChangeDetectorRef, private router: Router) 
   {
 
   }
@@ -36,6 +37,7 @@ export class ClientsListPage implements OnInit
 
   goCreate() {
     // Logic to navigate to the client creation page
+    this.router.navigate(['clients/create']);
   }
 
     getClients(json: any) {
@@ -53,5 +55,7 @@ export class ClientsListPage implements OnInit
       }
     });
   }
+
+
 
 }

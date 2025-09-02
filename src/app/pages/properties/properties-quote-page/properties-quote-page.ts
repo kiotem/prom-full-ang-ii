@@ -10,10 +10,12 @@ import { ProjectService } from '../../../services/project-service';
 import { PropertyService } from '../../../services/property-service';
 import Property from '../../../models/Property';
 import { PropertyCardComponent } from '../../../components/property-card-component/property-card-component';
+import { DecimalPipe } from '@angular/common';
+import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-properties-quote-page',
-  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, PropertyCardComponent],
+  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, PropertyCardComponent, DecimalPipe, ReactiveFormsModule],
   templateUrl: './properties-quote-page.html',
   styleUrls: ['./properties-quote-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css']
 })
@@ -21,9 +23,48 @@ export class PropertiesQuotePage implements OnInit
 {
   selectedProject: Project | undefined;
   meterValue: number = 0;
+
+  separationForm: FormGroup;
+  separationQuota: FormControl;
+  initialBalance: FormControl;
+  initialNumberOfQuotas: FormControl;
+  initialQuota: FormControl;
+  finalBalance: FormControl;
+  finalNumberOfQuotas: FormControl;
+  finalQuota: FormControl;
+  agentId: FormControl;
+  clientId: FormControl;
+  propertyId: FormControl;
+  propertyAmount: FormControl;
+
+
   constructor(public propertyQuoteService: PropertyQuoteService, private clientService: ClientService, public loaderService: LoaderService, public cdr: ChangeDetectorRef, public projectService: ProjectService, public propertyService: PropertyService) 
   {
+    this.separationQuota = new FormControl('1000000');
+    this.initialBalance = new FormControl('');
+    this.initialNumberOfQuotas = new FormControl('6');
+    this.initialQuota = new FormControl('');
+    this.finalBalance = new FormControl('');
+    this.finalNumberOfQuotas = new FormControl('36');
+    this.finalQuota = new FormControl('');
+    this.agentId = new FormControl('');
+    this.clientId = new FormControl('');
+    this.propertyId = new FormControl('');  
+    this.propertyAmount = new FormControl('');
 
+    this.separationForm = new FormGroup({
+      separationQuota: this.separationQuota,
+      initialBalance: this.initialBalance,
+      initialNumberOfQuotas: this.initialNumberOfQuotas,
+      initialQuota: this.initialQuota,
+      finalBalance: this.finalBalance,
+      finalNumberOfQuotas: this.finalNumberOfQuotas,
+      finalQuota: this.finalQuota,
+      agentId: this.agentId,
+      clientId: this.clientId,
+      propertyId: this.propertyId,
+      propertyAmount: this.propertyAmount
+    });
   }
 
   ngOnInit(): void 
@@ -32,52 +73,43 @@ export class PropertiesQuotePage implements OnInit
     this.meterValue = this.selectedProject?.meterValue || 0;
     this.propertyService.clear();
     this.cdr.detectChanges();
-    //this.checkFilter();
+    
+    this.checkFilter();//deshabilitar
   }
 
   onKeydownClient(event: KeyboardEvent): void {
     if (event.key === 'Enter') {
       const searchValue = (event.target as HTMLInputElement).value;
-      // Implement search logic here
-      const json = { search: searchValue };
-      this.getClientByPms(json);
+      if(searchValue.length > 2)
+      {
+        this.getClientByPms({ search: searchValue });
+      }
     }
   }
 
   onKeyUpProperty(event: KeyboardEvent): void {
-    const searchValue = (event.target as HTMLInputElement).value;
-    let jsonSearch: any = {project: this.selectedProject!.objectId};
-
-    if(searchValue)
-    {
-      //jsonSearch = {project: this.selectedProject!.objectId, search: searchValue};
-    }
-
     this.checkFilter();
   }
 
-    onPropertyClick(property: Property): void 
-    {
-      /*
-        console.log('Property clicked:', property);
-        this.propertyToSeparate = property;
+  onPropertyClick(property: Property): void 
+  {
+    this.propertyQuoteService.setProperty(property); // Set the property in the service
 
-        this.propertyId.setValue(property.objectId);
-        this.propertyAmount.setValue(property.amount);
+    this.propertyId.setValue(property.objectId);
+    this.propertyAmount.setValue(property.amount);
 
-        const panel_property_info = document.getElementById('panel-property-info');
-        if (panel_property_info) {
-          panel_property_info.style.display = 'block';
-        }
-
-        const panel_separation = document.getElementById('panel-separation');
-        if (panel_separation) {
-          panel_separation.style.display = 'block';
-        }
-
-        this.calculateFinalValues();
-      */
+    const panel_property_info = document.getElementById('panel-property-info');
+    if (panel_property_info) {
+      panel_property_info.style.display = 'block';
     }
+
+    const panel_separation = document.getElementById('panel-separation');
+    if (panel_separation) {
+      panel_separation.style.display = 'block';
+    }
+
+    this.propertyQuoteService.calculate();
+  }
 
   getClientByPms(json: any) {
   console.log('getClientByPms called with Pre:', json);
@@ -120,44 +152,6 @@ export class PropertiesQuotePage implements OnInit
         }
         
         this.cdr.detectChanges();
-        /*
-        if(this.client) 
-          {
-            this.clientId.setValue(this.client.objectId);
-            if (panel_customer) {
-              panel_customer.style.display = 'block';
-            }
-
-            if (panel_customer_empty) {
-              panel_customer_empty.style.display = 'none';
-            }
-
-            const panel_input_search = document.getElementById('panel-input-search');
-            if (panel_input_search) {
-              panel_input_search.style.display = 'block';
-
-              const i_search_property = document.getElementById('i_search_property');
-              if (i_search_property) {
-                (i_search_property as HTMLInputElement).focus();
-              }
-            }
-
-
-            this.cdr.detectChanges();
-
-            //this.checkFilter();
-        }else
-        {
-            if (panel_customer) 
-            {
-              panel_customer.style.display = 'none';
-            }
-
-            if (panel_customer_empty) 
-            {
-              panel_customer_empty.style.display = 'block';
-            }
-        }*/
       }catch (error) 
       {
         console.error('Error processing client data:', error);
@@ -188,7 +182,8 @@ export class PropertiesQuotePage implements OnInit
     }
   }
 
-    getProperties(json: any) {
+  getProperties(json: any) 
+  {
     this.propertyService.getProperties(json).subscribe({
       next: (data) => {
         console.log('Properties fetched successfully:', data);
@@ -203,10 +198,36 @@ export class PropertiesQuotePage implements OnInit
 
         this.cdr.detectChanges();
       },
-      error: (error) => {
+      error: (error) => 
+      {
         console.error('Error fetching properties:', error);
       }
     });
+  }
+
+  process()
+  {
+    let iSeparationQuota = document.getElementById('iSeparationQuota');
+    if (iSeparationQuota) {
+      this.propertyQuoteService.separationQuotaValue = parseFloat((iSeparationQuota as HTMLInputElement).value);
+    }else
+    {
+      this.propertyQuoteService.separationQuotaValue = 0;
+    }
+
+    this.separationQuota.setValue(this.propertyQuoteService.separationQuotaValue);
+
+      let iInitialNumberOfQuotas = document.getElementById('iInitialNumberOfQuotas');
+      if (iInitialNumberOfQuotas) {
+        this.propertyQuoteService.initialNumberOfQuotasValue = parseFloat((iInitialNumberOfQuotas as HTMLInputElement).value);
+      }else
+      {
+        this.propertyQuoteService.initialNumberOfQuotasValue = 0;
+      }
+
+      this.initialNumberOfQuotas.setValue(this.propertyQuoteService.initialNumberOfQuotasValue);
+
+
   }
 
 }

@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import Client from '../models/Client';
 import Property from '../models/Property';
+import Project from '../models/Project';
+import { ProjectService } from './project-service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +12,17 @@ export class PropertyQuoteService
   client: Client;
   property: Property;
   agent: string;
+  project: Project;
 
-  constructor() 
+  separationQuotaValue: number = 1000000;
+  initialBalanceValue: number = 0;
+  initialNumberOfQuotasValue: number = 6;
+  initialQuotaValue: number = 0;
+  finalBalanceValue: number = 0;
+  finalNumberOfQuotasValue: number = 36;
+  finalQuotaValue: number = 0;
+
+  constructor(private projectService: ProjectService) 
   {
     this.client = 
     {
@@ -38,6 +49,8 @@ export class PropertyQuoteService
     };
 
     this.agent = '';
+
+    this.project = this.projectService.getSelected() as Project;
   }
 
   setClient(client: Client): void
@@ -48,6 +61,12 @@ export class PropertyQuoteService
   setProperty(property: Property): void
   {
     this.property = property;
+  }
+
+  calculate(): void
+  {
+    // Implement your calculation logic here
+    
   }
 
 }

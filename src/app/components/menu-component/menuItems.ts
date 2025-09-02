@@ -37,7 +37,7 @@ export default class MenuItems {
             },
             {
                 "id": 'properties_cotizar',
-                "name": "Separar",
+                "name": "Cotizar",
                 "icon": "fa-solid fa-house-laptop",
                 "router": "properties/quote",
                 "is_action": true,
