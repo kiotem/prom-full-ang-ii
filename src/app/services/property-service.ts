@@ -22,6 +22,11 @@ export class PropertyService {
         return this.http.post<any>(API_URL+'createProperty', data, httpOptions);
     }
 
+    clear() {
+      this.properties = [];
+      this.propertiesFiltered = [];
+    }
+
     setData(properties: Property[]) {
       this.properties = properties;
       this.propertiesFiltered = properties;

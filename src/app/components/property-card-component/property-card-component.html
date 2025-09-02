@@ -1,0 +1,8 @@
+<div class="property-card">
+    <div id="property-code">{{property()?.code}}</div>
+    <div id="property-area" style="font-size: 16px; margin-bottom: 10px; position: absolute; top: 10px; right: 10px;">{{property()?.area}}m2</div>
+    <div id="property-width" style="font-size: 16px; margin-bottom: 10px; position: absolute; top: 40px; left: 10px;"><b>Ancho</b> {{property()?.width}}m</div>
+    <div id="property-depth" style="font-size: 16px; margin-bottom: 10px; position: absolute; top: 65px; left: 10px;"><b>Profundidad</b> {{property()?.depth}}m</div>
+
+    <div id="property-amount" style="font-size: 16px; margin-bottom: 10px; position: absolute; top: 65px; right: 10px;">${{property()?.amount | number : '1.0-0' : 'en-US'}}</div>
+</div>

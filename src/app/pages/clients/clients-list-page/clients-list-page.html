@@ -34,35 +34,20 @@
     </div>
 
     <div class="table-content">
-    
-            @for (item of this.clientService.clients; track $index) 
-            {
-                <div class="row">
-                    <div class="col" style="max-width: 30px;" align="center"><i class="fa fa-user" style="font-size: 14px;"></i></div>
-                    <div class="col" style="max-width: 90px;">{{item.objectId}}</div>
-                    <div class="col" style="max-width: 90px;">{{item.pmsId}}</div>
-                    <div class="col" style="max-width: auto;">{{item.name}}</div>
-                    <div class="col" style="max-width: 200px;">{{item.lastName1}} {{item.lastName2}}</div>
-                    <div class="col" style="max-width: 120px;">{{item.city}}</div>
-                    <div class="col" style="max-width: 100px;">{{item.phone}}</div>
-                    <div class="col" style="max-width: 200px;">{{item.email}}</div>
-                </div>
-            
-            }
+        @for (item of this.clientService.clients; track $index) 
+        {
+            <div class="row">
+                <div class="col" style="max-width: 30px;" align="center"><i class="fa fa-user" style="font-size: 14px;"></i></div>
+                <div class="col" style="max-width: 90px;">{{item.objectId}}</div>
+                <div class="col" style="max-width: 90px;">{{item.pmsId}}</div>
+                <div class="col" style="max-width: auto;">{{item.name}}</div>
+                <div class="col" style="max-width: 200px;">{{item.lastName1}} {{item.lastName2}}</div>
+                <div class="col" style="max-width: 120px;">{{item.city}}</div>
+                <div class="col" style="max-width: 100px;">{{item.phone}}</div>
+                <div class="col" style="max-width: 200px;">{{item.email}}</div>
+            </div>
         
-    <!--
-        <div class="row">
-            <div class="col" style="max-width: 30px;" align="right"></div>
-            <div class="col" style="max-width: 80px;">ab654652</div>
-            <div class="col" style="max-width: 80px;">92641000</div>
-            <div class="col" style="max-width: auto;">JUAN J</div>
-            <div class="col" style="max-width: 200px;">PELAEZ NIRVANA</div>
-            <div class="col" style="max-width: 120px;">COROZAL</div>
-            <div class="col" style="max-width: 100px;">3243434</div>
-            <div class="col" style="max-width: 200px;">CORREO@MAIL.COM</div>
-        </div>
-    -->
-
+        }
     </div>
 </div>
 

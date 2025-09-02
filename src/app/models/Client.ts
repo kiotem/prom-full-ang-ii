@@ -6,11 +6,11 @@ export default interface Client
     lastName2: string;
     email: string;
     phone: string;
-    address: string;
-    city: string;
-    state: string;
+    address?: string;
+    city?: string;
+    state?: string;
     pmsId: string;
-    pmsType: string;
-    createdAt: Date;
+    pmsType?: string;
+    createdAt?: Date;
     agent?: string;
 }

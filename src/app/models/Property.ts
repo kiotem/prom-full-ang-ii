@@ -1,11 +1,11 @@
 export default interface Property 
 {
     objectId: string;
-    createdAt: Date;
-    updatedAt: Date;
+    createdAt?: Date;
+    updatedAt?: Date;
     name: string;
     area: number;
-    status: string;
+    status?: string;
     project: { objectId: string } | any;
     propertiesGroup?: string;
     coordinates?: { latitude: number; longitude: number } | any;
@@ -18,6 +18,6 @@ export default interface Property
     width?: number;
     depth?: number;
     agent?: string;
-    agentData: any[];
+    agentData?: any[];
     amount: number;
 }

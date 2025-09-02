@@ -1,0 +1,58 @@
+<div class="main-container" >
+
+<div style="position: absolute; top: 20px; left: 20px; z-index: 100; display: inline-flex; justify-content: space-between;" >
+</div>
+
+    <div class="button" style="position: absolute; top: 30px; right: 20px; z-index: 100;">
+        <!--<a href="#">Crear nueva</a>-->
+    </div>
+
+    <br>
+    <div style="position: absolute; top: 20px; left: 20px; z-index: 100;" >
+        <input type="text" id="i_search_customer" name="i_search_customer" class="form-control" (keydown)="onKeydownClient($event)" placeholder="Buscar cliente por cédula" class="input-field" style="width: 270px;" />
+    </div>
+
+    <div id="panel-client-empty" style="position: absolute; top: 80px; left: 20px; z-index: 100; max-height: calc(100% - 200px); background-color: #f3f3f3; min-width: 280px; border-radius: 10px; padding: 20px; border: 1px solid #d8dcdd; color: #444444; display:none;" >
+        <div align="center">
+            <br>
+            <div><b>CLIENTE NO ENCONTRADO</b></div>
+            <br>
+            <div>¿Deseas crearlo?</div>
+            <br><br>
+            <div class="button">
+                <a routerLink="/clients/create">Crear Cliente</a>
+            </div>
+            <br>
+        </div>
+    </div>
+
+    <div id="panel-client-name" style="position: absolute; top: 80px; left: 20px; z-index: 100; max-height: calc(100% - 200px); background-color: #f3f3f3; min-width: 280px; border-radius: 10px; padding: 20px; border: 0.7px solid gainsboro; color: #444444; display:none;" >
+        <div align="left">
+            <div style="display: flex; align-items: center; background-color: #f3f3f3; padding-right: 20px; border-radius: 40px;" class="project-card">
+                <img src="imgs/img_profile_demo.jpeg" style="width: 50px; height: 50px; object-fit: cover; border-radius: 100px; margin-right: 10px;">
+                <div>
+                    <div id="project-title"><i class="fa fa-user" style="font-size: 12px;"></i>&nbsp;{{ this.propertyQuoteService.client.name.toUpperCase() }}&nbsp;{{ this.propertyQuoteService.client.lastName1.toUpperCase() }}</div>
+                    <div id="project-location" style="font-size: 14px; margin-top: 4px; color: var(--gray);"><i class="fa fa-envelope" style="font-size: 12px;"></i>&nbsp;{{ this.propertyQuoteService.client.email }}</div>
+                    <div id="project-location" style="font-size: 14px; margin-top: 4px; color: var(--gray);"><i class="fa fa-phone" style="font-size: 12px;"></i>&nbsp;{{ this.propertyQuoteService.client.phone }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="panel-input-search" style="position: absolute; top: 20px; left: 400px; z-index: 100; display: none;" >
+        <input type="text" id="i_search_property" name="i_search_property" class="form-control" (keyup)="onKeyUpProperty($event)" placeholder="Buscar propiedad:" class="input-search" style="width: 200px;">
+    </div>
+
+    <div id="panel-properties" style="position: absolute; top: 80px; left: 400px; z-index: 100;  max-height: calc(100% - 110px); overflow-y: auto; min-width: 320px; border-radius: 10px; padding: 0px; display:block;" >
+        
+        @for(p of this.propertyService.properties; track $index)
+        {
+            <app-property-card-component [property]="p" (click)="onPropertyClick(p)"></app-property-card-component>
+        }
+    </div>
+
+</div>
+
+<app-menu-component></app-menu-component>
+<app-project-selector-component></app-project-selector-component>
+<app-loader-component></app-loader-component>
