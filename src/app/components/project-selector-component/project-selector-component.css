@@ -79,6 +79,7 @@
     border-radius: 8px;
     text-transform: uppercase;
     border: 1px solid var(--color-a);
+    background: #eff6f9;
 }
 
 .button-selector a:hover

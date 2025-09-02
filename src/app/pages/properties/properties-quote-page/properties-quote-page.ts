@@ -269,4 +269,9 @@ export class PropertiesQuotePage implements OnInit
 
   }
 
+  submit()
+  {
+    
+  }
+
 }

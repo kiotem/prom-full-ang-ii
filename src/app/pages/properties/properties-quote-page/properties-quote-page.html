@@ -29,9 +29,9 @@
     <div id="panel-client-name" style="position: absolute; top: 80px; left: 20px; z-index: 100; max-height: calc(100% - 200px); background-color: #f3f3f3; min-width: 280px; border-radius: 10px; padding: 20px; border: 0.7px solid gainsboro; color: #444444; display:none;" >
         <div align="left">
             <div style="display: flex; align-items: center; background-color: #f3f3f3; padding-right: 20px; border-radius: 40px;" class="project-card">
-                <img src="imgs/img_profile_demo.jpeg" style="width: 50px; height: 50px; object-fit: cover; border-radius: 100px; margin-right: 10px;">
+                <img src="imgs/img_client_empty.jpeg" style="width: 50px; height: 50px; object-fit: cover; border-radius: 100px; margin-right: 10px;">
                 <div>
-                    <div id="project-title"><i class="fa fa-user" style="font-size: 12px;"></i>&nbsp;{{ this.propertyQuoteService.client.name.toUpperCase() }}&nbsp;{{ this.propertyQuoteService.client.lastName1.toUpperCase() }}</div>
+                    <div id="project-title"  style="font-size: 14px;"><i class="fa fa-user" style="font-size: 12px;"></i>&nbsp;{{ this.propertyQuoteService.client.name.toUpperCase() }}&nbsp;{{ this.propertyQuoteService.client.lastName1.toUpperCase() }}</div>
                     <div id="project-location" style="font-size: 14px; margin-top: 4px; color: var(--gray);"><i class="fa fa-envelope" style="font-size: 12px;"></i>&nbsp;{{ this.propertyQuoteService.client.email }}</div>
                     <div id="project-location" style="font-size: 14px; margin-top: 4px; color: var(--gray);"><i class="fa fa-phone" style="font-size: 12px;"></i>&nbsp;{{ this.propertyQuoteService.client.phone }}</div>
                 </div>
@@ -51,16 +51,25 @@
         }
     </div>
 
-    <div id="panel-property-info" style="position: absolute; padding: 10px; top: 20px; left: 750px; z-index: 100; background-color: #f3f3f3; overflow-y: auto; min-width: 360px; border-radius: 10px; display:block;" >
-        <div style="color: var(--color-a); font-size: 20px; font-weight: bold; margin-bottom: 5px;">
+
+
+    <div id="panel-property-info" style="position: absolute; padding: 10px; top: 20px; left: 750px; z-index: 100; background-color: #f3f3f3; overflow-y: auto; width: 320px; height: 45px; border-radius: 10px; border: 0.7px solid gainsboro; display:block;" >
+        <div style="margin-bottom: 10px; position: absolute; color: var(--color-a); font-size: 20px; font-weight: bold; margin-bottom: 5px;">
             {{this.propertyQuoteService.property.code}}
         </div>
-        <div>
-            <b>Valor:</b> ${{this.propertyQuoteService.property.amount | number : '1.0-0' : 'en-US'}}
+        <div id="property-area" style="font-size: 14px; margin-bottom: 10px; position: absolute; top: 37px; left: 10px;">Área:&nbsp;{{this.propertyQuoteService.property.area}}m2</div>
+
+        <div id="property-area" style="font-size: 14px; margin-bottom: 10px; position: absolute; top: 15px; right: 10px;">Valor m2:&nbsp;${{this.propertyQuoteService.project.meterValue| number : '1.0-0' : 'en-US'}}</div>
+        <div style="margin-bottom: 10px; position: absolute; color: var(--color-a); font-size: 15px; margin-bottom: 5px; top: 37px; right: 10px;">
+            Valor total:&nbsp;&nbsp;<b>${{this.propertyQuoteService.property.amount | number : '1.0-0' : 'en-US'}}</b>
         </div>
     </div>
 
-    <div id="panel-separation" style="position: absolute; top: 100px; left: 750px; z-index: 100; max-height: calc(100% - 140px); background-color: #f3f3f3; overflow-y: auto; min-width: 360px; border-radius: 10px; padding: 0px; display:block; padding: 10px;" >
+    <div style="position: absolute; padding: 10px; top: 25px; left: 1090px; z-index: 100;" class="button-circle">
+        <a (click)="submit()" title="Mostrar/Ocultar lista de vehículos" style="width: 35px; height: 35px;"><p class='span-icon'><span class="fa-regular fa-xmark"></span></p></a>
+    </div>
+
+    <div id="panel-separation" style="position: absolute; top: 100px; left: 750px; z-index: 100; max-height: calc(100% - 140px); background-color: #f3f3f3; overflow-y: auto; width: 360px; border-radius: 10px; border: 0.7px solid gainsboro; padding: 0px; display:block; padding: 10px;" >
     
     <form [formGroup]="separationForm" style="width: 90%; max-width: 300px;" autocomplete="off">
         <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
@@ -70,7 +79,6 @@
             </div>
         </div>
         
-
         <br>
         <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
             <div class="flex-container-flat">
@@ -96,7 +104,7 @@
                 &nbsp;&nbsp;&nbsp;
                 <div class="field-row">
                     <label for="iInitialQuota">Valor cuota</label>
-                    <input style="margin-top: 3px; width: 150px;" type="number" id="iInitialQuota" name="iInitialQuota" required formControlName="initialQuota" class="input-field">
+                    <input style="margin-top: 3px; width: 150px;" type="number" id="iInitialQuota" readonly="true" name="iInitialQuota" required formControlName="initialQuota" class="input-field">
                 </div>
             </div>
         </div>
@@ -106,7 +114,7 @@
             <div class="flex-container-flat">
                 <div class="field-row">
                     <label for="iFinalBalance">Saldo final</label>
-                    <input style="margin-top: 3px; width: 150px;" type="number" id="iFinalBalance" name="iFinalBalance" required formControlName="finalBalance" class="input-field">
+                    <input style="margin-top: 3px; width: 150px;" type="number" id="iFinalBalance" readonly="true" name="iFinalBalance" required formControlName="finalBalance" class="input-field">
                 </div>
             
             </div>
@@ -119,7 +127,7 @@
                 &nbsp;&nbsp;&nbsp;
                 <div class="field-row">
                     <label for="iFinalQuota">Valor cuota</label>
-                    <input style="margin-top: 3px; width: 150px;" type="number" id="iFinalQuota" name="iFinalQuota" required formControlName="finalQuota" class="input-field">
+                    <input style="margin-top: 3px; width: 150px;" type="number" id="iFinalQuota" readonly="true" name="iFinalQuota" required formControlName="finalQuota" class="input-field">
                 </div>
             </div>
         </div>
@@ -145,9 +153,12 @@
         </div>
     </form>
     <br>
+    <br>
     <div class="button" id='bt_create' style="display: block;" align="center">
-       <!-- <a (click)="submitSeparationForm()" >Registrar Proceso</a>-->
+       <a (click)="submit()" ><i class="fa-regular fa-floppy-disk"></i>&nbsp;Registrar Proceso</a>
     </div>   
+
+    <br>
 </div>
 
 </div>
