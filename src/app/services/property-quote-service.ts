@@ -71,6 +71,10 @@ export class PropertyQuoteService
 
     this.finalBalanceValue = this.property.amount -  this.initialBalanceValue - this.separationQuotaValue;
 
+    this.initialQuotaValue = Math.floor(this.initialBalanceValue / this.initialNumberOfQuotasValue);
+
+    this.finalQuotaValue = Math.floor(this.finalBalanceValue / this.finalNumberOfQuotasValue);
+
   }
 
 }

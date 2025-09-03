@@ -12,6 +12,7 @@ import Property from '../../../models/Property';
 import { PropertyCardComponent } from '../../../components/property-card-component/property-card-component';
 import { DecimalPipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import { AgentService } from '../../../services/agent-service';
 
 @Component({
   selector: 'app-properties-quote-page',
@@ -39,13 +40,13 @@ export class PropertiesQuotePage implements OnInit
   propertyAmount: FormControl;
 
 
-  constructor(public propertyQuoteService: PropertyQuoteService, private clientService: ClientService, public loaderService: LoaderService, public cdr: ChangeDetectorRef, public projectService: ProjectService, public propertyService: PropertyService) 
+  constructor(public propertyQuoteService: PropertyQuoteService, private clientService: ClientService, public loaderService: LoaderService, public cdr: ChangeDetectorRef, public projectService: ProjectService, public propertyService: PropertyService, public agentService: AgentService) 
   {
     this.separationQuota = new FormControl('1000000');
     this.initialBalance = new FormControl(this.propertyQuoteService.initialBalanceValue);
     this.initialPercent = new FormControl('30');
     this.initialNumberOfQuotas = new FormControl('6');
-    this.initialQuota = new FormControl('');
+    this.initialQuota = new FormControl(this.propertyQuoteService.initialQuotaValue);
     this.finalBalance = new FormControl(this.propertyQuoteService.finalBalanceValue);
     this.finalNumberOfQuotas = new FormControl('36');
     this.finalQuota = new FormControl(this.propertyQuoteService.finalQuotaValue);
@@ -75,6 +76,8 @@ export class PropertiesQuotePage implements OnInit
     this.selectedProject = this.projectService.getSelected();
     this.meterValue = this.selectedProject?.meterValue || 0;
     this.propertyService.clear();
+
+    this.getAgents({});
     this.cdr.detectChanges();
     
     this.checkFilter();//deshabilitar
@@ -225,54 +228,43 @@ export class PropertiesQuotePage implements OnInit
     });
   }
 
+    getAgents(json: any) {
+    this.agentService.getAgents(json).subscribe({
+      next: (data) => {
+        console.log('Agents fetched successfully:', data);
+        this.agentService.fill(data.result);
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error fetching agents:', error);
+      }
+    });
+  }
+
   process()
   {
-    let iSeparationQuota = document.getElementById('iSeparationQuota');
+      let iSeparationQuota = document.getElementById('iSeparationQuota');
 
-    if(iSeparationQuota) 
-    {
-      this.propertyQuoteService.separationQuotaValue = parseFloat((iSeparationQuota as HTMLInputElement).value);
-    }else
-    {
-      this.propertyQuoteService.separationQuotaValue = 0;
-    }
+      if(iSeparationQuota) 
+      {
+        this.propertyQuoteService.separationQuotaValue = parseFloat((iSeparationQuota as HTMLInputElement).value);
+      }else
+      {
+        this.propertyQuoteService.separationQuotaValue = 0;
+      }
 
-    this.separationQuota.setValue(this.propertyQuoteService.separationQuotaValue);
+      let iInitialPercent = document.getElementById('iInitialPercent');
 
+      if(iInitialPercent)
+      {
+        this.propertyQuoteService.initialPercentValue = parseFloat((iInitialPercent as HTMLInputElement).value);
+      }else
+      {
+        this.propertyQuoteService.initialPercentValue = 0;
+      }
 
-    let iInitialPercent = document.getElementById('iInitialPercent');
-
-    if(iInitialPercent)
-    {
-      this.propertyQuoteService.initialPercentValue = parseFloat((iInitialPercent as HTMLInputElement).value);
-    }else
-    {
-      this.propertyQuoteService.initialPercentValue = 0;
-    }
-
-    this.propertyQuoteService.calculate();
-
-    this.initialBalance.setValue(this.propertyQuoteService.initialBalanceValue);
-
-
-/*
-    this.initialPercent.setValue(this.propertyQuoteService.initialPercentValue);
-
-    let initialBalance = this.propertyQuoteService.property.amount * (this.propertyQuoteService.initialPercentValue / 100);
-
-    this.initialBalance.setValue(initialBalance);
-
-
-
-    this.propertyQuoteService.initialBalanceValue = initialBalance;
-
-    console.log('Initial Balance calculated:', this.propertyQuoteService.initialBalanceValue);
-    */
-
-    
-/*
       let iInitialNumberOfQuotas = document.getElementById('iInitialNumberOfQuotas');
-      if (iInitialNumberOfQuotas) 
+      if(iInitialNumberOfQuotas) 
       {
         this.propertyQuoteService.initialNumberOfQuotasValue = parseFloat((iInitialNumberOfQuotas as HTMLInputElement).value);
       }else
@@ -280,9 +272,23 @@ export class PropertiesQuotePage implements OnInit
         this.propertyQuoteService.initialNumberOfQuotasValue = 0;
       }
 
-      this.initialNumberOfQuotas.setValue(this.propertyQuoteService.initialNumberOfQuotasValue);
-*/
+      let iFinalNumberOfQuotas = document.getElementById('iFinalNumberOfQuotas');
+      if(iFinalNumberOfQuotas) 
+      {
+        this.propertyQuoteService.finalNumberOfQuotasValue = parseFloat((iFinalNumberOfQuotas as HTMLInputElement).value);
+      }else
+      {
+        this.propertyQuoteService.finalNumberOfQuotasValue = 0;
+      }
 
+      this.propertyQuoteService.calculate();
+
+      this.initialBalance.setValue(this.propertyQuoteService.initialBalanceValue);
+      this.initialQuota.setValue(this.propertyQuoteService.initialQuotaValue);
+      this.finalBalance.setValue(this.propertyQuoteService.finalBalanceValue);
+      this.finalQuota.setValue(this.propertyQuoteService.finalQuotaValue);
+
+      this.cdr.detectChanges();
   }
 
   submit()

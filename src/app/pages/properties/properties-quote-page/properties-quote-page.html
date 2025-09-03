@@ -36,7 +36,7 @@
         </div>
     </div>
 
-    <div id="panel-property-search" style="display: none;">
+    <div id="panel-property-search" style="display: block;">
         <div id="panel-input-search" style="position: absolute; top: 20px; left: 400px; z-index: 100;" >
             <input type="text" id="i_search_property" name="i_search_property" class="form-control" (keyup)="onKeyUpProperty($event)" placeholder="Buscar propiedad:" class="input-search" style="width: 200px;">
         </div>
@@ -134,11 +134,11 @@
                         <div style="display: flex; align-items: center; margin-left:0px;" >
                             <select type="text" id="s_agent" name="s_agent" class="form-control" required placeholder="Buscar:" class="select-search" style="margin-left: 0px; width: 300px; font-size: 14px;" formControlName="agentId">
                                 <option value="">Seleccione un asesor</option>
-                                <!--
-                                @for(agent of agents; track $index) {
+                                
+                                @for(agent of agentService.agents; track $index) {
                                     <option value="{{agent.objectId}}">{{agent.name}} {{agent.lastName1}}</option>
                                 }
-                                -->
+                                
                             </select>
 
                             <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
