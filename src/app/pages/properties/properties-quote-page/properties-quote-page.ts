@@ -101,18 +101,34 @@ export class PropertiesQuotePage implements OnInit
     this.propertyId.setValue(property.objectId);
     this.propertyAmount.setValue(property.amount);
 
-    const panel_property_info = document.getElementById('panel-property-info');
-    if (panel_property_info) {
-      panel_property_info.style.display = 'block';
+
+    const panel_property_search = document.getElementById('panel-property-search');
+    if (panel_property_search) {
+      panel_property_search.style.display = 'none';
     }
 
-    const panel_separation = document.getElementById('panel-separation');
-    if (panel_separation) {
-      panel_separation.style.display = 'block';
+    const panel_quote = document.getElementById('panel-quote');
+    if (panel_quote) {
+      panel_quote.style.display = 'block';
     }
 
     this.process();
     //this.propertyQuoteService.calculate();
+  }
+
+  onCloseQuotePanel(): void {
+
+    const panel_quote = document.getElementById('panel-quote');
+    if (panel_quote) 
+    {
+      panel_quote.style.display = 'none';
+    }
+
+    const panel_property_search = document.getElementById('panel-property-search');
+    if (panel_property_search) 
+    {
+      panel_property_search.style.display = 'block';
+    }
   }
 
   getClientByPms(json: any) {
@@ -140,10 +156,10 @@ export class PropertiesQuotePage implements OnInit
           panel_client_name!.style.display = 'block';
           panel_customer_empty!.style.display = 'none';
 
-          const panel_input_search = document.getElementById('panel-input-search');
-          if (panel_input_search) 
+          const panel_property_search = document.getElementById('panel-property-search');
+          if (panel_property_search) 
           {
-            panel_input_search.style.display = 'block';
+            panel_property_search.style.display = 'block';
 
             const i_search_property = document.getElementById('i_search_property');
             if (i_search_property) 

@@ -1,8 +1,5 @@
 <div class="main-container" >
 
-<div style="position: absolute; top: 20px; left: 20px; z-index: 100; display: inline-flex; justify-content: space-between;" >
-</div>
-
     <div class="button" style="position: absolute; top: 30px; right: 20px; z-index: 100;">
         <!--<a href="#">Crear nueva</a>-->
     </div>
@@ -39,127 +36,125 @@
         </div>
     </div>
 
-    <div id="panel-input-search" style="position: absolute; top: 20px; left: 400px; z-index: 100; display: none;" >
-        <input type="text" id="i_search_property" name="i_search_property" class="form-control" (keyup)="onKeyUpProperty($event)" placeholder="Buscar propiedad:" class="input-search" style="width: 200px;">
-    </div>
-
-    <div id="panel-properties" style="position: absolute; top: 80px; left: 400px; z-index: 100;  max-height: calc(100% - 110px); overflow-y: auto; min-width: 320px; border-radius: 10px; padding: 0px; display:block;" >
-        
-        @for(p of this.propertyService.properties; track $index)
-        {
-            <app-property-card-component [property]="p" (click)="onPropertyClick(p)"></app-property-card-component>
-        }
-    </div>
-
-
-
-    <div id="panel-property-info" style="position: absolute; padding: 10px; top: 20px; left: 750px; z-index: 100; background-color: #f3f3f3; overflow-y: auto; width: 320px; height: 45px; border-radius: 10px; border: 0.7px solid gainsboro; display:block;" >
-        <div style="margin-bottom: 10px; position: absolute; color: var(--color-a); font-size: 20px; font-weight: bold; margin-bottom: 5px;">
-            {{this.propertyQuoteService.property.code}}
+    <div id="panel-property-search" style="display: none;">
+        <div id="panel-input-search" style="position: absolute; top: 20px; left: 400px; z-index: 100;" >
+            <input type="text" id="i_search_property" name="i_search_property" class="form-control" (keyup)="onKeyUpProperty($event)" placeholder="Buscar propiedad:" class="input-search" style="width: 200px;">
         </div>
-        <div id="property-area" style="font-size: 14px; margin-bottom: 10px; position: absolute; top: 37px; left: 10px;">Área:&nbsp;{{this.propertyQuoteService.property.area}}m2</div>
 
-        <div id="property-area" style="font-size: 14px; margin-bottom: 10px; position: absolute; top: 15px; right: 10px;">Valor m2:&nbsp;${{this.propertyQuoteService.project.meterValue| number : '1.0-0' : 'en-US'}}</div>
-        <div style="margin-bottom: 10px; position: absolute; color: var(--color-a); font-size: 15px; margin-bottom: 5px; top: 37px; right: 10px;">
-            Valor total:&nbsp;&nbsp;<b>${{this.propertyQuoteService.property.amount | number : '1.0-0' : 'en-US'}}</b>
+        <div id="panel-properties" style="position: absolute; top: 80px; left: 400px; z-index: 100;  max-height: calc(100% - 110px); overflow-y: auto; min-width: 320px; border-radius: 10px; padding: 0px;" >
+            @for(p of this.propertyService.properties; track $index)
+            {
+                <app-property-card-component [property]="p" (click)="onPropertyClick(p)"></app-property-card-component>
+            }
         </div>
     </div>
 
-    <div style="position: absolute; padding: 10px; top: 25px; left: 1090px; z-index: 100;" class="button-circle">
-        <a (click)="submit()" title="Mostrar/Ocultar lista de vehículos" style="width: 35px; height: 35px;"><p class='span-icon'><span class="fa-regular fa-xmark"></span></p></a>
-    </div>
+    <div id="panel-quote" style="display: none;">
+        <div id="panel-property-info" style="position: absolute; padding: 10px; top: 20px; left: 400px; z-index: 100; background-color: #f3f3f3; overflow-y: auto; width: 320px; height: 45px; border-radius: 10px; border: 0.7px solid gainsboro; display:block;" >
+            <div style="margin-bottom: 10px; position: absolute; color: var(--color-a); font-size: 20px; font-weight: bold; margin-bottom: 5px;">
+                {{this.propertyQuoteService.property.code}}
+            </div>
+            <div id="property-area" style="font-size: 14px; margin-bottom: 10px; position: absolute; top: 37px; left: 10px;">Área:&nbsp;{{this.propertyQuoteService.property.area}}m2</div>
 
-    <div id="panel-separation" style="position: absolute; top: 100px; left: 750px; z-index: 100; max-height: calc(100% - 140px); background-color: #f3f3f3; overflow-y: auto; width: 360px; border-radius: 10px; border: 0.7px solid gainsboro; padding: 0px; display:block; padding: 10px;" >
-    
-    <form [formGroup]="separationForm" style="width: 90%; max-width: 300px;" autocomplete="off">
-        <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
-            <div class="field-row">
-                <label for="iSeparationQuota">Cuota de separación</label>
-                <input style="margin-top: 3px; width: 150px;" type="number" id="iSeparationQuota" (keyup)="process()" name="iSeparationQuota" required formControlName="separationQuota" class="input-field">
+            <div id="property-area" style="font-size: 14px; margin-bottom: 10px; position: absolute; top: 15px; right: 10px;">Valor m2:&nbsp;${{this.propertyQuoteService.project.meterValue| number : '1.0-0' : 'en-US'}}</div>
+            <div style="margin-bottom: 10px; position: absolute; color: var(--color-a); font-size: 15px; margin-bottom: 5px; top: 37px; right: 10px;">
+                Valor total:&nbsp;&nbsp;<b>${{this.propertyQuoteService.property.amount | number : '1.0-0' : 'en-US'}}</b>
             </div>
         </div>
-        
-        <br>
-        <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
-            <div class="flex-container-flat">
 
-                <div class="field-row">
-                    <label for="iInitialNumberOfQuotas">% C. Inicial</label>
-                    <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iInitialPercent" name="iInitialPercent" formControlName="initialPercent" required  class="input-field">
-                </div>
-                &nbsp;&nbsp;&nbsp;
-                <div class="field-row">
-                    <label for="iInitialBalance">Saldo c. inicial</label>
-                    <input style="margin-top: 3px; width: 150px;" type="number" id="iInitialBalance" name="iInitialBalance" required readonly="true" formControlName="initialBalance" class="input-field">
+        <div style="position: absolute; padding: 10px; top: 25px; left: 740px; z-index: 100;" class="button-circle">
+            <a (click)="onCloseQuotePanel()" title="Cerrar panel de cotización" style="width: 35px; height: 35px;"><p class='span-icon'><span class="fa-regular fa-xmark"></span></p></a>
+        </div>
+
+        <div id="panel-separation" style="position: absolute; top: 100px; left: 400px; z-index: 100; max-height: calc(100% - 140px); background-color: #f3f3f3; overflow-y: auto; width: 360px; border-radius: 10px; border: 0.7px solid gainsboro; padding: 0px; display:block; padding: 10px;" >
+            <form [formGroup]="separationForm" style="width: 90%; max-width: 300px;" autocomplete="off">
+                <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
+                    <div class="field-row">
+                        <label for="iSeparationQuota">Cuota de separación</label>
+                        <input style="margin-top: 3px; width: 150px;" type="number" id="iSeparationQuota" (keyup)="process()" name="iSeparationQuota" required formControlName="separationQuota" class="input-field">
+                    </div>
                 </div>
                 
+                <br>
+                <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
+                    <div class="flex-container-flat">
 
-            </div>
+                        <div class="field-row">
+                            <label for="iInitialNumberOfQuotas">% C. Inicial</label>
+                            <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iInitialPercent" name="iInitialPercent" formControlName="initialPercent" required  class="input-field">
+                        </div>
+                        &nbsp;&nbsp;&nbsp;
+                        <div class="field-row">
+                            <label for="iInitialBalance">Saldo c. inicial</label>
+                            <input style="margin-top: 3px; width: 150px;" type="number" id="iInitialBalance" name="iInitialBalance" required readonly="true" formControlName="initialBalance" class="input-field">
+                        </div>
+                        
 
-            <div class="flex-container-flat">
-                <div class="field-row">
-                    <label for="iInitialNumberOfQuotas"># de cuotas</label>
-                    <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iInitialNumberOfQuotas" name="iInitialNumberOfQuotas" required formControlName="initialNumberOfQuotas" class="input-field">
+                    </div>
+
+                    <div class="flex-container-flat">
+                        <div class="field-row">
+                            <label for="iInitialNumberOfQuotas"># de cuotas</label>
+                            <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iInitialNumberOfQuotas" name="iInitialNumberOfQuotas" required formControlName="initialNumberOfQuotas" class="input-field">
+                        </div>
+                        &nbsp;&nbsp;&nbsp;
+                        <div class="field-row">
+                            <label for="iInitialQuota">Valor cuota</label>
+                            <input style="margin-top: 3px; width: 150px;" type="number" id="iInitialQuota" readonly="true" name="iInitialQuota" required formControlName="initialQuota" class="input-field">
+                        </div>
+                    </div>
                 </div>
-                &nbsp;&nbsp;&nbsp;
-                <div class="field-row">
-                    <label for="iInitialQuota">Valor cuota</label>
-                    <input style="margin-top: 3px; width: 150px;" type="number" id="iInitialQuota" readonly="true" name="iInitialQuota" required formControlName="initialQuota" class="input-field">
+
+                <br>
+                <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
+                    <div class="flex-container-flat">
+                        <div class="field-row">
+                            <label for="iFinalBalance">Saldo final</label>
+                            <input style="margin-top: 3px; width: 150px;" type="number" id="iFinalBalance" readonly="true" name="iFinalBalance" required formControlName="finalBalance" class="input-field">
+                        </div>
+                    
+                    </div>
+
+                    <div class="flex-container-flat">
+                        <div class="field-row">
+                            <label for="iFinalNumberOfQuotas"># de cuotas</label>
+                            <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iFinalNumberOfQuotas" name="iFinalNumberOfQuotas" required formControlName="finalNumberOfQuotas" class="input-field">
+                        </div>
+                        &nbsp;&nbsp;&nbsp;
+                        <div class="field-row">
+                            <label for="iFinalQuota">Valor cuota</label>
+                            <input style="margin-top: 3px; width: 150px;" type="number" id="iFinalQuota" readonly="true" name="iFinalQuota" required formControlName="finalQuota" class="input-field">
+                        </div>
+                    </div>
                 </div>
-            </div>
+                <br>
+                <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
+                    <div class="field-row">
+                        <label for="iAgent">Asesor comercial *</label>
+                        <div style="display: flex; align-items: center; margin-left:0px;" >
+                            <select type="text" id="s_agent" name="s_agent" class="form-control" required placeholder="Buscar:" class="select-search" style="margin-left: 0px; width: 300px; font-size: 14px;" formControlName="agentId">
+                                <option value="">Seleccione un asesor</option>
+                                <!--
+                                @for(agent of agents; track $index) {
+                                    <option value="{{agent.objectId}}">{{agent.name}} {{agent.lastName1}}</option>
+                                }
+                                -->
+                            </select>
+
+                            <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
+                                <i class="fas fa-angle-down"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+
+            <div class="button" id='bt_create' style="display: block; margin-top: 40px; margin-bottom: 30px;" align="center">
+            <a (click)="submit()" >Continuar&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+            </div>   
         </div>
 
-        <br>
-        <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
-            <div class="flex-container-flat">
-                <div class="field-row">
-                    <label for="iFinalBalance">Saldo final</label>
-                    <input style="margin-top: 3px; width: 150px;" type="number" id="iFinalBalance" readonly="true" name="iFinalBalance" required formControlName="finalBalance" class="input-field">
-                </div>
-            
-            </div>
-
-            <div class="flex-container-flat">
-                <div class="field-row">
-                    <label for="iFinalNumberOfQuotas"># de cuotas</label>
-                    <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iFinalNumberOfQuotas" name="iFinalNumberOfQuotas" required formControlName="finalNumberOfQuotas" class="input-field">
-                </div>
-                &nbsp;&nbsp;&nbsp;
-                <div class="field-row">
-                    <label for="iFinalQuota">Valor cuota</label>
-                    <input style="margin-top: 3px; width: 150px;" type="number" id="iFinalQuota" readonly="true" name="iFinalQuota" required formControlName="finalQuota" class="input-field">
-                </div>
-            </div>
-        </div>
-        <br>
-        <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
-            <div class="field-row">
-                <label for="iAgent">Asesor comercial *</label>
-                <div style="display: flex; align-items: center; margin-left:0px;" >
-                    <select type="text" id="s_agent" name="s_agent" class="form-control" required placeholder="Buscar:" class="select-search" style="margin-left: 0px; width: 300px; font-size: 14px;" formControlName="agentId">
-                        <option value="">Seleccione un asesor</option>
-                        <!--
-                        @for(agent of agents; track $index) {
-                            <option value="{{agent.objectId}}">{{agent.name}} {{agent.lastName1}}</option>
-                        }
-                        -->
-                    </select>
-
-                    <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
-                        <i class="fas fa-angle-down"></i>
-                    </button>
-                </div>
-            </div>
-        </div>
-    </form>
-    <br>
-    <br>
-    <div class="button" id='bt_create' style="display: block;" align="center">
-       <a (click)="submit()" ><i class="fa-regular fa-floppy-disk"></i>&nbsp;Registrar Proceso</a>
-    </div>   
-
-    <br>
-</div>
+    </div><!--fin panel quote-->
 
 </div>
 
