@@ -20,3 +20,24 @@ export class Utils
     });
   */
 }
+
+export function getNumberFromField(fieldName: string): any {
+  const field = document.getElementById(fieldName) as HTMLInputElement;
+  return field ? field.value : 0;
+}
+
+export function getTextFromField(fieldName: string): any {
+  const field = document.getElementById(fieldName) as HTMLInputElement;
+  return field ? field.value : '';
+}
+
+export function displayHTML(elementId: string, display: string): boolean {
+  const element = document.getElementById(elementId);
+  if(element) 
+  {
+    element.style.display = display;
+    return true;
+  }
+
+  return false;
+}

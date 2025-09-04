@@ -13,6 +13,7 @@ import { PropertyCardComponent } from '../../../components/property-card-compone
 import { DecimalPipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AgentService } from '../../../services/agent-service';
+import { displayHTML, getNumberFromField } from '../../../commons/utils';
 
 @Component({
   selector: 'app-properties-quote-page',
@@ -84,7 +85,8 @@ export class PropertiesQuotePage implements OnInit
   }
 
   onKeydownClient(event: KeyboardEvent): void {
-    if (event.key === 'Enter') {
+    if (event.key === 'Enter') 
+    {
       const searchValue = (event.target as HTMLInputElement).value;
       if(searchValue.length > 2)
       {
@@ -104,34 +106,16 @@ export class PropertiesQuotePage implements OnInit
     this.propertyId.setValue(property.objectId);
     this.propertyAmount.setValue(property.amount);
 
-
-    const panel_property_search = document.getElementById('panel-property-search');
-    if (panel_property_search) {
-      panel_property_search.style.display = 'none';
-    }
-
-    const panel_quote = document.getElementById('panel-quote');
-    if (panel_quote) {
-      panel_quote.style.display = 'block';
-    }
+    displayHTML('panel-property-search', 'none');
+    displayHTML('panel-quote', 'block');
 
     this.process();
-    //this.propertyQuoteService.calculate();
   }
 
-  onCloseQuotePanel(): void {
-
-    const panel_quote = document.getElementById('panel-quote');
-    if (panel_quote) 
-    {
-      panel_quote.style.display = 'none';
-    }
-
-    const panel_property_search = document.getElementById('panel-property-search');
-    if (panel_property_search) 
-    {
-      panel_property_search.style.display = 'block';
-    }
+  onCloseQuotePanel(): void 
+  {
+    displayHTML('panel-quote', 'none');
+    displayHTML('panel-property-search', 'block');
   }
 
   getClientByPms(json: any) {
@@ -142,28 +126,24 @@ export class PropertiesQuotePage implements OnInit
       next: (data) => {
         this.loaderService.hide();
 
-        try{
+        try
+        {
 
         console.log('ClientsByPms fetched successfully:', data);
 
-        const panel_client_name = document.getElementById('panel-client-name');
-        const panel_customer_empty = document.getElementById('panel-client-empty');
-
         if(data.result.length == 0) 
         {
-          panel_client_name!.style.display = 'none';
-          panel_customer_empty!.style.display = 'block';
+          displayHTML('panel-client-name', 'none');
+          displayHTML('panel-client-empty', 'block');
         }else
         {
           this.propertyQuoteService.setClient(data.result[0]); // Set the client in the service
-          panel_client_name!.style.display = 'block';
-          panel_customer_empty!.style.display = 'none';
+          
+          displayHTML('panel-client-name', 'block');
+          displayHTML('panel-client-empty', 'none');
 
-          const panel_property_search = document.getElementById('panel-property-search');
-          if (panel_property_search) 
+          if(displayHTML('panel-property-search', 'block'))
           {
-            panel_property_search.style.display = 'block';
-
             const i_search_property = document.getElementById('i_search_property');
             if (i_search_property) 
             {
@@ -243,43 +223,10 @@ export class PropertiesQuotePage implements OnInit
 
   process()
   {
-      let iSeparationQuota = document.getElementById('iSeparationQuota');
-
-      if(iSeparationQuota) 
-      {
-        this.propertyQuoteService.separationQuotaValue = parseFloat((iSeparationQuota as HTMLInputElement).value);
-      }else
-      {
-        this.propertyQuoteService.separationQuotaValue = 0;
-      }
-
-      let iInitialPercent = document.getElementById('iInitialPercent');
-
-      if(iInitialPercent)
-      {
-        this.propertyQuoteService.initialPercentValue = parseFloat((iInitialPercent as HTMLInputElement).value);
-      }else
-      {
-        this.propertyQuoteService.initialPercentValue = 0;
-      }
-
-      let iInitialNumberOfQuotas = document.getElementById('iInitialNumberOfQuotas');
-      if(iInitialNumberOfQuotas) 
-      {
-        this.propertyQuoteService.initialNumberOfQuotasValue = parseFloat((iInitialNumberOfQuotas as HTMLInputElement).value);
-      }else
-      {
-        this.propertyQuoteService.initialNumberOfQuotasValue = 0;
-      }
-
-      let iFinalNumberOfQuotas = document.getElementById('iFinalNumberOfQuotas');
-      if(iFinalNumberOfQuotas) 
-      {
-        this.propertyQuoteService.finalNumberOfQuotasValue = parseFloat((iFinalNumberOfQuotas as HTMLInputElement).value);
-      }else
-      {
-        this.propertyQuoteService.finalNumberOfQuotasValue = 0;
-      }
+      this.propertyQuoteService.separationQuotaValue = getNumberFromField('iSeparationQuota');
+      this.propertyQuoteService.initialPercentValue = getNumberFromField('iInitialPercent');
+      this.propertyQuoteService.initialNumberOfQuotasValue = getNumberFromField('iInitialNumberOfQuotas');
+      this.propertyQuoteService.finalNumberOfQuotasValue = getNumberFromField('iFinalNumberOfQuotas');
 
       this.propertyQuoteService.calculate();
 
