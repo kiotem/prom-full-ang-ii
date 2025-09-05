@@ -41,6 +41,7 @@ export class PropertiesQuotePage implements OnInit
   propertyAmount: FormControl;
 
 
+
   constructor(public propertyQuoteService: PropertyQuoteService, private clientService: ClientService, public loaderService: LoaderService, public cdr: ChangeDetectorRef, public projectService: ProjectService, public propertyService: PropertyService, public agentService: AgentService) 
   {
     this.separationQuota = new FormControl('1000000');
@@ -101,7 +102,14 @@ export class PropertiesQuotePage implements OnInit
 
   onPropertyClick(property: Property): void 
   {
+    this.separationForm.reset();
+
     this.propertyQuoteService.setProperty(property); // Set the property in the service
+
+    this.separationQuota.setValue(1000000);
+    this.initialPercent.setValue(30);
+    this.initialNumberOfQuotas.setValue(6);
+    this.finalNumberOfQuotas.setValue(36);
 
     this.propertyId.setValue(property.objectId);
     this.propertyAmount.setValue(property.amount);
@@ -221,12 +229,18 @@ export class PropertiesQuotePage implements OnInit
     });
   }
 
-  process()
+  process(): boolean
   {
       this.propertyQuoteService.separationQuotaValue = getNumberFromField('iSeparationQuota');
       this.propertyQuoteService.initialPercentValue = getNumberFromField('iInitialPercent');
       this.propertyQuoteService.initialNumberOfQuotasValue = getNumberFromField('iInitialNumberOfQuotas');
       this.propertyQuoteService.finalNumberOfQuotasValue = getNumberFromField('iFinalNumberOfQuotas');
+
+      if(this.propertyQuoteService.initialPercentValue < 0 || this.propertyQuoteService.initialPercentValue > 100)
+      {
+        alert('El porcentaje de cuota inicial debe estar entre 0 y 100');
+        return false;
+      }
 
       this.propertyQuoteService.calculate();
 
@@ -236,6 +250,8 @@ export class PropertiesQuotePage implements OnInit
       this.finalQuota.setValue(this.propertyQuoteService.finalQuotaValue);
 
       this.cdr.detectChanges();
+
+      return true;
   }
 
   submit()
