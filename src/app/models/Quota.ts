@@ -8,5 +8,6 @@ export default interface Quota
   amountLate: number;
   balance: number;
   dueDate: Date;
+  dueDateString?: string;
   paid: boolean;
 }

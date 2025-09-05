@@ -10,14 +10,14 @@ import { ProjectService } from '../../../services/project-service';
 import { PropertyService } from '../../../services/property-service';
 import Property from '../../../models/Property';
 import { PropertyCardComponent } from '../../../components/property-card-component/property-card-component';
-import { DecimalPipe } from '@angular/common';
+import { DatePipe, DecimalPipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AgentService } from '../../../services/agent-service';
 import { displayHTML, getNumberFromField } from '../../../commons/utils';
 
 @Component({
   selector: 'app-properties-quote-page',
-  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, PropertyCardComponent, DecimalPipe, ReactiveFormsModule],
+  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, PropertyCardComponent, DecimalPipe, DatePipe, ReactiveFormsModule],
   templateUrl: './properties-quote-page.html',
   styleUrls: ['./properties-quote-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css']
 })
@@ -252,6 +252,15 @@ export class PropertiesQuotePage implements OnInit
       this.cdr.detectChanges();
 
       return true;
+  }
+
+  generateQuotas(): void
+  {
+    if(this.process())
+    {
+      this.propertyQuoteService.calculateQuotas();
+      this.cdr.detectChanges();
+    }
   }
 
   submit()

@@ -175,7 +175,7 @@
             </form>
 
             <div class="button" id='bt_quote' style="display: block; margin-top: 40px; margin-bottom: 30px;" align="center">
-            <a (click)="submit()" >Continuar&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+            <a (click)="generateQuotas()" >Continuar&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right"></i></a>
             </div>   
         </div>
 
@@ -187,23 +187,33 @@
             <div class="row-header">
                 <div class="col" style="max-width: 30px;" align="right"></div>
                 <div class="col" style="max-width: auto;">Concepto</div>
-                <div class="col" style="max-width: 70px;">Fecha</div>
+                <div class="col" style="max-width: 80px;">Fecha</div>
                 <div class="col" style="max-width: 80px;" align="right">Valor</div>
             </div>
 
+            @for(quota of this.propertyQuoteService.quotas; track $index)
+            {
+                <div class="row">
+                    <div class="col" style="max-width: 30px;" align="center">{{quota.number}}</div>
+                    <div class="col" style="max-width: auto;">{{quota.type}}</div>
+                    <div class="col" style="max-width: 80px;">{{ quota.dueDate | date: 'dd/MM/yyyy' }}</div>
+                    <div class="col" style="max-width: 80px;" align="right">${{quota.amount | number : '1.0-0' : 'en-US'}}</div>
+                </div>
+            }
+
+            <!--
             <div class="row">
                 <div class="col" style="max-width: 30px;" align="right">1</div>
                 <div class="col" style="max-width: auto;">Separación</div>
                 <div class="col" style="max-width: 70px;">2025/03/13</div>
                 <div class="col" style="max-width: 80px;" align="right">2.000.000</div>
             </div>
+            -->
 
-            <div class="button" id='bt_submit' style="display: block;  margin-top: 40px;" align="center">
+            <div class="button" id='bt_submit' style="display: block;  margin-top: 40px; margin-bottom: 40px;" align="center">
             <a (click)="submit()" >Registrar&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-check"></i></a>
             </div> 
         </div>
-
-
     </div>
 
 </div>

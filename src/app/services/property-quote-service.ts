@@ -4,6 +4,7 @@ import Property from '../models/Property';
 import Project from '../models/Project';
 import { ProjectService } from './project-service';
 import Quota from '../models/Quota';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -98,9 +99,12 @@ export class PropertyQuoteService
       amountPaid: 0,
       amountLate: 0,
       balance: 0,
-      dueDate: new Date(),
+      dueDate: new Date(dueDate),
+      dueDateString: formatDate(new Date(dueDate), 'dd/MM/yyyy', 'en-US'),
       paid: false
     });
+
+    dueDate.setMonth(dueDate.getMonth() + 1);
 
     count++;
 
@@ -110,12 +114,13 @@ export class PropertyQuoteService
       this.quotas.push({
         id: `initial-${i + 1}`,
         number: count,
-        type: 'Inicial',
+        type: 'Inicial '+(i + 1),
         amount: this.initialQuotaValue,
         amountPaid: 0,
         amountLate: 0,
         balance: this.initialQuotaValue,
         dueDate: new Date(dueDate),
+        dueDateString: formatDate(new Date(dueDate), 'dd/MM/yyyy', 'en-US'),
         paid: false
       });
       dueDate.setMonth(dueDate.getMonth() + 1);
@@ -128,12 +133,13 @@ export class PropertyQuoteService
       this.quotas.push({
         id: `ordinaria-${i + 1}`,
         number: count,
-        type: 'Ordinaria',
+        type: 'Ordinaria '+(i + 1),
         amount: this.finalQuotaValue,
         amountPaid: 0,
         amountLate: 0,
         balance: this.finalQuotaValue,
         dueDate: new Date(dueDate),
+        dueDateString: formatDate(new Date(dueDate), 'dd/MM/yyyy', 'en-US'),
         paid: false
       });
       dueDate.setMonth(dueDate.getMonth() + 1);
