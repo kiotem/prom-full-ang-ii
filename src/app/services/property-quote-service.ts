@@ -16,6 +16,8 @@ export class PropertyQuoteService
   agent: string;
   project: Project;
   quotas: Quota[];
+  saleId: string;
+  wompiResponse: any;
 
   separationQuotaValue: number = 1000000;
   initialPercentValue: number = 30;
@@ -28,6 +30,9 @@ export class PropertyQuoteService
 
   constructor(private projectService: ProjectService) 
   {
+    this.saleId = '';
+    this.wompiResponse = {}
+
     this.client = 
     {
       objectId: '',
@@ -79,7 +84,6 @@ export class PropertyQuoteService
     this.initialQuotaValue = Math.floor(this.initialBalanceValue / this.initialNumberOfQuotasValue);
 
     this.finalQuotaValue = Math.floor(this.finalBalanceValue / this.finalNumberOfQuotasValue);
-
   }
 
   calculateQuotas(): void
@@ -146,9 +150,5 @@ export class PropertyQuoteService
 
       count++;
     }
-
   }
-
-
-
 }

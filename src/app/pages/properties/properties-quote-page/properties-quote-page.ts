@@ -14,6 +14,10 @@ import { DatePipe, DecimalPipe } from '@angular/common';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { AgentService } from '../../../services/agent-service';
 import { displayHTML, getNumberFromField } from '../../../commons/utils';
+import WhatsApp from '../../../models/WhatsApp';
+import { WhatsAppService } from '../../../services/whatsapp-service';
+import { SaleService } from '../../../services/sale-service';
+import { WompiService } from '../../../services/wompi-service';
 
 @Component({
   selector: 'app-properties-quote-page',
@@ -39,10 +43,11 @@ export class PropertiesQuotePage implements OnInit
   clientId: FormControl;
   propertyId: FormControl;
   propertyAmount: FormControl;
+  quotas : FormControl;
 
 
 
-  constructor(public propertyQuoteService: PropertyQuoteService, private clientService: ClientService, public loaderService: LoaderService, public cdr: ChangeDetectorRef, public projectService: ProjectService, public propertyService: PropertyService, public agentService: AgentService) 
+  constructor(public propertyQuoteService: PropertyQuoteService, private clientService: ClientService, public loaderService: LoaderService, public cdr: ChangeDetectorRef, public projectService: ProjectService, public propertyService: PropertyService, public agentService: AgentService, private whatsAppService: WhatsAppService, private saleService: SaleService, private wompiService: WompiService) 
   {
     this.separationQuota = new FormControl('1000000');
     this.initialBalance = new FormControl(this.propertyQuoteService.initialBalanceValue);
@@ -56,6 +61,7 @@ export class PropertiesQuotePage implements OnInit
     this.clientId = new FormControl('');
     this.propertyId = new FormControl('');  
     this.propertyAmount = new FormControl('');
+    this.quotas = new FormControl([]);
 
     this.separationForm = new FormGroup({
       separationQuota: this.separationQuota,
@@ -69,7 +75,8 @@ export class PropertiesQuotePage implements OnInit
       agentId: this.agentId,
       clientId: this.clientId,
       propertyId: this.propertyId,
-      propertyAmount: this.propertyAmount
+      propertyAmount: this.propertyAmount,
+      quotas: this.quotas
     });
   }
 
@@ -259,13 +266,127 @@ export class PropertiesQuotePage implements OnInit
     if(this.process())
     {
       this.propertyQuoteService.calculateQuotas();
+      this.quotas.setValue(this.propertyQuoteService.quotas);
       this.cdr.detectChanges();
     }
   }
 
   submit()
   {
-    
+    console.log('Separation form submitted');
+    this.clientId.setValue(this.propertyQuoteService.client.objectId);
+
+    this.loaderService.show();
+
+    if (this.separationForm.invalid) {
+      console.error('Form is invalid');
+      this.loaderService.hide();
+      alert('Formulario inválido. Por favor, verifica los datos ingresados.');
+      return;
+    }
+
+    let jsonData = this.separationForm.value;
+
+    console.log('Form Data:', jsonData);
+
+    this.saleService.create(jsonData).subscribe({
+          next: (response) => {
+            console.log('Create successful', response);
+
+            let result = response.result;
+
+            this.loaderService.hide();
+
+            if(result.success) {
+              // Handle successful creation
+              alert('Venta creada exitosamente');
+              // Reset the form after successful submission
+              //this.propertyForm.reset();
+
+              let object = result.object;
+
+              this.propertyQuoteService.saleId = object.objectId;
+            
+              console.log('ObjectId created:', object.objectId);
+
+              this.wompiService.createLink(
+                'Separación de propiedad',
+                'Lote ' + this.propertyQuoteService.property.code,
+                this.propertyQuoteService.separationQuotaValue,
+                object.objectId
+              ).subscribe({
+                next: (linkResponse: any) => {
+                  console.log('Wompi link created successfully:', linkResponse);
+
+                  this.propertyQuoteService.wompiResponse = linkResponse.data;
+                  
+                  let wompiId = linkResponse.data.id;
+                  if(wompiId) 
+                  {
+                    console.log('Wompi ID:', wompiId);
+                    this.sendLinktToWhatsApp(wompiId);
+                  }else
+                  {
+                    console.error('Wompi ID not found');
+                  }
+                  //alert('Link de pago creado exitosamente: ' + linkResponse.data.link);
+                  // You can redirect to the link or show it to the user
+                  //window.open(linkResponse.data.link, '_blank');
+                },
+                error: (error) => {
+                   this.loaderService.hide();
+                  console.error('Error creating Wompi link:', error);           
+                  alert('Error al crear el link de pago: ' + error.error.code);
+                }
+              });
+
+              this.separationForm.reset();
+              
+            }else{
+              alert('Error al crear: ' + result.message);
+            }
+          },
+          error: (error) => {
+            console.error('Create failed', error);
+            console.log('Create failed error', error.error.code);
+            alert('Error al crear: ' + error.error.code);
+
+            this.loaderService.hide();
+
+            // Handle login error, e.g., show an error message
+          }
+        });
+  }
+
+  sendLinktToWhatsApp(wompiId: string): void 
+  {
+    let jsonSale = 
+    { 
+      objectId: this.propertyQuoteService.saleId,
+      amount: this.propertyQuoteService.separationQuotaValue,
+      propertyId: this.propertyQuoteService.property.objectId,
+    };
+
+    let data: WhatsApp = {
+      //phone: this.propertyQuoteService.client.phone,
+      phone: '3156738411',
+      body: '',
+      template: 'template_separation_x',
+      name: this.propertyQuoteService.client.name,
+      arg1: this.propertyQuoteService.property.code+' de '+this.propertyQuoteService.project.name,
+      arg2: 'https://checkout.wompi.co/l/' + wompiId,
+      wompiObject: this.propertyQuoteService.wompiResponse,
+      saleObject: jsonSale
+    };
+
+    this.whatsAppService.sendMessageSeparation(data).subscribe({
+      next: (response) => {
+        console.log('WhatsApp message sent successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error sending WhatsApp message:', error);
+      }
+    });
   }
 
 }
