@@ -92,13 +92,32 @@ export default class MenuItems {
         "is_action": false,
         "subitems":[
             {
-                "id": 'create_link',
+                "id": 'links',
                 "name": "Links de pago",
                 "icon": "fa-solid fa-clipboard-list",
                 "router": "-",
                 "title": "-",
                 "is_action": true,
-                "subitems":[]
+                "subitems":[
+                {
+                        "id": 'link_list',
+                        "name": "Listar",
+                        "icon": "fa-solid fa-clipboard-list",
+                        "router": "links/list",
+                        "title": "Links / Listar",
+                        "is_action": true,
+                        "subitems":[]
+                    },
+                    {
+                        "id": 'create_link',
+                        "name": "Crear",
+                        "icon": "fa-solid fa-plus",
+                        "router": "links/create",
+                        "title": "Links / Crear",
+                        "is_action": true,
+                        "subitems":[]
+                    }
+                ]
             },
             {
                 "id": 'vehicles_list',

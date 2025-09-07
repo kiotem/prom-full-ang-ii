@@ -309,6 +309,17 @@ export class PropertiesQuotePage implements OnInit
             
               console.log('ObjectId created:', object.objectId);
 
+              /*
+              //vencimiento en 24 horas
+              let expirationDate = new Date();
+              expirationDate.setHours(expirationDate.getHours() + 24);
+
+              console.log('Expiration Date:', expirationDate.toISOString());
+
+              let expires_at = expirationDate.toISOString();
+
+              */
+
               this.wompiService.createLink(
                 'Separación de propiedad',
                 'Lote ' + this.propertyQuoteService.property.code,
@@ -365,6 +376,12 @@ export class PropertiesQuotePage implements OnInit
       objectId: this.propertyQuoteService.saleId,
       amount: this.propertyQuoteService.separationQuotaValue,
       propertyId: this.propertyQuoteService.property.objectId,
+      clientName: this.propertyQuoteService.client.name+' '+this.propertyQuoteService.client.lastName1,
+      clientPmsId: this.propertyQuoteService.client.pmsId,
+      clientPhone: this.propertyQuoteService.client.phone,
+      clientEmail: this.propertyQuoteService.client.email,
+      propertyCode: this.propertyQuoteService.property.code,
+      projectName: this.propertyQuoteService.project.name
     };
 
     let data: WhatsApp = {

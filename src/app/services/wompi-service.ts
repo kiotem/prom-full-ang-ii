@@ -19,6 +19,11 @@ export class WompiService {
   createLink(name: String, description: String, amount: number, sku: String) {
     console.log('Create link method called');
 
+    let expirationDate = new Date();
+    expirationDate.setHours(expirationDate.getHours() + 48);
+
+    let expires_at = expirationDate.toISOString();
+
     this.linkData = 
     {
         "name": name, // Nombre del link de pago
@@ -30,6 +35,7 @@ export class WompiService {
             "full_name": "", // Nombre completo del cliente (opcional)
             "email": "" // Email del cliente (opcional)
         },
+        "expires_at": expires_at, // Fecha de expiración del link de pago en formato ISO 8601 (YYYY-MM-DDTHH:MM:SSZ)
         "currency": "COP",  //Únicamente está disponible pesos colombianos (COP) current el momento. En el futuro soportaremos mas monedas
         "amount_in_cents": (amount*100),
         "sku": sku // Si el pago current por un monto especifico, si no lo incluyes el pagador podrá elegir el valor a pagar,
