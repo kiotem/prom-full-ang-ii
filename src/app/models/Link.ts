@@ -11,4 +11,6 @@ export default interface Link {
     created_at: string; // Fecha de creación en formato ISO 8601
     updated_at: string; // Fecha de última actualización en formato ISO 8601
     payment_url: string; // URL para realizar el pago
+    status: 'PENDING' | 'APPROVED' | 'DECLINED' | 'EXPIRED' | 'CANCELLED' | 'ERROR'; // Estado del link de pago
+    
 }
