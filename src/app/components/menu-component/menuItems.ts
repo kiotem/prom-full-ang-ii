@@ -92,7 +92,7 @@ export default class MenuItems {
         "is_action": false,
         "subitems":[
             {
-                "id": 'links',
+                "id": 'paymentLinks',
                 "name": "Links de pago",
                 "icon": "fa-solid fa-clipboard-list",
                 "router": "-",
@@ -100,20 +100,20 @@ export default class MenuItems {
                 "is_action": true,
                 "subitems":[
                 {
-                        "id": 'link_list',
+                        "id": 'paymentLinksList',
                         "name": "Listar",
                         "icon": "fa-solid fa-clipboard-list",
-                        "router": "links/list",
-                        "title": "Links / Listar",
+                        "router": "paymentLinks/list",
+                        "title": "Links de pago / Listar",
                         "is_action": true,
                         "subitems":[]
                     },
                     {
-                        "id": 'create_link',
+                        "id": 'paymentLinksCreate',
                         "name": "Crear",
                         "icon": "fa-solid fa-plus",
-                        "router": "links/create",
-                        "title": "Links / Crear",
+                        "router": "paymentLinks/create",
+                        "title": "Links de pago / Crear",
                         "is_action": true,
                         "subitems":[]
                     }

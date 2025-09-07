@@ -7,7 +7,8 @@ import { ClientsListPage } from './pages/clients/clients-list-page/clients-list-
 import { PropertiesMapPage } from './pages/properties/properties-map-page/properties-map-page';
 import { ClientsCreatePage } from './pages/clients/clients-create-page/clients-create-page';
 import { PropertiesQuotePage } from './pages/properties/properties-quote-page/properties-quote-page';
-import { LinksListPage } from './pages/wallet/links/links-list-page/links-list-page';
+import { PaymentLinkListPage } from './pages/PaymentLinks/payment-link-list-page/payment-link-list-page';
+import { PaymentLinkCreatePage } from './pages/PaymentLinks/payment-link-create-page/payment-link-create-page';
 
 export const routes: Routes = [
     {
@@ -47,11 +48,11 @@ export const routes: Routes = [
         component: ClientsCreatePage
     },
     {
-        path: 'links/list',
-        component: LinksListPage
+        path: 'paymentLinks/list',
+        component: PaymentLinkListPage
     },
     {
-        path: 'links/create',
-        component: LinksListPage
+        path: 'paymentLinks/create',
+        component: PaymentLinkCreatePage
     }
 ];
