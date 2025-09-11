@@ -2,10 +2,11 @@ import { Component } from '@angular/core';
 import { MenuComponent } from '../../components/menu-component/menu-component';
 import { ProjectSelectorComponent } from "../../components/project-selector-component/project-selector-component";
 import { HighchartsChartComponent, ChartConstructorType } from 'highcharts-angular';
+import { CustomerSearchComponent } from '../../components/customer-search-component/customer-search-component';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [MenuComponent, ProjectSelectorComponent, HighchartsChartComponent],
+  imports: [MenuComponent, ProjectSelectorComponent, HighchartsChartComponent, CustomerSearchComponent],
   templateUrl: './dashboard-page.html',
   styleUrls: ['./dashboard-page.css', '../../../styles/reports.css']
 })

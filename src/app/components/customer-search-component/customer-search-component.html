@@ -1,0 +1,34 @@
+<div id="customer-search-component" style="visibility: visible;">
+    <div id="customer-search-box">
+        <div style="display: flex; flex-direction: row; align-items: center;">
+            <input type="text" id="i_search" name="i_search" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar cliente:" class="input-search" style=" width: 150px;">
+
+            <div style="display: flex; align-items: center; margin-left:-10px; width: 200px;" >
+                <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 130px;" (change)="onChangeStatus($event)">
+                    <option value="All">Por Cédula</option>
+                    <option value="Libre">Por Nombre</option>
+                    <option value="Separado">Por Apellido</option>
+                </select>
+                
+                <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
+                    <i class="fas fa-angle-down"></i>
+                </button>
+            </div>
+
+            <div class="button" style="margin-left: 20px;">
+                <a routerLink="/clients/create">Buscar</a>
+            </div>
+        </div>
+
+        <div style="border: 0.8px solid #f3f3f3; margin-top: 15px; min-height: 450px; max-height: 450px; overflow-y: auto; border-radius: 12px;">
+
+        </div>
+        <div>
+            <div class="button" style="margin-top: 20px;">
+                <a routerLink="/clients/create">Crear Nuevo Cliente</a>
+                &nbsp;
+                <a routerLink="/clients/create">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>
