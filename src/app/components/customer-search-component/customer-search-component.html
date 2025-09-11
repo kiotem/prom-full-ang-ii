@@ -1,13 +1,13 @@
 <div id="customer-search-component" style="visibility: visible;">
     <div id="customer-search-box">
         <div style="display: flex; flex-direction: row; align-items: center;">
-            <input type="text" id="i_search" name="i_search" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar cliente:" class="input-search" style=" width: 150px;">
+            <input type="text" id="i_search_client" name="i_search_client" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar cliente:" class="input-search" style=" width: 150px;">
 
             <div style="display: flex; align-items: center; margin-left:-10px; width: 200px;" >
-                <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 130px;" (change)="onChangeStatus($event)">
-                    <option value="All">Por Cédula</option>
-                    <option value="Libre">Por Nombre</option>
-                    <option value="Separado">Por Apellido</option>
+                <select type="text" id="s_status_field" name="s_status_field" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 130px;" (change)="onChangeStatus($event)">
+                    <option value="pmsId">Por Cédula</option>
+                    <option value="name">Por Nombre</option>
+                    <option value="lastName1">Por Apellido</option>
                 </select>
                 
                 <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">

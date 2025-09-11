@@ -38,6 +38,12 @@ export class ClientService implements OnInit {
     return this.http.post<any>(API_URL+'getClientByPms', json, httpOptions)
   }
 
+  getBy(json: any)
+  {
+    console.log('getClientBy method called with search:', json);
+    return this.http.post<any>(API_URL+'getClientBy', json, httpOptions)
+  }
+
   add(client: Client)
   {
     this.clients.push(client);
