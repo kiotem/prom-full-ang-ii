@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PaymentLinkCreatePage } from './payment-link-create-page';
+import { LinksListPage } from './links-list-page';
 
-describe('PaymentLinkCreatePage', () => {
-  let component: PaymentLinkCreatePage;
-  let fixture: ComponentFixture<PaymentLinkCreatePage>;
+describe('LinksListPage', () => {
+  let component: LinksListPage;
+  let fixture: ComponentFixture<LinksListPage>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [PaymentLinkCreatePage]
+      imports: [LinksListPage]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(PaymentLinkCreatePage);
+    fixture = TestBed.createComponent(LinksListPage);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

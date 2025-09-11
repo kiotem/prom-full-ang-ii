@@ -7,10 +7,10 @@ import { ClientsListPage } from './pages/clients/clients-list-page/clients-list-
 import { PropertiesMapPage } from './pages/properties/properties-map-page/properties-map-page';
 import { ClientsCreatePage } from './pages/clients/clients-create-page/clients-create-page';
 import { PropertiesQuotePage } from './pages/properties/properties-quote-page/properties-quote-page';
-import { PaymentLinkListPage } from './pages/PaymentLinks/payment-link-list-page/payment-link-list-page';
-import { PaymentLinkCreatePage } from './pages/PaymentLinks/payment-link-create-page/payment-link-create-page';
+import { LinksListPage } from './pages/links/links-list-page/links-list-page';
 
-export const routes: Routes = [
+export const routes: Routes = 
+[
     {
         path: '',
         component: DashboardPage
@@ -48,11 +48,11 @@ export const routes: Routes = [
         component: ClientsCreatePage
     },
     {
-        path: 'paymentLinks/list',
-        component: PaymentLinkListPage
+        path: 'links/list',
+        component: LinksListPage
     },
     {
-        path: 'paymentLinks/create',
-        component: PaymentLinkCreatePage
+        path: 'links/create',
+        component: LinksListPage
     }
 ];

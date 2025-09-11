@@ -19,6 +19,6 @@ export default interface Link {
     propertyCode?: string;
     projectName?: string;
     platform?: string; // Plataforma desde la cual se creó el link (ej. 'Stripe', 'PayPal', etc.)
-    paymentLinkID?: string; // ID del link de pago en la plataforma de pagos
+    linkID?: string; // ID del link de pago en la plataforma de pagos
 
 }

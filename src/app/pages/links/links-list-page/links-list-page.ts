@@ -4,12 +4,12 @@ import { ProjectSelectorComponent } from '../../../components/project-selector-c
 import { LoaderComponent } from '../../../components/loader-component/loader-component';
 
 @Component({
-  selector: 'app-payment-link-list-page',
+  selector: 'app-links-list-page',
   imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent],
-  templateUrl: './payment-link-list-page.html',
-  styleUrls: ['./payment-link-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css']
+  templateUrl: './links-list-page.html',
+  styleUrls: ['./links-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css']
 })
-export class PaymentLinkListPage {
+export class LinksListPage {
     onKeyUp(event: any) {
     console.log('Key up event:', event);
   }
