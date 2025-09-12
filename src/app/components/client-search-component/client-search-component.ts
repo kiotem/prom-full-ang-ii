@@ -40,6 +40,7 @@ export class ClientSearchComponent implements OnInit
 
   onChangeStatus(event: any) {
     console.log(event.target.value);
+    this.search();
   }
 
   search() {

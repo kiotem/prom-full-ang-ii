@@ -16,7 +16,7 @@
             </div>
 
             <div class="button" style="margin-left: 20px;">
-                <a routerLink="/clients/create">Buscar</a>
+                <a (click)="search()">Buscar</a>
             </div>
         </div>
 
@@ -26,22 +26,6 @@
             {
                 <app-client-card-component [client]="client"></app-client-card-component>
             }
-            
-
-            <!--
-            <app-card-customer-component></app-card-customer-component>
-            <app-card-customer-component></app-card-customer-component>
-            <app-card-customer-component></app-card-customer-component>
-            <app-card-customer-component></app-card-customer-component>
-            <app-card-customer-component></app-card-customer-component>
-            <app-card-customer-component></app-card-customer-component>
-            <app-card-customer-component></app-card-customer-component>
-            <app-card-customer-component></app-card-customer-component>
-            <app-card-customer-component></app-card-customer-component>
-            <app-card-customer-component></app-card-customer-component>
-            <app-card-customer-component></app-card-customer-component>
-            <app-card-customer-component></app-card-customer-component>
-            -->
         </div>
         <div>
             <div class="button" style="margin-top: 20px;">
