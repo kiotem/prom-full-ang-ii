@@ -1,5 +1,5 @@
-<div id="customer-search-component" style="visibility: visible;">
-    <div id="customer-search-box">
+<div id="client-search-component" style="visibility: visible;">
+    <div id="client-search-box">
         <div style="display: flex; flex-direction: row; align-items: center;">
             <input type="text" id="i_search_client" name="i_search_client" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar cliente:" class="input-search" style=" width: 150px;">
 
@@ -22,6 +22,26 @@
 
         <div style="border: 0.8px solid #f3f3f3; margin-top: 15px; min-height: 450px; max-height: 450px; overflow-y: auto; border-radius: 12px;">
 
+            @for (client of this.clientService.clients; track $index) 
+            {
+                <app-client-card-component [client]="client"></app-client-card-component>
+            }
+            
+
+            <!--
+            <app-card-customer-component></app-card-customer-component>
+            <app-card-customer-component></app-card-customer-component>
+            <app-card-customer-component></app-card-customer-component>
+            <app-card-customer-component></app-card-customer-component>
+            <app-card-customer-component></app-card-customer-component>
+            <app-card-customer-component></app-card-customer-component>
+            <app-card-customer-component></app-card-customer-component>
+            <app-card-customer-component></app-card-customer-component>
+            <app-card-customer-component></app-card-customer-component>
+            <app-card-customer-component></app-card-customer-component>
+            <app-card-customer-component></app-card-customer-component>
+            <app-card-customer-component></app-card-customer-component>
+            -->
         </div>
         <div>
             <div class="button" style="margin-top: 20px;">

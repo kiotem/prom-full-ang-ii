@@ -53,6 +53,7 @@ export class ClientService implements OnInit {
   {
     this.clients = clients;
     console.log('Clients filled:', this.clients);
+    this.clients
   }
 
   clear()

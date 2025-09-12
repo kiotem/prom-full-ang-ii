@@ -1,20 +1,21 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
-import { getTextFromField } from '../../commons/utils';
-import { LoaderComponent } from '../loader-component/loader-component';
+import { ChangeDetectorRef, Component, input, OnInit } from '@angular/core';
 import { LoaderService } from '../../services/loader-service';
 import { ClientService } from '../../services/client-service';
 import { PropertyQuoteService } from '../../services/property-quote-service';
+import { getTextFromField } from '../../commons/utils';
+import Client from '../../models/Client';
+import { ClientCardComponent } from "../client-card-component/client-card-component";
 
 @Component({
-  selector: 'app-customer-search-component',
-  imports: [LoaderComponent],
-  templateUrl: './customer-search-component.html',
-  styleUrl: './customer-search-component.css'
+  selector: 'app-client-search-component',
+  imports: [ClientCardComponent],
+  templateUrl: './client-search-component.html',
+  styleUrl: './client-search-component.css'
 })
-export class CustomerSearchComponent implements OnInit {
-
+export class ClientSearchComponent implements OnInit 
+{
   constructor(private loaderService: LoaderService,
-              private clientService: ClientService,
+              public clientService: ClientService,
               private propertyQuoteService: PropertyQuoteService,
               private cdr: ChangeDetectorRef) {
     console.log('CustomerSearchComponent initialized');
@@ -32,7 +33,7 @@ export class CustomerSearchComponent implements OnInit {
       if(searchValue.length > 2)
       {
         console.log('Enter key pressed with search value:', searchValue);
-        //this.getClientByPms({ search: searchValue });
+        this.search();
       }
     }
   }
@@ -40,7 +41,6 @@ export class CustomerSearchComponent implements OnInit {
   onChangeStatus(event: any) {
     console.log(event.target.value);
   }
-
 
   search() {
     let searchValue = getTextFromField('i_search_client');
@@ -54,26 +54,27 @@ export class CustomerSearchComponent implements OnInit {
     console.log('getClientBy called with Pre:', json);
         this.loaderService.show();
   
-        this.clientService.getBy(json).subscribe({
-        next: (data) => {
-          this.loaderService.hide();
-  
-          try
-          {
-            console.log('ClientsBy fetched successfully:', data);
-            //this.checkFilter();
-    
-          //this.cdr.detectChanges();
-          }catch(error) 
-          {
-            console.error('Error processing client data:', error);
-          }
-        },
-        error: (error) => 
+    this.clientService.getBy(json).subscribe({
+      next: (data) => {
+        this.loaderService.hide();
+
+        try
         {
-          this.loaderService.hide();
-          console.error('Error fetching clients:', error);
+          console.log('ClientsBy fetched successfully:', data);
+          //this.checkFilter();
+          this.clientService.fill(data.result);
+  
+          this.cdr.detectChanges();
+        }catch(error) 
+        {
+          console.error('Error processing client data:', error);
         }
-      }); 
-    } 
+      },
+      error: (error) => 
+      {
+        this.loaderService.hide();
+        console.error('Error fetching clients:', error);
+      }
+    }); 
+  } 
 }
