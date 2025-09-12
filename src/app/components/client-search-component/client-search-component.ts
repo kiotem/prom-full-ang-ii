@@ -3,8 +3,12 @@ import { LoaderService } from '../../services/loader-service';
 import { ClientService } from '../../services/client-service';
 import { PropertyQuoteService } from '../../services/property-quote-service';
 import { getTextFromField } from '../../commons/utils';
-import Client from '../../models/Client';
 import { ClientCardComponent } from "../client-card-component/client-card-component";
+import Client from '../../models/Client';
+
+export default interface ClientSearchComponentInterface {
+  selectClient(client: Client): void;
+}
 
 @Component({
   selector: 'app-client-search-component',

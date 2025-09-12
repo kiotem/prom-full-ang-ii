@@ -6,8 +6,9 @@ import { PropertiesCreatePage } from './pages/properties/properties-create-page/
 import { ClientsListPage } from './pages/clients/clients-list-page/clients-list-page';
 import { PropertiesMapPage } from './pages/properties/properties-map-page/properties-map-page';
 import { ClientsCreatePage } from './pages/clients/clients-create-page/clients-create-page';
-import { PropertiesQuotePage } from './pages/properties/properties-quote-page/properties-quote-page';
+import { PropertiesQuotePage } from './pages/properties/properties-quote-page_old/properties-quote-page';
 import { LinksListPage } from './pages/links/links-list-page/links-list-page';
+import { PropertiesQuotationPage } from './pages/properties/properties-quotation-page/properties-quotation-page';
 
 export const routes: Routes = 
 [
@@ -36,8 +37,8 @@ export const routes: Routes =
         component: PropertiesCreatePage
     },
     {
-        path: 'properties/quote',
-        component: PropertiesQuotePage
+        path: 'properties/quotation',
+        component: PropertiesQuotationPage
     },
     {
         path: 'clients/list',
