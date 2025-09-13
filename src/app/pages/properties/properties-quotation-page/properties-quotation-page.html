@@ -1,12 +1,12 @@
 <div class="main-container">
-        <div id="panel-client-name" style="position: absolute; top: 15px; left: 15px; z-index: 100; max-height: calc(100% - 200px); background-color: #fbfbfb; min-width: 280px; border-radius: 10px; padding: 20px;  color: #444444; display:block;" >
+        <div id="panel-client-name" style="position: absolute; top: 15px; left: 15px; z-index: 100; max-height: calc(100% - 200px); background-color: #fbfbfb; min-width: 280px; border: 0.5px solid #ccc; border-radius: 10px; padding: 15px;  color: #444444; display:block;" >
         <div align="left">
             <div style="display: flex; align-items: center;  padding-right: 20px; " class="project-card">
                 <img src="imgs/img_client_empty.jpeg" style="width: 50px; height: 50px; object-fit: cover; border-radius: 100px; margin-right: 10px;">
                 <div>
-                    <div id="project-title"  style="font-size: 14px;"><i class="fa fa-user" style="font-size: 12px;"></i>&nbsp;{{ this.propertiesQuotationService.client.name.toUpperCase() }}&nbsp;{{ this.propertiesQuotationService.client.lastName1.toUpperCase() }}</div>
-                    <div id="project-location" style="font-size: 14px; margin-top: 4px; color: var(--gray);"><i class="fa fa-envelope" style="font-size: 12px;"></i>&nbsp;{{ this.propertiesQuotationService.client.email }}</div>
-                    <div id="project-location" style="font-size: 14px; margin-top: 4px; color: var(--gray);"><i class="fa fa-phone" style="font-size: 12px;"></i>&nbsp;{{ this.propertiesQuotationService.client.phone }}</div>
+                    <div style="font-size: 14px;"><b>{{ this.propertiesQuotationService.client.name.toUpperCase() }}&nbsp;{{ this.propertiesQuotationService.client.lastName1.toUpperCase() }}</b></div>
+                    <div style="font-size: 14px; margin-top: 4px; color: var(--gray);">CC. {{ this.propertiesQuotationService.client.pmsId }}</div>
+                    <div style="font-size: 14px; margin-top: 4px; color: var(--gray);">{{ this.propertiesQuotationService.client.email }}</div>
                 </div>
             </div>
         </div>

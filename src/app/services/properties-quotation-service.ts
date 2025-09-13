@@ -29,9 +29,9 @@ export class PropertiesQuotationService {
       name: 'dfdf',
       lastName1: 'vsdfs',
       lastName2: 'adsad',
-      email: '',
+      email: 'micorreo@ejemplo.com',
       phone: '',
-      pmsId: '',
+      pmsId: '92123023',
       agent: ''
     };
 

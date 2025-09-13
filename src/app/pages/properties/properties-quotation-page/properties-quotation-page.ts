@@ -20,7 +20,8 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface
     console.log('Selected client received:', client);
   }
 
-  ngOnInit(): void {
+  ngOnInit(): void 
+  {
     console.log('PropertiesQuotationPage initialized');
   }
   
