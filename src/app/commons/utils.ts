@@ -33,9 +33,20 @@ export function getTextFromField(fieldName: string): any {
 
 export function displayHTML(elementId: string, display: string): boolean {
   const element = document.getElementById(elementId);
-  if(element) 
+  if(element)
   {
     element.style.display = display;
+    return true;
+  }
+
+  return false;
+}
+
+export function setValueToField(fieldName: string, value: any): boolean {
+  const field = document.getElementById(fieldName) as HTMLInputElement;
+  if(field) 
+  {
+    field.value = value;
     return true;
   }
 

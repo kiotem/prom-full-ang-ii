@@ -1,4 +1,4 @@
-<div id="client-search-component" style="visibility: visible;">
+<div id="client-search-component">
     <div id="client-search-box">
         <div style="display: flex; flex-direction: row; align-items: center;">
             <input type="text" id="i_search_client" name="i_search_client" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar cliente:" class="input-search" style=" width: 150px;">
@@ -24,14 +24,14 @@
 
             @for (client of this.clientService.clients; track $index) 
             {
-                <app-client-card-component [client]="client"></app-client-card-component>
+                <app-client-card-component [client]="client" (click)="triggerSelectAction(client)"></app-client-card-component>
             }
         </div>
         <div>
             <div class="button" style="margin-top: 20px;">
-                <a routerLink="/clients/create">Crear Nuevo Cliente</a>
+                <a (click)="doCreateNewClient()">Crear Nuevo Cliente</a>
                 &nbsp;
-                <a routerLink="/clients/create">Cancelar</a>
+                <a (click)="doCancel()">Cancelar</a>
             </div>
         </div>
     </div>

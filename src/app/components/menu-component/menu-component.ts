@@ -3,6 +3,7 @@ import MenuItems from './menuItems';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user-service';
 import { MenuService } from '../../services/menu-service';
+import { StorageService } from '../../services/storage-service';
 
 @Component({
   selector: 'app-menu-component',
@@ -13,12 +14,17 @@ import { MenuService } from '../../services/menu-service';
 export class MenuComponent {
   menuItems = MenuItems.items;
 
-  constructor(private router: Router, private userService: UserService, public menuService: MenuService) {
+  constructor(private router: Router, private userService: UserService, public menuService: MenuService, private storageService: StorageService) {
     console.log('Menu component initialized: '+this.menuItems.length + ' items loaded');
   
   }
   ngOnInit(): void {
-    
+    console.log('Menu componentrr OnInit');
+
+    let last_path_title = this.storageService.getItem('last_path_title');
+    //if(last_path_title)
+      //this.menuService.setPathPage(last_path_title);    
+
   }
 
   logout() {
@@ -30,10 +36,15 @@ export class MenuComponent {
   launchOption(item: any) {
     console.log('Launching option:', item.name);
 
-    if(item.id == 'logout') {
+    if(item.id == 'logout') 
+    {
+      this.storageService.removeItem('last_path');
+      this.storageService.removeItem('last_path_title');
       this.logout();
     }else if(item.is_action == true && item.router != '-') 
       {
+      this.storageService.setItem('last_path', item.router);
+      this.storageService.setItem('last_path_title', item.title);
       this.router.navigate([item.router]);
       this.menuService.setPathPage(item.title);
     }

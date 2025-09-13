@@ -17,6 +17,11 @@ export class App implements OnInit {
   constructor(public userService: UserService, private router: Router, private storageService: StorageService, private bnIdle: BnNgIdleService){
       if(this.userService.isLoggedIn())
       {
+        let last_path = this.storageService.getItem('last_path');
+        if(last_path)
+          //this.router.navigate([last_path]);
+        this.router.navigate(['dashboard']);
+        else
           this.router.navigate(['dashboard']);
       }else
       {

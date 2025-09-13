@@ -1,12 +1,12 @@
-import { ChangeDetectorRef, Component, input, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, input, OnInit, Output, output } from '@angular/core';
 import { LoaderService } from '../../services/loader-service';
 import { ClientService } from '../../services/client-service';
-import { PropertyQuoteService } from '../../services/property-quote-service';
-import { getTextFromField } from '../../commons/utils';
+import { displayHTML, getTextFromField } from '../../commons/utils';
 import { ClientCardComponent } from "../client-card-component/client-card-component";
 import Client from '../../models/Client';
+import { Router } from '@angular/router';
 
-export default interface ClientSearchComponentInterface {
+export default interface ClientSearchInterface {
   selectClient(client: Client): void;
 }
 
@@ -18,10 +18,9 @@ export default interface ClientSearchComponentInterface {
 })
 export class ClientSearchComponent implements OnInit 
 {
-  constructor(private loaderService: LoaderService,
-              public clientService: ClientService,
-              private propertyQuoteService: PropertyQuoteService,
-              private cdr: ChangeDetectorRef) {
+  @Output() selectAction = new EventEmitter<Client>();
+
+  constructor(private loaderService: LoaderService, public clientService: ClientService, private cdr: ChangeDetectorRef, private router: Router) {
     console.log('CustomerSearchComponent initialized');
   }
 
@@ -36,14 +35,12 @@ export class ClientSearchComponent implements OnInit
       const searchValue = (event.target as HTMLInputElement).value;
       if(searchValue.length > 2)
       {
-        console.log('Enter key pressed with search value:', searchValue);
         this.search();
       }
     }
   }
 
   onChangeStatus(event: any) {
-    console.log(event.target.value);
     this.search();
   }
 
@@ -82,4 +79,21 @@ export class ClientSearchComponent implements OnInit
       }
     }); 
   } 
+
+  triggerSelectAction(client: Client) {
+    console.log('Client selected:', client);
+    displayHTML('client-search-component','none');
+    this.selectAction.emit(client);
+  }
+
+  doCreateNewClient() {
+    console.log('Create new client action triggered');
+    // Implement the logic to create a new client
+  } 
+
+  doCancel() {
+    console.log('Cancel action triggered');
+    this.router.navigate(['/dashboard']);
+    //displayHTML('client-search-component','none');
+  }
 }

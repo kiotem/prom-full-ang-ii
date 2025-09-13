@@ -7,7 +7,7 @@ import { ClientSearchComponent } from '../../components/client-search-component/
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [MenuComponent, ProjectSelectorComponent, HighchartsChartComponent, ClientSearchComponent, LoaderComponent],
+  imports: [MenuComponent, ProjectSelectorComponent, HighchartsChartComponent, LoaderComponent],
   templateUrl: './dashboard-page.html',
   styleUrls: ['./dashboard-page.css', '../../../styles/reports.css']
 })

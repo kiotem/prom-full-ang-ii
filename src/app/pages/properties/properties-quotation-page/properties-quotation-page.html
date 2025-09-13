@@ -1,1 +1,21 @@
-<p>properties-quotation-page works!</p>
+<div class="main-container">
+        <div id="panel-client-name" style="position: absolute; top: 15px; left: 15px; z-index: 100; max-height: calc(100% - 200px); background-color: #fbfbfb; min-width: 280px; border-radius: 10px; padding: 20px;  color: #444444; display:block;" >
+        <div align="left">
+            <div style="display: flex; align-items: center;  padding-right: 20px; " class="project-card">
+                <img src="imgs/img_client_empty.jpeg" style="width: 50px; height: 50px; object-fit: cover; border-radius: 100px; margin-right: 10px;">
+                <div>
+                    <div id="project-title"  style="font-size: 14px;"><i class="fa fa-user" style="font-size: 12px;"></i>&nbsp;{{ this.propertiesQuotationService.client.name.toUpperCase() }}&nbsp;{{ this.propertiesQuotationService.client.lastName1.toUpperCase() }}</div>
+                    <div id="project-location" style="font-size: 14px; margin-top: 4px; color: var(--gray);"><i class="fa fa-envelope" style="font-size: 12px;"></i>&nbsp;{{ this.propertiesQuotationService.client.email }}</div>
+                    <div id="project-location" style="font-size: 14px; margin-top: 4px; color: var(--gray);"><i class="fa fa-phone" style="font-size: 12px;"></i>&nbsp;{{ this.propertiesQuotationService.client.phone }}</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+
+<app-menu-component></app-menu-component>
+<app-project-selector-component></app-project-selector-component>
+<app-loader-component></app-loader-component>
+<!--<app-client-search-component (selectAction)="selectClient($event)"></app-client-search-component>-->
