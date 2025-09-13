@@ -53,6 +53,10 @@ export class PropertiesQuotationService {
 
     this.quotas = [];
   }
+
+  setClient(client: Client): void {
+    this.client = client;
+  }
   
 
 }

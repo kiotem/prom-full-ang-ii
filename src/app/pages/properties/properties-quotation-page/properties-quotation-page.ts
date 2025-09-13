@@ -18,6 +18,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface
   constructor(public propertiesQuotationService: PropertiesQuotationService) {}
   selectClient(client: Client): void {
     console.log('Selected client received:', client);
+    this.propertiesQuotationService.setClient(client);
   }
 
   ngOnInit(): void 
