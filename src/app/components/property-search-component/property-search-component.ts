@@ -1,7 +1,6 @@
 import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import Property from '../../models/Property';
 import { LoaderService } from '../../services/loader-service';
-import { LoaderComponent } from '../loader-component/loader-component';
 import { displayHTML, getTextFromField } from '../../commons/utils';
 import { ProjectService } from '../../services/project-service';
 import { PropertyService } from '../../services/property-service';
@@ -14,7 +13,7 @@ export default interface PropertySearchInterface {
 
 @Component({
   selector: 'app-property-search-component',
-  imports: [LoaderComponent, PropertyCardComponent],
+  imports: [PropertyCardComponent],
   templateUrl: './property-search-component.html',
   styleUrl: './property-search-component.css'
 })
@@ -24,6 +23,7 @@ export class PropertySearchComponent {
 
   constructor(private loaderService: LoaderService, private cdr: ChangeDetectorRef, private projectService: ProjectService, public propertyService: PropertyService) {
     console.log('PropertySearchComponent initialized');
+    this.propertyService.properties = [];
   }
 
   onKeyup(event: any) {
@@ -58,7 +58,8 @@ export class PropertySearchComponent {
     let json = 
     {
       project: this.projectService.getSelected()?.objectId,
-      search: searchValue.toUpperCase()
+      search: searchValue.toUpperCase(),
+      status: 'Libre'
     };
 
     console.log('getProperty called with Pre:', json);
@@ -66,7 +67,8 @@ export class PropertySearchComponent {
     this.loaderService.show();
   
     this.propertyService.getProperties(json).subscribe({
-      next: (data) => {
+      next: (data) => 
+      {
         this.loaderService.hide();
         console.log('Properties fetched successfully:', data);
 
@@ -91,13 +93,15 @@ export class PropertySearchComponent {
     });
   } 
 
-  triggerSelectAction(property: Property) {
+  triggerSelectAction(property: Property) 
+  {
     console.log('Property selected:', property);
     displayHTML('property-search-component','none');
     this.selectAction.emit(property);
   }
 
-  triggerCancelAction() {
+  triggerCancelAction()
+  {
     console.log('Cancel action triggered');
     displayHTML('property-search-component','none');
     //this.cancelAction.emit();

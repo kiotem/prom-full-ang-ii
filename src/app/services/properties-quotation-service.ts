@@ -26,12 +26,48 @@ export class PropertiesQuotationService {
     this.client = 
     {
       objectId: '',
-      name: 'dfdf',
-      lastName1: 'vsdfs',
-      lastName2: 'adsad',
-      email: 'micorreo@ejemplo.com',
+      name: '',
+      lastName1: '',
+      lastName2: '',
+      email: '',
       phone: '',
-      pmsId: '92123023',
+      pmsId: '',
+      agent: ''
+    };
+
+    this.property = 
+    {
+      objectId: '',
+      address: '',
+      name: '',
+      code: '',
+      area: 0,
+      project: { objectId: '' },
+      propertiesNumber: 0,
+      amount: 0
+    };
+
+    this.agent = '';
+
+    this.project = this.projectService.getSelected() as Project;
+
+    this.quotas = [];
+  }
+
+  reset()
+  {
+    this.saleId = '';
+    this.wompiResponse = {}
+
+    this.client = 
+    {
+      objectId: '',
+      name: '',
+      lastName1: '',
+      lastName2: '',
+      email: '',
+      phone: '',
+      pmsId: '',
       agent: ''
     };
 

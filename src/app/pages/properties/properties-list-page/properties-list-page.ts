@@ -16,17 +16,21 @@ import { Router } from '@angular/router';
 
 export class PropertiesListPage implements OnInit
 {
-  constructor(public router: Router, public propertyService: PropertyService, private cdr: ChangeDetectorRef, public projectService: ProjectService, public loaderService: LoaderService) {
+  constructor(public router: Router, public propertyService: PropertyService, private cdr: ChangeDetectorRef, public projectService: ProjectService, public loaderService: LoaderService) 
+  {
 
   }
-  ngOnInit(): void {
-  let selectedProject = this.projectService.getSelected();
-  if(selectedProject?.objectId) {
-  let json = {project: selectedProject.objectId};
-      console.log('Search criteria:', json);
-    this.download(json);
+
+  ngOnInit(): void 
+  {
+    let selectedProject = this.projectService.getSelected();
+    if(selectedProject?.objectId)
+    {
+    let json = {project: selectedProject.objectId};
+        console.log('Search criteria:', json);
+      this.download(json);
+    }
   }
-}
 
   onKeyup(event: KeyboardEvent): void
   {
@@ -63,7 +67,7 @@ export class PropertiesListPage implements OnInit
       }
 
       let s_status = document.getElementById('s_status');
-      if (s_status) 
+      if(s_status)
       {
         let searchValue = (i_search as HTMLInputElement).value.toUpperCase();
         let statusValue = (s_status as HTMLSelectElement).value;

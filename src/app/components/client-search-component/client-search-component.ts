@@ -25,6 +25,7 @@ export class ClientSearchComponent implements OnInit
 
   constructor(private loaderService: LoaderService, public clientService: ClientService, private cdr: ChangeDetectorRef, private router: Router) {
     console.log('CustomerSearchComponent initialized');
+    this.clientService.clients = [];
   }
 
   ngOnInit(): void {

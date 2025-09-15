@@ -10,6 +10,7 @@ import { PropertyQuoteFormComponent } from '../../../components/property-quote-f
 import { DecimalPipe } from '@angular/common';
 import PropertySearchInterface, { PropertySearchComponent } from '../../../components/property-search-component/property-search-component';
 import Property from '../../../models/Property';
+import { displayHTML } from '../../../commons/utils';
 
 @Component({
   selector: 'app-properties-quotation-page',
@@ -19,10 +20,14 @@ import Property from '../../../models/Property';
 })
 export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, PropertySearchInterface
 {
-  constructor(public propertiesQuotationService: PropertiesQuotationService) {}
+  constructor(public propertiesQuotationService: PropertiesQuotationService) 
+  {
+    this.propertiesQuotationService.reset();
+  }
   selectProperty(property: Property): void {
     console.log('Selected property received:', property);
     //this.propertiesQuotationService.setProperty(property);
+
     this.propertiesQuotationService.property = property;
   }
   cancelSearchProperty(): void 
@@ -38,6 +43,9 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
   selectClient(client: Client): void {
     console.log('Selected client received:', client);
     this.propertiesQuotationService.setClient(client);
+
+    displayHTML('property-search-component', 'block');
+    displayHTML('client-search-component', 'none');
   }
 
   ngOnInit(): void 

@@ -1,4 +1,4 @@
-<div id="property-search-component">
+<div id="property-search-component" style="display: none;">
     <div id="property-search-box">
         <div style="display: flex; flex-direction: row; align-items: center;">
             <input type="text" id="i_search_property" name="i_search_property" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar propiedad:" class="input-search" style=" width: 200px; text-transform: uppercase;">
@@ -9,12 +9,10 @@
         </div>
 
         <div style="border: 0.8px solid #f3f3f3; margin-top: 15px; min-height: 450px; max-height: 450px; overflow-y: auto; border-radius: 12px;">
-
             @for (property of this.propertyService.properties; track $index) 
             {
                 <app-property-card-component [property]="property" (click)="triggerSelectAction(property)"></app-property-card-component>
             }
-            
         </div>
         <div>
             <div class="button" style="margin-top: 20px;">
