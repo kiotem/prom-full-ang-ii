@@ -6,10 +6,11 @@ import ClientSearchInterface, { ClientSearchComponent } from '../../../component
 import Client from '../../../models/Client';
 import { ClientCardComponent } from "../../../components/client-card-component/client-card-component";
 import { PropertiesQuotationService } from '../../../services/properties-quotation-service';
+import { PropertyQuoteFormComponent } from '../../../components/property-quote-form-component/property-quote-form-component';
 
 @Component({
   selector: 'app-properties-quotation-page',
-  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, ClientSearchComponent, ClientCardComponent, ClientCardComponent],
+  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, ClientSearchComponent, ClientCardComponent, ClientCardComponent, PropertyQuoteFormComponent],
   templateUrl: './properties-quotation-page.html',
   styleUrls: ['./properties-quotation-page.css' , '../../../../styles/reports.css', '../../../../styles/forms.css']
 })
