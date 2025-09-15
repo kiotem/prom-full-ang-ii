@@ -1,6 +1,5 @@
 .property-card
 {
-    height: 75px; 
     background-color: #f3f3f3; 
     border-radius: 10px; 
     padding: 10px; 
@@ -14,8 +13,8 @@
         font-size: 18px; 
         margin-bottom: 10px; 
         position: absolute; 
-        top: 10px; 
-        left: 10px; 
+        top: 15px; 
+        left: 60px; 
         font-weight: bold;
         color: var(--color-a);
     }

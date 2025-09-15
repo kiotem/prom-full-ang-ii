@@ -8,7 +8,9 @@ import { Router } from '@angular/router';
 
 export default interface ClientSearchInterface {
   selectClient(client: Client): void;
+  cancelSearchClient(): void;
 }
+
 
 @Component({
   selector: 'app-client-search-component',
@@ -19,6 +21,7 @@ export default interface ClientSearchInterface {
 export class ClientSearchComponent implements OnInit 
 {
   @Output() selectAction = new EventEmitter<Client>();
+  @Output() cancelAction = new EventEmitter<void>();
 
   constructor(private loaderService: LoaderService, public clientService: ClientService, private cdr: ChangeDetectorRef, private router: Router) {
     console.log('CustomerSearchComponent initialized');
@@ -84,6 +87,12 @@ export class ClientSearchComponent implements OnInit
     console.log('Client selected:', client);
     displayHTML('client-search-component','none');
     this.selectAction.emit(client);
+  }
+
+  triggerCancelAction() {
+    console.log('Cancel action triggered');
+    displayHTML('client-search-component','none');
+    //this.cancelAction.emit();
   }
 
   doCreateNewClient() {

@@ -1,16 +1,41 @@
 <div class="main-container">
-        <div id="panel-client-name" style="position: absolute; top: 15px; left: 15px; z-index: 100; max-height: calc(100% - 200px); background-color: #fbfbfb; min-width: 280px; box-shadow: 0 0 4px gainsboro; border-radius: 10px; padding: 15px;  color: #444444; display:block;" >
-        <div align="left">
-            <div style="display: flex; align-items: center;  padding-right: 20px; " class="project-card">
-                <img src="imgs/img_client_empty.jpeg" style="width: 50px; height: 50px; object-fit: cover; border-radius: 100px; margin-right: 10px;">
-                <div>
-                    <div style="font-size: 14px;"><b>{{ this.propertiesQuotationService.client.name.toUpperCase() }}&nbsp;{{ this.propertiesQuotationService.client.lastName1.toUpperCase() }}</b></div>
-                    <div style="font-size: 14px; margin-top: 4px; color: var(--gray);">CC. {{ this.propertiesQuotationService.client.pmsId }}</div>
-                    <div style="font-size: 14px; margin-top: 4px; color: var(--gray);">{{ this.propertiesQuotationService.client.email }}</div>
+
+    <div id="panel-side" style="max-width: 300px; padding: 20px;">
+        <div id="panel-client-name" style="background-color: #fbfbfb; min-width: 280px; box-shadow: 0 0 4px #bbbbbb; border-radius: 10px; padding: 15px;  color: #444444; display:block;" >
+            <div align="left">
+                <div style="display: flex; align-items: center;  padding-right: 20px; " class="project-card">
+                    <i class="fa-regular fa-user-viewfinder" style="font-size: 36px; margin-right: 15px; color: var(--color-b);"></i>
+                    <div>
+                        <div style="font-size: 14px;"><b>{{ this.propertiesQuotationService.client.name.toUpperCase() }}&nbsp;{{ this.propertiesQuotationService.client.lastName1.toUpperCase() }}</b></div>
+                        <div style="font-size: 14px; margin-top: 4px; color: var(--gray);">CC. {{ this.propertiesQuotationService.client.pmsId }}</div>
+                        <div style="font-size: 14px; margin-top: 4px; color: var(--gray);">{{ this.propertiesQuotationService.client.email }}</div>
+                    </div>
                 </div>
+            </div>
+
+            <div class="button-flat" style="margin-top: 10px; text-align: right;">
+                <a href="#">Cambiar</a>
+            </div>
+        </div>
+
+        <div id="panel-property-name" style="margin-top: 20px; background-color: #fbfbfb; min-width: 280px; box-shadow: 0 0 4px #bbbbbb; border-radius: 10px; padding: 15px;  color: #444444; display:block;" >
+            <div align="left">
+                <div style="display: flex; align-items: center;  padding-right: 20px; " class="project-card">
+                    <i class="fa-regular fa-house-blank" style="font-size: 36px; margin-right: 15px; color: var(--color-b);"></i>
+                    <div>
+                        <div style="font-size: 14px;"><b>{{ this.propertiesQuotationService.property.code?.toUpperCase() }}</b></div>
+                        <div style="font-size: 14px; margin-top: 4px; color: var(--gray);">Área: {{ this.propertiesQuotationService.property.area }} m2</div>
+                        <div style="font-size: 14px; margin-top: 4px; color: var(--gray);">Valor: ${{ this.propertiesQuotationService.property.amount | number: '1.0-0' }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="button-flat" style="margin-top: 10px; text-align: right;">
+                <a href="#">Cambiar</a>
             </div>
         </div>
     </div>
+
 
     <app-property-quote-form-component></app-property-quote-form-component>
 
@@ -21,3 +46,4 @@
 <app-project-selector-component></app-project-selector-component>
 <app-loader-component></app-loader-component>
 <app-client-search-component (selectAction)="selectClient($event)"></app-client-search-component>
+<app-property-search-component (selectAction)="selectProperty($event)" (cancelAction)="cancelSearchProperty()"></app-property-search-component>
