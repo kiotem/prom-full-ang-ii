@@ -14,6 +14,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./properties-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css']
 })
 
+
 export class PropertiesListPage implements OnInit
 {
   constructor(public router: Router, public propertyService: PropertyService, private cdr: ChangeDetectorRef, public projectService: ProjectService, public loaderService: LoaderService) 

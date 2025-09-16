@@ -1,0 +1,13 @@
+.col-title
+{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.col-value
+{
+    font-size: 15px;
+    color: gray;
+    padding-left: 15px;
+}

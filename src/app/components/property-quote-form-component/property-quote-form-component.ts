@@ -2,6 +2,7 @@ import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@ang
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PropertiesQuotationService } from '../../services/properties-quotation-service';
 import { getNumberFromField } from '../../commons/utils';
+import { AgentService } from '../../services/agent-service';
 
 @Component({
   selector: 'app-property-quote-form-component',
@@ -14,6 +15,8 @@ export class PropertyQuoteFormComponent implements OnInit {
 
   separationForm: FormGroup;
   separationQuota: FormControl;
+  discountPercent: FormControl;
+  discountValue: FormControl;
   initialPercent: FormControl;
   initialBalance: FormControl;
   initialNumberOfQuotas: FormControl;
@@ -28,8 +31,11 @@ export class PropertyQuoteFormComponent implements OnInit {
   quotas : FormControl;
 
 
-  constructor(public propertiesQuotationService: PropertiesQuotationService, private cdr: ChangeDetectorRef) {
+constructor(public propertiesQuotationService: PropertiesQuotationService, private cdr: ChangeDetectorRef, public agentService: AgentService) 
+{
     this.separationQuota = new FormControl('1000000');
+    this.discountPercent = new FormControl('0');
+    this.discountValue = new FormControl(0);
     this.initialBalance = new FormControl(0);
     this.initialPercent = new FormControl('30');
     this.initialNumberOfQuotas = new FormControl('6');
@@ -45,6 +51,8 @@ export class PropertyQuoteFormComponent implements OnInit {
 
     this.separationForm = new FormGroup({
       separationQuota: this.separationQuota,
+      discountPercent: this.discountPercent,
+      discountValue: this.discountValue,
       initialPercent: this.initialPercent,
       initialBalance: this.initialBalance,
       initialNumberOfQuotas: this.initialNumberOfQuotas,
@@ -57,16 +65,20 @@ export class PropertyQuoteFormComponent implements OnInit {
       propertyId: this.propertyId,
       propertyAmount: this.propertyAmount,
       quotas: this.quotas
-    });
+      });
+
+      this.getAgents({});
   }
   ngOnInit(): void {
-    //this.process();
+    
   }
+
 
   process(): boolean
   {
     
       this.propertiesQuotationService.separationQuotaValue = getNumberFromField('iSeparationQuota');
+      this.propertiesQuotationService.discountPercentValue = getNumberFromField('iDiscountPercent');
       this.propertiesQuotationService.initialPercentValue = getNumberFromField('iInitialPercent');
       this.propertiesQuotationService.initialNumberOfQuotasValue = getNumberFromField('iInitialNumberOfQuotas');
       this.propertiesQuotationService.finalNumberOfQuotasValue = getNumberFromField('iFinalNumberOfQuotas');
@@ -79,6 +91,7 @@ export class PropertyQuoteFormComponent implements OnInit {
 
       this.propertiesQuotationService.calculate();
 
+      this.discountValue.setValue(this.propertiesQuotationService.discountValue);
       this.initialBalance.setValue(this.propertiesQuotationService.initialBalanceValue);
       this.initialQuota.setValue(this.propertiesQuotationService.initialQuotaValue);
       this.finalBalance.setValue(this.propertiesQuotationService.finalBalanceValue);
@@ -86,8 +99,24 @@ export class PropertyQuoteFormComponent implements OnInit {
 
       this.cdr.detectChanges();
       
-
       return true;
+  }
+
+  getAgents(json: any) {
+    this.agentService.getAgents(json).subscribe({
+      next: (data) => {
+        console.log('Agents fetched successfully:', data);
+        this.agentService.fill(data.result);
+        this.cdr.detectChanges();
+      },
+      error: (error) => {
+        console.error('Error fetching agents:', error);
+      }
+    });
+  }
+
+  generateQuotas(): void {
+    this.generateQuotasAction.emit({});
   }
   
 }

@@ -1,107 +1,126 @@
 <div id="property-quote-form-box">
-    <form [formGroup]="separationForm" style="width: 90%; max-width: 300px;" autocomplete="off">
-                <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
-                    <div class="field-row">
-                        <label for="iSeparationQuota">Cuota de separación</label>
-                        <input style="margin-top: 3px; width: 150px;" type="number" id="iSeparationQuota" (keyup)="process()" name="iSeparationQuota" required formControlName="separationQuota" class="input-field">
-                    </div>
+    <form [formGroup]="separationForm" style="width: 90%; max-width: 300px; margin-top: 10px;" autocomplete="off">
+        <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
+            <div class="field-row">
+                <label for="iSeparationQuota">Cuota de separación</label>
+                <input style="margin-top: 3px; width: 150px;" type="number" id="iSeparationQuota" (keyup)="process()" name="iSeparationQuota" required formControlName="separationQuota" class="input-field">
+            </div>
+        </div>
+        
+        <br>
+        <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
+        <div class="flex-container-flat">
+            <div class="field-row">
+                <label for="iInitialNumberOfQuotas">% Descuento</label>
+                <input style="margin-top: 3px; width: 100px;"  type="number" (keyup)="process()" id="iDiscountPercent" name="iDiscountPercent" formControlName="discountPercent" required  class="input-field">
+            </div>
+            &nbsp;&nbsp;&nbsp;
+            <div class="field-row">
+                <label for="iInitialBalance">Valor descuento</label>
+                <input style="margin-top: 3px; width: 150px;" type="number" id="iDiscount" name="iDiscount" required readonly="true" formControlName="discountValue" class="input-field">
+            </div>
+        </div>
+        </div>
+
+        <br>
+        <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
+            
+            <div class="flex-container-flat">
+                <div class="field-row">
+                    <label for="iInitialNumberOfQuotas">% C. Inicial</label>
+                    <input style="margin-top: 3px; width: 100px;"  type="number" (keyup)="process()" id="iInitialPercent" name="iInitialPercent" formControlName="initialPercent" required  class="input-field">
                 </div>
-                
-                <br>
-                <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
-                    
-                    <div class="flex-container-flat">
-
-                        <div class="field-row">
-                            <label for="iInitialNumberOfQuotas">% C. Inicial</label>
-                            <input style="margin-top: 3px; width: 100px;"  type="number" (keyup)="process()" id="iInitialPercent" name="iInitialPercent" formControlName="initialPercent" required  class="input-field">
-                        </div>
-                        &nbsp;&nbsp;&nbsp;
-                        <div class="field-row">
-                            <label for="iInitialBalance">Saldo c. inicial</label>
-                            <input style="margin-top: 3px; width: 150px;" type="number" id="iInitialBalance" name="iInitialBalance" required readonly="true" formControlName="initialBalance" class="input-field">
-                        </div>
-                    </div>
-
-                    <div class="flex-container-flat">
-                        <div class="field-row">
-                            <label for="iInitialNumberOfQuotas"># de cuotas</label>
-                            <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iInitialNumberOfQuotas" name="iInitialNumberOfQuotas" required formControlName="initialNumberOfQuotas" class="input-field">
-                        </div>
-                        &nbsp;&nbsp;&nbsp;
-                        <div class="field-row">
-                            <label for="iInitialQuota">Valor cuota</label>
-                            <input style="margin-top: 3px; width: 150px;" type="number" id="iInitialQuota" readonly="true" name="iInitialQuota" required formControlName="initialQuota" class="input-field">
-                        </div>
-                    </div>
-
-                    <div class="flex-container-flat">
-                        <div class="field-row">
-                            <label for="iFinalBalance">Saldo final</label>
-                            <input style="margin-top: 3px; width: 150px;" type="number" id="iFinalBalance" readonly="true" name="iFinalBalance" required formControlName="finalBalance" class="input-field">
-                        </div>
-                    </div>
+                &nbsp;&nbsp;&nbsp;
+                <div class="field-row">
+                    <label for="iInitialBalance">Saldo c. inicial</label>
+                    <input style="margin-top: 3px; width: 150px;" type="number" id="iInitialBalance" name="iInitialBalance" required readonly="true" formControlName="initialBalance" class="input-field">
                 </div>
+            </div>
 
-                <br>
-                <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
-                    <label for="iFinalBalance"><b>Cuotas ordinarias</b></label>
-                    <br><br>
-                    <div class="flex-container-flat">
-                        <div class="field-row">
-                            <label for="iFinalNumberOfQuotas"># de cuotas</label>
-                            <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iFinalNumberOfQuotas" name="iFinalNumberOfQuotas" required formControlName="finalNumberOfQuotas" class="input-field">
-                        </div>
-                        &nbsp;&nbsp;&nbsp;
-                        <div class="field-row">
-                            <label for="iFinalQuota">Valor cuota</label>
-                            <input style="margin-top: 3px; width: 150px;" type="number" id="iFinalQuota" readonly="true" name="iFinalQuota" required formControlName="finalQuota" class="input-field">
-                        </div>
-                    </div>
+            <div class="flex-container-flat">
+                <div class="field-row">
+                    <label for="iInitialNumberOfQuotas"># de cuotas</label>
+                    <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iInitialNumberOfQuotas" name="iInitialNumberOfQuotas" required formControlName="initialNumberOfQuotas" class="input-field">
                 </div>
-
-                <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px; display: none;">
-                    <br>
-                    <label for="iFinalBalance"><b>Extras #1</b></label>
-                    <br><br>
-                    <div class="flex-container-flat">
-                        <div class="field-row">
-                            <label for="iFinalNumberOfQuotas"># de cuotas E1</label>
-                            <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iFinalNumberOfQuotasE1" name="iFinalNumberOfQuotasE1" class="input-field">
-                        </div>
-                        &nbsp;&nbsp;&nbsp;
-                        <div class="field-row">
-                            <label for="iFinalQuota">Valor cuota E1</label>
-                            <input style="margin-top: 3px; width: 150px;" type="number" id="iQuotaE1" name="iQuotaE1" required class="input-field">
-                        </div>
-                    </div>
-
-                    <div class="flex-container-flat">
-                        <div class="field-row">
-                            <label for="iFinalNumberOfQuotas">Subtotal Extras 1</label>
-                            <input style="margin-top: 3px; width: 150px;" type="number" (keyup)="process()" id="iSubtotalE1" name="iSubtotalE1" readonly="true" class="input-field">
-                        </div>
-                    </div>
+                &nbsp;&nbsp;&nbsp;
+                <div class="field-row">
+                    <label for="iInitialQuota">Valor cuota</label>
+                    <input style="margin-top: 3px; width: 150px;" type="number" id="iInitialQuota" readonly="true" name="iInitialQuota" required formControlName="initialQuota" class="input-field">
                 </div>
-                <br>
-                <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
-                    <div class="field-row">
-                        <label for="iAgent">Asesor comercial *</label>
-                        <div style="display: flex; align-items: center; margin-left:0px;" >
-                            <select type="text" id="s_agent" name="s_agent" class="form-control" required placeholder="Buscar:" class="select-search" style="margin-left: 0px; width: 300px; font-size: 14px;" formControlName="agentId">
-                                <option value="">Selecciona un asesor</option>
-                                <!--
-                                @for(agent of agentService.agents; track $index) {
-                                    <option value="{{agent.objectId}}">{{agent.name}} {{agent.lastName1}}</option>
-                                }
-                                -->
-                            </select>
+            </div>
 
-                            <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
-                                <i class="fas fa-angle-down"></i>
-                            </button>
-                        </div>
-                    </div>
+            <div class="flex-container-flat">
+                <div class="field-row">
+                    <label for="iFinalBalance">Saldo final</label>
+                    <input style="margin-top: 3px; width: 150px;" type="number" id="iFinalBalance" readonly="true" name="iFinalBalance" required formControlName="finalBalance" class="input-field">
                 </div>
-            </form>
+            </div>
+        </div>
+
+        <br>
+        <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
+            <label for="iFinalBalance"><b>Cuotas ordinarias</b></label>
+            <br><br>
+            <div class="flex-container-flat">
+                <div class="field-row">
+                    <label for="iFinalNumberOfQuotas"># de cuotas</label>
+                    <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iFinalNumberOfQuotas" name="iFinalNumberOfQuotas" required formControlName="finalNumberOfQuotas" class="input-field">
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <div class="field-row">
+                    <label for="iFinalQuota">Valor cuota</label>
+                    <input style="margin-top: 3px; width: 150px;" type="number" id="iFinalQuota" readonly="true" name="iFinalQuota" required formControlName="finalQuota" class="input-field">
+                </div>
+            </div>
+        </div>
+
+        <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px; display: none;">
+            <br>
+            <label for="iFinalBalance"><b>Extras #1</b></label>
+            <br><br>
+            <div class="flex-container-flat">
+                <div class="field-row">
+                    <label for="iFinalNumberOfQuotas"># de cuotas E1</label>
+                    <input style="margin-top: 3px; width: 100px;" type="number" (keyup)="process()" id="iFinalNumberOfQuotasE1" name="iFinalNumberOfQuotasE1" class="input-field">
+                </div>
+                &nbsp;&nbsp;&nbsp;
+                <div class="field-row">
+                    <label for="iFinalQuota">Valor cuota E1</label>
+                    <input style="margin-top: 3px; width: 150px;" type="number" id="iQuotaE1" name="iQuotaE1" required class="input-field">
+                </div>
+            </div>
+
+            <div class="flex-container-flat">
+                <div class="field-row">
+                    <label for="iFinalNumberOfQuotas">Subtotal Extras 1</label>
+                    <input style="margin-top: 3px; width: 150px;" type="number" (keyup)="process()" id="iSubtotalE1" name="iSubtotalE1" readonly="true" class="input-field">
+                </div>
+            </div>
+        </div>
+        <br>
+        <div style="border-bottom: 1px solid #d8dcdd; color: #444444; padding-left: 10px; padding-right: 10px;">
+            <div class="field-row">
+                <label for="iAgent">Asesor comercial *</label>
+                <div style="display: flex; align-items: center; margin-top:5px;" >
+                    <select type="text" id="s_agent" name="s_agent" class="form-control" required placeholder="Buscar:" class="select-search" style="margin-left: 0px; width: 300px; font-size: 14px;" formControlName="agentId">
+                        <option value="">Selecciona un asesor</option>
+                        
+                        @for(agent of agentService.agents; track $index) {
+                            <option value="{{agent.objectId}}">{{agent.name}} {{agent.lastName1}}</option>
+                        }
+                        
+                    </select>
+
+                    <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
+                        <i class="fas fa-angle-down"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <div class="button" id='bt_quote' style="display: block; margin-top: 40px; margin-bottom: 30px;" align="center">
+        <a (click)="generateQuotas()">Generar Cuotas&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-arrow-right"></i></a>
+    </div>  
+
 </div>

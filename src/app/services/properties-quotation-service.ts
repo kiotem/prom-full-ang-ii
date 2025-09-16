@@ -5,6 +5,7 @@ import Property from '../models/Property';
 import Agent from '../models/Agent';
 import Quota from '../models/Quota';
 import { ProjectService } from './project-service';
+import { formatDate } from '@angular/common';
 
 @Injectable({
   providedIn: 'root'
@@ -26,6 +27,8 @@ export class PropertiesQuotationService {
   finalBalanceValue: number = 0;
   finalNumberOfQuotasValue: number = 36;
   finalQuotaValue: number = 0;
+  discountValue: number = 0;
+  discountPercentValue: number = 0;
 
   constructor(private projectService: ProjectService) 
   {
@@ -103,18 +106,90 @@ export class PropertiesQuotationService {
     this.client = client;
   }
 
-  
   calculate(): void
   {
     // Implement your calculation logic here
-    this.initialBalanceValue = (this.property.amount * (this.initialPercentValue / 100)) - this.separationQuotaValue;
+    let amount = this.property.amount;
 
-    this.finalBalanceValue = this.property.amount -  this.initialBalanceValue - this.separationQuotaValue;
+    this.discountValue = Math.floor(amount * (this.discountPercentValue / 100));
+
+    amount = amount - this.discountValue;
+
+    this.initialBalanceValue = (amount * (this.initialPercentValue / 100)) - this.separationQuotaValue;
+
+    this.finalBalanceValue = amount -  this.initialBalanceValue - this.separationQuotaValue;
 
     this.initialQuotaValue = Math.floor(this.initialBalanceValue / this.initialNumberOfQuotasValue);
 
     this.finalQuotaValue = Math.floor(this.finalBalanceValue / this.finalNumberOfQuotasValue);
+
+    this.calculateQuotas();
   }
   
+  calculateQuotas(): void
+  {
+    this.quotas = [];
+    let dueDate = new Date();
+    dueDate.setDate(dueDate.getDate()); // First quota due in 30 days
+
+    let count = 1;
+
+    // Separation quota
+    this.quotas.push({
+      id: '',
+      number: count,
+      type: 'Separación',
+      amount: this.separationQuotaValue,
+      amountPaid: 0,
+      amountLate: 0,
+      balance: 0,
+      dueDate: new Date(dueDate),
+      dueDateString: formatDate(new Date(dueDate), 'dd/MM/yyyy', 'en-US'),
+      paid: false
+    });
+
+    dueDate.setMonth(dueDate.getMonth() + 1);
+
+    count++;
+
+    // Initial quotas
+    for (let i = 0; i < this.initialNumberOfQuotasValue; i++) 
+    {
+      this.quotas.push({
+        id: `initial-${i + 1}`,
+        number: count,
+        type: 'Inicial '+(i + 1),
+        amount: this.initialQuotaValue,
+        amountPaid: 0,
+        amountLate: 0,
+        balance: this.initialQuotaValue,
+        dueDate: new Date(dueDate),
+        dueDateString: formatDate(new Date(dueDate), 'dd/MM/yyyy', 'en-US'),
+        paid: false
+      });
+      dueDate.setMonth(dueDate.getMonth() + 1);
+
+      count++;
+    }
+
+    for (let i = 0; i < this.finalNumberOfQuotasValue; i++) 
+    {
+      this.quotas.push({
+        id: `ordinaria-${i + 1}`,
+        number: count,
+        type: 'Ordinaria '+(i + 1),
+        amount: this.finalQuotaValue,
+        amountPaid: 0,
+        amountLate: 0,
+        balance: this.finalQuotaValue,
+        dueDate: new Date(dueDate),
+        dueDateString: formatDate(new Date(dueDate), 'dd/MM/yyyy', 'en-US'),
+        paid: false
+      });
+      dueDate.setMonth(dueDate.getMonth() + 1);
+
+      count++;
+    }
+  }
 
 }

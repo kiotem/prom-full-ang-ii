@@ -1,0 +1,52 @@
+<div class="table-content-detail">
+    <div class="row-detail">
+        <div class="col" style="width:100%;">
+            <div class="col-title">Valor inmueble</div>
+            <div class="col-value">$ {{this.propertiesQuotationService.property.amount | number: '1.0-0'}}</div>
+        </div>
+    </div>
+
+    <div class="row-detail">
+        <div class="col" style="width:100%;">
+            <div class="col-title">Cuota de separación</div>
+            <div class="col-value">${{this.propertiesQuotationService.separationQuotaValue | number: '1.0-0'}}</div>
+        </div>
+    </div>
+    
+    <div class="row-detail">
+        <div class="col" style="width:100%;">
+            <div class="col-title">Descuento</div>
+            <div class="col-value">{{this.propertiesQuotationService.discountPercentValue| number: '1.1-1'}}%  |  ${{this.propertiesQuotationService.discountValue| number: '1.0-0'}}</div>
+        </div>
+    </div>
+
+    <div class="row-detail">
+        <div class="col" style="width:100%;">
+            <div class="col-title">Cuota inicial</div>
+            <div class="col-value">{{this.propertiesQuotationService.initialPercentValue| number: '1.1-1'}}%  |  ${{this.propertiesQuotationService.initialBalanceValue| number: '1.0-0'}}</div>
+        </div>
+    </div>
+
+    <div class="row-detail">
+        <div class="col" style="width:100%;">
+            <div class="col-title"># de cuotas inicial</div>
+            <div class="col-value">{{this.propertiesQuotationService.initialNumberOfQuotasValue | number: '1.0-0'}}  x  ${{this.propertiesQuotationService.initialQuotaValue | number: '1.0-0'}}</div>
+        </div>
+    </div>
+
+    <div class="row-detail">
+        <div class="col" style="width:100%;">
+            <div class="col-title">Saldo final</div>
+            <div class="col-value">${{this.propertiesQuotationService.finalBalanceValue| number: '1.0-0'}}</div>
+        </div>
+    </div>
+
+    <div class="row-detail">
+        <div class="col" style="width:100%;">
+            <div class="col-title"># de cuotas saldo</div>
+            <div class="col-value">{{this.propertiesQuotationService.finalNumberOfQuotasValue | number: '1.0-0'}}  x  ${{this.propertiesQuotationService.finalQuotaValue | number: '1.0-0'}}</div>
+        </div>
+    </div>
+
+</div>
+        

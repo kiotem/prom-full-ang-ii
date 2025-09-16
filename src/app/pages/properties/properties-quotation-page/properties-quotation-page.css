@@ -1,0 +1,13 @@
+#property-quotas-box
+{
+    position: absolute;
+    top: 15px;
+    left: 830px;
+    width: 370px;
+    height: 550px;
+    background-color: #fbfbfb;
+    border-radius: 12px;
+    box-shadow: 0 0 4px gainsboro;
+    padding: 0px;
+    overflow-y: auto;
+}

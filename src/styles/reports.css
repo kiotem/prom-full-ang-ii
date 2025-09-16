@@ -103,3 +103,48 @@
     background-color: white; 
     z-index: 50;
 }
+
+.table-content-detail
+{
+    overflow-y: auto; 
+    width: calc(100% - 0px); 
+    color:black;
+    max-height: 300px;
+}
+
+.row-detail
+{
+    padding-top: 4px;
+    padding-bottom: 4px;
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    font-size: 14px;
+
+    .col
+    {
+        color: #444444;
+        flex: 1;
+        padding: 5px;    
+        padding-left: 10px;    
+    }
+}
+
+.row-detail:nth-child(odd) {
+  background-color: #ffffff; /* Un color claro para las filas impares */
+}
+
+/* Tabla: fila pares */
+.row-detail:nth-child(even) {
+  background-color: #f7f9fa; /* Un color diferente para las filas pares */
+}
+
+.row-detail:hover
+{
+    cursor: pointer;
+
+    .col
+    {
+        color: var(--color-b);
+    }
+}
