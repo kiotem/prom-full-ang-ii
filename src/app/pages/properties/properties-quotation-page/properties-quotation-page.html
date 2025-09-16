@@ -14,7 +14,7 @@
             </div>
 
             <div class="button-flat" style="margin-top: 10px; text-align: right;">
-                <a href="#">Cambiar</a>
+                <a (click)="showClientSearch()">Cambiar</a>
             </div>
         </div>
 
@@ -31,7 +31,7 @@
             </div>
 
             <div class="button-flat" style="margin-top: 10px; text-align: right;">
-                <a href="#">Cambiar</a>
+                <a (click)="showPropertySearch()">Cambiar</a>
             </div>
         </div>
 
@@ -60,9 +60,16 @@
             </div>
         }
 
-        <div class="button" id='bt_submit' style="display: block;  margin-top: 40px; margin-bottom: 40px;" align="center">
-            <a (click)="submit()" >Registrar Cotización&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-check"></i></a>
-        </div> 
+        @if(this.propertiesQuotationService.quotas.length == 0) {
+            <div style="padding: 20px; font-size: 14px; color: var(--gray);" align="center">
+                Aún no hay cuotas generadas.
+            </div>
+        }@else{
+            <div class="button" id='bt_submit' style="display: block;  margin-top: 40px; margin-bottom: 40px;" align="center">
+                <a (click)="submit()" >Registrar Cotización&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-check"></i></a>
+            </div> 
+        }
+
     </div>
 </div>
 

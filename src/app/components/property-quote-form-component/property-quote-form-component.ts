@@ -33,15 +33,15 @@ export class PropertyQuoteFormComponent implements OnInit {
 
 constructor(public propertiesQuotationService: PropertiesQuotationService, private cdr: ChangeDetectorRef, public agentService: AgentService) 
 {
-    this.separationQuota = new FormControl('1000000');
-    this.discountPercent = new FormControl('0');
+    this.separationQuota = new FormControl(1000000);
+    this.discountPercent = new FormControl(0);
     this.discountValue = new FormControl(0);
     this.initialBalance = new FormControl(0);
-    this.initialPercent = new FormControl('30');
-    this.initialNumberOfQuotas = new FormControl('6');
+    this.initialPercent = new FormControl(30);
+    this.initialNumberOfQuotas = new FormControl(6);
     this.initialQuota = new FormControl(0);
     this.finalBalance = new FormControl(0);
-    this.finalNumberOfQuotas = new FormControl('36');
+    this.finalNumberOfQuotas = new FormControl(36);
     this.finalQuota = new FormControl(0);
     this.agentId = new FormControl('');
     this.clientId = new FormControl('');
@@ -76,30 +76,37 @@ constructor(public propertiesQuotationService: PropertiesQuotationService, priva
 
   process(): boolean
   {
+    this.clientId.setValue(this.propertiesQuotationService.client.objectId);
+    this.propertyId.setValue(this.propertiesQuotationService.property.objectId);
+    this.propertyAmount.setValue(this.propertiesQuotationService.property.amount);
+    this.agentId.setValue(this.propertiesQuotationService.agent);
+
+    this.quotas.setValue(this.propertiesQuotationService.quotas);
+    this.propertiesQuotationService.separationQuotaValue = getNumberFromField('iSeparationQuota');
+    this.propertiesQuotationService.discountPercentValue = getNumberFromField('iDiscountPercent');
+    this.propertiesQuotationService.initialPercentValue = getNumberFromField('iInitialPercent');
+    this.propertiesQuotationService.initialNumberOfQuotasValue = getNumberFromField('iInitialNumberOfQuotas');
+    this.propertiesQuotationService.finalNumberOfQuotasValue = getNumberFromField('iFinalNumberOfQuotas');
+
+    if(this.propertiesQuotationService.initialPercentValue < 0 || this.propertiesQuotationService.initialPercentValue > 100)
+    {
+      alert('El porcentaje de cuota inicial debe estar entre 0 y 100');
+      return false;
+    }
+
+    this.propertiesQuotationService.calculate();
+
+    this.discountValue.setValue(this.propertiesQuotationService.discountValue);
+    this.initialBalance.setValue(this.propertiesQuotationService.initialBalanceValue);
+    this.initialQuota.setValue(this.propertiesQuotationService.initialQuotaValue);
+    this.finalBalance.setValue(this.propertiesQuotationService.finalBalanceValue);
+    this.finalQuota.setValue(this.propertiesQuotationService.finalQuotaValue);
+
+    this.propertiesQuotationService.separationForm = this.separationForm;
+
+    this.cdr.detectChanges();
     
-      this.propertiesQuotationService.separationQuotaValue = getNumberFromField('iSeparationQuota');
-      this.propertiesQuotationService.discountPercentValue = getNumberFromField('iDiscountPercent');
-      this.propertiesQuotationService.initialPercentValue = getNumberFromField('iInitialPercent');
-      this.propertiesQuotationService.initialNumberOfQuotasValue = getNumberFromField('iInitialNumberOfQuotas');
-      this.propertiesQuotationService.finalNumberOfQuotasValue = getNumberFromField('iFinalNumberOfQuotas');
-
-      if(this.propertiesQuotationService.initialPercentValue < 0 || this.propertiesQuotationService.initialPercentValue > 100)
-      {
-        alert('El porcentaje de cuota inicial debe estar entre 0 y 100');
-        return false;
-      }
-
-      this.propertiesQuotationService.calculate();
-
-      this.discountValue.setValue(this.propertiesQuotationService.discountValue);
-      this.initialBalance.setValue(this.propertiesQuotationService.initialBalanceValue);
-      this.initialQuota.setValue(this.propertiesQuotationService.initialQuotaValue);
-      this.finalBalance.setValue(this.propertiesQuotationService.finalBalanceValue);
-      this.finalQuota.setValue(this.propertiesQuotationService.finalQuotaValue);
-
-      this.cdr.detectChanges();
-      
-      return true;
+    return true;
   }
 
   getAgents(json: any) {

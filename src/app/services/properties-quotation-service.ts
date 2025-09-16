@@ -19,6 +19,8 @@ export class PropertiesQuotationService {
   saleId: string;
   wompiResponse: any;
 
+  separationForm: any;
+
   separationQuotaValue: number = 1000000;
   initialPercentValue: number = 30;
   initialBalanceValue: number = 0;
