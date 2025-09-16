@@ -19,6 +19,7 @@ import { WhatsAppService } from '../../../services/whatsapp-service';
 import { SaleService } from '../../../services/sale-service';
 import { WompiService } from '../../../services/wompi-service';
 
+
 @Component({
   selector: 'app-properties-quote-page',
   imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, PropertyCardComponent, DecimalPipe, DatePipe, ReactiveFormsModule],

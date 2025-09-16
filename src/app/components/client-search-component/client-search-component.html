@@ -1,7 +1,7 @@
-<div id="client-search-component">
+<div id="client-search-component" style="display: none;">
     <div id="client-search-box">
         <div style="display: flex; flex-direction: row; align-items: center;">
-            <input type="text" id="i_search_client" name="i_search_client" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar cliente:" class="input-search" style=" width: 150px;">
+            <input type="text" id="i_search_client" name="i_search_client" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar cliente:" class="input-search" style=" width: 150px;" autocomplete="off">
 
             <div style="display: flex; align-items: center; margin-left:-10px; width: 200px;" >
                 <select type="text" id="s_status_field" name="s_status_field" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 130px;" (change)="onChangeStatus($event)">

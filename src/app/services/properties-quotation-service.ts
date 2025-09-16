@@ -18,6 +18,15 @@ export class PropertiesQuotationService {
   saleId: string;
   wompiResponse: any;
 
+  separationQuotaValue: number = 1000000;
+  initialPercentValue: number = 30;
+  initialBalanceValue: number = 0;
+  initialNumberOfQuotasValue: number = 6;
+  initialQuotaValue: number = 0;
+  finalBalanceValue: number = 0;
+  finalNumberOfQuotasValue: number = 36;
+  finalQuotaValue: number = 0;
+
   constructor(private projectService: ProjectService) 
   {
     this.saleId = '';
@@ -92,6 +101,19 @@ export class PropertiesQuotationService {
 
   setClient(client: Client): void {
     this.client = client;
+  }
+
+  
+  calculate(): void
+  {
+    // Implement your calculation logic here
+    this.initialBalanceValue = (this.property.amount * (this.initialPercentValue / 100)) - this.separationQuotaValue;
+
+    this.finalBalanceValue = this.property.amount -  this.initialBalanceValue - this.separationQuotaValue;
+
+    this.initialQuotaValue = Math.floor(this.initialBalanceValue / this.initialNumberOfQuotasValue);
+
+    this.finalQuotaValue = Math.floor(this.finalBalanceValue / this.finalNumberOfQuotasValue);
   }
   
 

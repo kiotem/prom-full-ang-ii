@@ -34,10 +34,22 @@
                 <a href="#">Cambiar</a>
             </div>
         </div>
+
+        <div id="panel-separation-name" style="margin-top: 20px; background-color: #fbfbfb; min-width: 280px; min-height: 60%; max-height: 60%; box-shadow: 0 0 4px #bbbbbb; border-radius: 10px; padding: 15px;  color: #444444; display:block;" >
+            <div align="left">
+                <div style="display: flex; align-items: center;  padding-right: 20px; " class="project-card">
+
+                </div>
+            </div>
+
+            <div class="button-flat" style="margin-top: 10px; text-align: right;">
+                <a href="#">Cambiar</a>
+            </div>
+        </div>
     </div>
 
 
-    <app-property-quote-form-component></app-property-quote-form-component>
+    <app-property-quote-form-component (generateQuotasAction)="generateQuotas($event)"></app-property-quote-form-component>
 
 </div>
 

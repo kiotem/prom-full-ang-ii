@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { MenuComponent } from '../../../components/menu-component/menu-component';
 import { ProjectSelectorComponent } from '../../../components/project-selector-component/project-selector-component';
 import { LoaderComponent } from '../../../components/loader-component/loader-component';
@@ -20,15 +20,20 @@ import { displayHTML } from '../../../commons/utils';
 })
 export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, PropertySearchInterface
 {
+  @ViewChild(PropertyQuoteFormComponent, { static: false }) propertyQuoteFormComponent!: PropertyQuoteFormComponent;
+  
   constructor(public propertiesQuotationService: PropertiesQuotationService) 
   {
     this.propertiesQuotationService.reset();
   }
   selectProperty(property: Property): void {
     console.log('Selected property received:', property);
-    //this.propertiesQuotationService.setProperty(property);
-
     this.propertiesQuotationService.property = property;
+
+    if(this.propertyQuoteFormComponent) {
+      this.propertyQuoteFormComponent.process();
+    }
+    
   }
   cancelSearchProperty(): void 
   {
@@ -38,14 +43,19 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
   cancelSearchClient(): void 
   {
     console.log('Cancel search client action triggered');
-    // Implement the logic to cancel the client search
   }
+
   selectClient(client: Client): void {
     console.log('Selected client received:', client);
     this.propertiesQuotationService.setClient(client);
 
     displayHTML('property-search-component', 'block');
     displayHTML('client-search-component', 'none');
+  }
+
+  generateQuotas(event: any): void  
+  {
+    //this.propertiesQuotationService.generateQuotas(event);
   }
 
   ngOnInit(): void 

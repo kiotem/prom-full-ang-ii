@@ -1,4 +1,4 @@
-import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, OnInit, Output } from '@angular/core';
 import Property from '../../models/Property';
 import { LoaderService } from '../../services/loader-service';
 import { displayHTML, getTextFromField } from '../../commons/utils';
@@ -17,13 +17,16 @@ export default interface PropertySearchInterface {
   templateUrl: './property-search-component.html',
   styleUrl: './property-search-component.css'
 })
-export class PropertySearchComponent {
+export class PropertySearchComponent implements OnInit {
   @Output() selectAction = new EventEmitter<Property>();
   @Output() cancelAction = new EventEmitter<void>();
 
   constructor(private loaderService: LoaderService, private cdr: ChangeDetectorRef, private projectService: ProjectService, public propertyService: PropertyService) {
     console.log('PropertySearchComponent initialized');
     this.propertyService.properties = [];
+  }
+  ngOnInit(): void {
+   
   }
 
   onKeyup(event: any) {
