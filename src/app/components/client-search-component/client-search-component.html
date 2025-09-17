@@ -1,4 +1,4 @@
-<div id="client-search-component" style="display: none;">
+<div id="client-search-component" style="display: block;">
     <div id="client-search-box">
         <div style="display: flex; flex-direction: row; align-items: center;">
             <input type="text" id="i_search_client" name="i_search_client" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar cliente:" class="input-search" style=" width: 150px;" autocomplete="off">
@@ -31,7 +31,7 @@
             <div class="button" style="margin-top: 20px;">
                 <a (click)="doCreateNewClient()">Crear Nuevo Cliente</a>
                 &nbsp;
-                <a (click)="doCancel()">Cancelar</a>
+                <a (click)="triggerCancelAction()">Cancelar</a>
             </div>
         </div>
     </div>

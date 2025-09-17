@@ -194,4 +194,19 @@ export class PropertiesQuotationService {
     }
   }
 
+  getJsonWhatsApp(): {}
+  {
+    return {
+      objectId: this.saleId,
+      amount: this.separationQuotaValue,
+      propertyId: this.property.objectId,
+      clientName: this.client.name+' '+this.client.lastName1,
+      clientPmsId: this.client.pmsId,
+      clientPhone: this.client.phone,
+      clientEmail: this.client.email,
+      propertyCode: this.property.code,
+      projectName: this.project.name
+    }
+  }
+
 }

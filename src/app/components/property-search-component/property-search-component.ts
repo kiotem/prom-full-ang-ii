@@ -52,7 +52,9 @@ export class PropertySearchComponent implements OnInit {
   }
 
   doCancel()
-  {}
+  {
+
+  }
 
   search() 
   {
@@ -106,7 +108,7 @@ export class PropertySearchComponent implements OnInit {
   triggerCancelAction()
   {
     console.log('Cancel action triggered');
-    displayHTML('property-search-component','none');
-    //this.cancelAction.emit();
+    //displayHTML('property-search-component','none');
+    this.cancelAction.emit();
   }
 }

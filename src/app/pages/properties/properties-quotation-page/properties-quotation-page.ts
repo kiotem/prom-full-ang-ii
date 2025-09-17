@@ -43,14 +43,17 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
       this.propertyQuoteFormComponent.process();
     }
   }
+
   cancelSearchProperty(): void 
   {
     console.log('Cancel search property action triggered');
+    displayHTML('property-search-component', 'none');
   }
 
   cancelSearchClient(): void 
   {
     console.log('Cancel search client action triggered');
+    displayHTML('client-search-component', 'none');
   }
 
   selectClient(client: Client): void 
@@ -58,14 +61,19 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
     console.log('Selected client received:', client);
     this.propertiesQuotationService.setClient(client);
 
-    displayHTML('property-search-component', 'block');
     displayHTML('client-search-component', 'none');
-  }
 
+    if(this.propertiesQuotationService.property.code == '')
+    {
+      displayHTML('property-search-component', 'block');
+    }
+  }
+/*
   generateQuotas(event: any): void  
   {
     this.propertiesQuotationService.calculateQuotas();
   }
+*/
 
   ngOnInit(): void 
   {
@@ -86,12 +94,10 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
 
   submit()
   {
-    console.log('Separation form submitted');
-
     this.loaderService.show();
 
-    if (this.propertiesQuotationService.separationForm.invalid) {
-      console.error('Form is invalid');
+    if (this.propertiesQuotationService.separationForm.invalid) 
+    {
       this.loaderService.hide();
       alert('Formulario inválido. Por favor, verifica los datos ingresados.');
       return;
@@ -111,7 +117,6 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
 
         if(result.success) {
           alert('Cotización creada exitosamente');
-
 
           let object = result.object;
 
@@ -149,9 +154,6 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
               {
                 console.error('Wompi ID not found');
               }
-              //alert('Link de pago creado exitosamente: ' + linkResponse.data.link);
-              // You can redirect to the link or show it to the user
-              //window.open(linkResponse.data.link, '_blank');
             },
             error: (error) => {
                 this.loaderService.hide();
@@ -159,8 +161,6 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
               alert('Error al crear el link de pago: ' + error.error.code);
             }
           });
-
-          //this.separationForm.reset();
         }else
         {
           alert('Error al crear: ' + result.message);
@@ -170,16 +170,14 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
         console.error('Create failed', error);
         console.log('Create failed error', error.error.code);
         alert('Error al crear: ' + error.error.code);
-
         this.loaderService.hide();
-
-        // Handle login error, e.g., show an error message
       }
     });
   }
 
   sendLinktToWhatsApp(wompiId: string): void 
   {
+    /*
     let jsonSale = 
     { 
       objectId: this.propertiesQuotationService.saleId,
@@ -191,7 +189,9 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
       clientEmail: this.propertiesQuotationService.client.email,
       propertyCode: this.propertiesQuotationService.property.code,
       projectName: this.propertiesQuotationService.project.name
-    };
+    };*/
+
+    let json = this.propertiesQuotationService.getJsonWhatsApp();
 
     let data: WhatsApp = {
       //phone: this.propertyQuoteService.client.phone,
@@ -202,7 +202,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
       arg1: this.propertiesQuotationService.property.code+' de '+this.propertiesQuotationService.project.name,
       arg2: 'https://checkout.wompi.co/l/' + wompiId,
       wompiObject: this.propertiesQuotationService.wompiResponse,
-      saleObject: jsonSale
+      saleObject: json
     };
 
     this.whatsAppService.sendMessageSeparation(data).subscribe({
@@ -213,5 +213,10 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
         console.error('Error sending WhatsApp message:', error);
       }
     });
+  }
+
+  clientCreated(event: any): void 
+  {
+    console.log('Client created event:', event);
   }
 }

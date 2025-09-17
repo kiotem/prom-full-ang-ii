@@ -40,7 +40,7 @@
         </div>
     </div>
 
-    <app-property-quote-form-component (generateQuotasAction)="generateQuotas($event)"></app-property-quote-form-component>
+    <app-property-quote-form-component></app-property-quote-form-component>
 
     <div id="property-quotas-box">
         <div class="row-header">
@@ -59,18 +59,14 @@
                 <div class="col" style="max-width: 80px;" align="right">${{quota.amount | number : '1.0-0' : 'en-US'}}</div>
             </div>
         }
-
-        @if(this.propertiesQuotationService.quotas.length == 0) {
-            <div style="padding: 20px; font-size: 14px; color: var(--gray);" align="center">
-                Aún no hay cuotas generadas.
-            </div>
-        }@else{
-            <div class="button" id='bt_submit' style="display: block;  margin-top: 40px; margin-bottom: 40px;" align="center">
-                <a (click)="submit()" >Registrar Cotización&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-check"></i></a>
-            </div> 
-        }
-
     </div>
+
+    @if(this.propertiesQuotationService.quotas.length > 0) 
+    {
+        <div class="button" id='bt_submit' style="position: absolute; margin-bottom: 40px; width: 370px; top: 590px; left: 830px;" align="center">
+            <a (click)="submit()" >Registrar Cotización&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-check"></i></a>
+        </div> 
+    }
 </div>
 
 

@@ -91,9 +91,9 @@ export class ClientSearchComponent implements OnInit
   }
 
   triggerCancelAction() {
-    console.log('Cancel action triggered');
+    console.log('Cancel action triggered client');
     displayHTML('client-search-component','none');
-    //this.cancelAction.emit();
+    this.cancelAction.emit();
   }
 
   doCreateNewClient() {
