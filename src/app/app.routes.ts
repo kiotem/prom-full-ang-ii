@@ -9,6 +9,7 @@ import { ClientsCreatePage } from './pages/clients/clients-create-page/clients-c
 import { PropertiesQuotePage } from './pages/properties/properties-quote-page_old/properties-quote-page';
 import { LinksListPage } from './pages/links/links-list-page/links-list-page';
 import { PropertiesQuotationPage } from './pages/properties/properties-quotation-page/properties-quotation-page';
+import { PropertiesQuotationListPage } from './pages/reports/properties-quotation-list-page/properties-quotation-list-page';
 
 export const routes: Routes = 
 [
@@ -55,5 +56,9 @@ export const routes: Routes =
     {
         path: 'links/create',
         component: LinksListPage
+    },
+    {
+        path: 'properties/quotation/list',
+        component: PropertiesQuotationListPage
     }
 ];

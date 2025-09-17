@@ -18,6 +18,7 @@ export class MenuComponent {
     console.log('Menu component initialized: '+this.menuItems.length + ' items loaded');
   
   }
+  
   ngOnInit(): void {
     console.log('Menu componentrr OnInit');
 
@@ -27,13 +28,15 @@ export class MenuComponent {
 
   }
 
-  logout() {
+  logout() 
+  {
     this.userService.logout();
     console.log('User logged out');
     this.router.navigate(['login']);
   }
 
-  launchOption(item: any) {
+  launchOption(item: any) 
+  {
     console.log('Launching option:', item.name);
 
     if(item.id == 'logout') 
@@ -42,7 +45,7 @@ export class MenuComponent {
       this.storageService.removeItem('last_path_title');
       this.logout();
     }else if(item.is_action == true && item.router != '-') 
-      {
+    {
       this.storageService.setItem('last_path', item.router);
       this.storageService.setItem('last_path_title', item.title);
       this.router.navigate([item.router]);

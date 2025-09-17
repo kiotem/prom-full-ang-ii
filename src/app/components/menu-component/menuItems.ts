@@ -175,6 +175,15 @@ export default class MenuItems {
         "is_action": true,
         "subitems":[
             {
+                "id": 'properties_quotation_list',
+                "name": "Cotizaciones",
+                "icon": "fa-regular fa-money-check-dollar",
+                "router": "properties/quotation/list",
+                "title": "Reportes / Cotizaciones",
+                "is_action": true,
+                "subitems":[]
+            },
+            {
                 "id": 'history',
                 "name": "Proyectos",
                 "icon": "fa-regular fa-route",
