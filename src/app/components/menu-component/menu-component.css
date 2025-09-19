@@ -29,7 +29,7 @@ ul, ol{
     background-color: var(--light-1);
     color: var(--color-a);
     text-decoration: none;
-    padding: 14px 15px;
+    padding: 12px 15px;
     display: block;
     cursor: pointer;
     z-index: 20000;

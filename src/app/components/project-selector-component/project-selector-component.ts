@@ -4,10 +4,11 @@ import Project from '../../models/Project';
 import { UserService } from '../../services/user-service';
 import { Router } from '@angular/router';
 import { ProjectCardComponent } from '../project-card-component/project-card-component';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-project-selector-component',
-  imports: [ProjectCardComponent],
+  imports: [ProjectCardComponent, MatTooltipModule],
   templateUrl: './project-selector-component.html',
   styleUrl: './project-selector-component.css'
 })

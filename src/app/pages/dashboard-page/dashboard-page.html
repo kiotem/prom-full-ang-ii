@@ -23,6 +23,21 @@
     </div>
 </div>
 
+<!--
+<div>
+  <button mat-raised-button class="mat-raised-button">Primary Button</button>
+</div>
+-->
+
+<div style="max-width: 300px;">
+  <mat-form-field appearance="fill"  class="mat-raised-datepicker">
+<!-- #docregion toggle -->
+  <input matInput [matDatepicker]="picker">
+  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+  <mat-datepicker #picker></mat-datepicker>
+</mat-form-field>
+</div>
+
 
 
 <app-menu-component></app-menu-component>
