@@ -4,16 +4,52 @@
         <input type="text" id="i_search" name="i_search" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar:" class="input-search" style=" width: 180px;" autocomplete="off">
 
         <div style="display: flex; align-items: center; margin-left:-10px; width: 200px;" >
-        <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 180px;" (change)="onChangeStatus($event)">
-            <option value="na">Buscar por</option>
-            <option value="cc">Cédula</option>
-            <option value="property">Lote</option>
-        </select>
-        
-        <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
-            <i class="fas fa-angle-down"></i>
-        </button>
+            <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 180px;" (change)="onChangeStatus($event)">
+                <option value="na">Buscar por</option>
+                <option value="cc">Cédula</option>
+                <option value="property">Lote</option>
+            </select>
+            
+            <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
+                <i class="fas fa-angle-down"></i>
+            </button>
         </div>
+
+         <div style="display: flex; align-items: center; margin-left:10px;" >
+            <mat-form-field appearance="fill"  class="mat-raised-datepicker" (click)="picker.open()">
+            <!-- #docregion toggle -->
+            <input matInput [matDatepicker]="picker" class=" mat-field-input-date" id="iDateOne" name="iDateOne" placeholder="Desde" readonly>
+            <!--<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>-->
+            <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+
+            <button style="background: none; border: none; cursor: pointer; margin-left: -30px; z-index: 10000;" class="b_icon"  (click)="picker.open()">
+                <i class="fa-regular fa-calendar"></i>
+            </button>
+         </div>
+
+        <div style="display: flex; align-items: center; margin-left:20px;" >
+            <mat-form-field appearance="fill"  class="mat-raised-datepicker" (click)="picker2.open()">
+            <!-- #docregion toggle -->
+            <input matInput [matDatepicker]="picker2" class=" mat-field-input-date" id="iDateTwo" name="iDateTwo" placeholder="Hasta" readonly>
+            <!--<mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>-->
+            <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+
+            <button style="background: none; border: none; cursor: pointer; margin-left: -30px; z-index: 10000;" class="b_icon"  (click)="picker2.open()">
+                <i class="fa-regular fa-calendar"></i>
+            </button>
+         </div>
+
+         <div style="display: flex; align-items: center; margin-left:20px;" >
+            <mat-form-field  (click)="picker3.open()">
+            <mat-date-range-input [rangePicker]="picker3" class=" mat-field-input-date-range" id="iDateRange" name="iDateRange">
+                <input matStartDate placeholder="Start date">
+                <input matEndDate placeholder="End date">
+            </mat-date-range-input>
+            <mat-date-range-picker #picker3></mat-date-range-picker>
+            </mat-form-field>
+            </div>
         
     </div>
 

@@ -6,12 +6,21 @@ import { provideHttpClient } from '@angular/common/http';
 
 import { provideHighcharts } from 'highcharts-angular';
 
+    import { NgModule, LOCALE_ID } from '@angular/core';
+import { ES_LOCALE_PROVIDER } from '../locale/es';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatNativeDateModule } from '@angular/material/core';
+    // ... otras importaciones
+
+
 export const appConfig: ApplicationConfig = {
+
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(),
+    ES_LOCALE_PROVIDER,
     provideHighcharts({
       // Optional: Define the Highcharts instance dynamically
       instance: () => import('highcharts'),

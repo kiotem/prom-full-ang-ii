@@ -1,14 +1,19 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import { MenuComponent } from '../../../components/menu-component/menu-component';
 import { LoaderComponent } from '../../../components/loader-component/loader-component';
 import { ProjectSelectorComponent } from '../../../components/project-selector-component/project-selector-component';
 import { Router } from '@angular/router';
+import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatInputModule } from '@angular/material/input';
+import { provideNativeDateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-properties-quotation-list-page',
-  imports: [MenuComponent, LoaderComponent, ProjectSelectorComponent],
+  imports: [MenuComponent, LoaderComponent, ProjectSelectorComponent,MatInputModule, MatDatepickerModule],
   templateUrl: './properties-quotation-list-page.html',
-  styleUrls: ['./properties-quotation-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css']
+  styleUrls: ['./properties-quotation-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css'],
+    providers: [provideNativeDateAdapter()],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PropertiesQuotationListPage {
 
