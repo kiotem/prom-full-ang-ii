@@ -20,9 +20,15 @@ export class SaleService {
       return this.http.post<any>(API_URL+'createSale', data, httpOptions);
   }
 
+  fill(data: Sale[])
+  {
+    console.log('Fill method called');
+    this.sales = data;
+  }
+
   list(params: any)
   {
     console.log('List method called');
-    return this.http.post<any>(API_URL+'listSales', params, httpOptions);
+    return this.http.post<any>(API_URL+'salesList', params, httpOptions);
   }
 }

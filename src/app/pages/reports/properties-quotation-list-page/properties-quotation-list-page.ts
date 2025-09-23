@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MenuComponent } from '../../../components/menu-component/menu-component';
 import { LoaderComponent } from '../../../components/loader-component/loader-component';
 import { ProjectSelectorComponent } from '../../../components/project-selector-component/project-selector-component';
@@ -7,33 +7,47 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatInputModule } from '@angular/material/input';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
-import { JsonPipe } from '@angular/common';
+import { SaleService } from '../../../services/sale-service';
+import { LoaderService } from '../../../services/loader-service';
 
 @Component({
   selector: 'app-properties-quotation-list-page',
-  imports: [MenuComponent, LoaderComponent, ProjectSelectorComponent,MatInputModule, MatDatepickerModule, ReactiveFormsModule, JsonPipe],
+  imports: [MenuComponent, LoaderComponent, ProjectSelectorComponent,MatInputModule, MatDatepickerModule, ReactiveFormsModule, LoaderComponent],
   templateUrl: './properties-quotation-list-page.html',
   styleUrls: ['./properties-quotation-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css'],
     providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class PropertiesQuotationListPage {
+export class PropertiesQuotationListPage implements OnInit {
 
   readonly range = new FormGroup({
     start: new FormControl<Date | null>(null),
     end: new FormControl<Date | null>(null),
   });
 
-  constructor(private router: Router) {
+  constructor(private router: Router, public salesService: SaleService, private loaderService: LoaderService) {
     let today = new Date().toLocaleDateString('en-CA'); // Formato YYYY-MM-DD
     let startDate = new Date(today + ' 00:00:00').toISOString();
-    let endDate = new Date(today + ' 23:59:59').toISOString();
+    let endDate = new Date(today + ' 00:00:00').toISOString();
 
 
     this.range.setValue({start: new Date(startDate), end: new Date(endDate)});
     console.log('Initial range:', this.range.value);
     
+    this.range.valueChanges.subscribe(newValue => {
+    console.log('Reactive Form value changed:', newValue);
 
+    console.log('Initial range:', this.range.value);
+
+    this.list();
+    });
+
+  }
+
+  ngOnInit(): void {
+    console.log('Component initialized with range:', this.range.value);
+    //this.list();
+    this.download({});
   }
 
 
@@ -58,6 +72,59 @@ export class PropertiesQuotationListPage {
   {
     console.log('Status changed:', event.target.value); 
     //this.checkFilter();
+  }
+
+  onInputChange(event: Event): void {
+    const inputValue = (event.target as HTMLInputElement).value;
+    console.log('Input value changed:', inputValue);
+    // Perform actions based on the new value
+  }
+
+  list(): void
+  {
+    console.log('List quotations with filters:');
+    console.log('Date Range:', this.range.value);
+
+    let startDate = this.range.value.start ? this.range.value.start.toISOString() : null;
+    let endDate = this.range.value.end ? this.range.value.end.toISOString() : null;
+
+    console.log('Start Date (ISO):', startDate);
+    console.log('End Date (ISO):', endDate);
+
+    if(endDate) {
+      const end = new Date(this.range.value.end!);
+      end.setDate(end.getDate() + 1);
+      endDate = end.toISOString();
+      console.log('End Date +1 day (ISO):', endDate);
+    }
+
+    // Implement the logic to list quotations based on the selected date range
+  }
+
+    download(json: any) {
+    this.loaderService.show();
+    this.salesService.list(json).subscribe({
+      next: (data) => {
+        this.loaderService.hide();
+        console.log('Sales fetched successfully:', data);
+        //this.properties = data.result;
+        let sales = data.result.sales;
+        let size = sales.length;
+        console.log('Number of sales received:', size);
+        // Fill the service's sales array
+        this.salesService.fill(sales);
+
+        //this.propertyService.setData(data.result);
+        // Then here:
+        //this.cdr.detectChanges();
+
+
+      },
+      error: (error) => {
+        this.loaderService.hide();
+        console.error('Error fetching properties:', error);
+      }
+    });
   }
 
 }

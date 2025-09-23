@@ -1,9 +1,34 @@
+import Agent from "./Agent";
+import Client from "./Client";
+import Property from "./Property";
+
 export default interface Sale 
 {
     objectId: string;
     createdAt: Date;
-    /*client: { objectId: string; className: "Clients" };
-    property?: { objectId: string; className: "Properties" };*/
+    updatedAt?: Date;
+    agent: Agent;
+    amount: number;
+    balance: number;
+    client: Client;
+    discountPercent?: number;
+    discountValue?: number;
+    finalQuota?: number;
+    finalNumberOfQuotas?: number;
+    finalValue?: number;
+    initialQuota?: number;
+    initialNumberOfQuotas?: number;
+    initialValue?: number;
+    initialPercent?: number;
+    phase?: string;
+    phaseType?: string;
+    property: Property;
+    saleDate?: Date;
+    separationValue: number;
+
+    /*
+    objectId: string;
+    createdAt: Date;
     limitDate?: Date;
     defaultRate?: number;
     saleDate?: Date;
@@ -11,7 +36,6 @@ export default interface Sale
     comments?: string;
     status?: string;
     phase?: string;
-    //agent: { objectId: string; className: "Agents" };
     separationValue?: number;
     initialValue?: number;
     initialNumberOfQuotas?: number;
@@ -22,5 +46,5 @@ export default interface Sale
     balance?: number;
     agentId?: string;
     clientId?: string;
-    propertyId?: string;
+    propertyId?: string;*/
 }
