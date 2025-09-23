@@ -10,7 +10,9 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
 import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 import { HttpClient } from '@angular/common/http';
+import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -92,6 +94,43 @@ export class DashboardPage
 
     constructor(private http: HttpClient) {}
 
+    onGenerateTable(): void 
+    {
+          const head = [["ID", "Country", "Index", "Capital"]];
+    const data = [
+      [1, "Finland", 7.632, "Helsinki"],
+      [2, "Norway", 7.594, "Oslo"],
+      [3, "Denmark", 7.555, "Copenhagen"],
+      [4, "Iceland", 7.495, "Reykjavík"],
+      [5, "Switzerland", 7.487, "Bern"],
+      [9, "Sweden", 7.314, "Stockholm"],
+      [73, "Belarus", 5.483, "Minsk"]
+    ];
+
+    const doc = new jsPDF();
+    autoTable(doc, {
+      head: head,
+      body: data,
+      didDrawCell: data => {
+        //console.log(data.column.index);
+      },
+      headStyles: { fillColor: [22, 160, 133], lineColor: [0, 0, 0], lineWidth: 0.1 },
+      columnStyles: { 
+        0: { cellWidth: 10, lineColor: [0, 0, 0], lineWidth: 0.1 }, // ID
+        1: { cellWidth: 40, lineColor: [0, 0, 0], lineWidth: 0.1 }, // Country
+        2: { cellWidth: 30, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 }, // Index
+        3: { cellWidth: 40, lineColor: [0, 0, 0], lineWidth: 0.1 } // Capital
+      },
+      margin: { top: 10, left: 10, right: 10, bottom: 10 },
+      tableLineColor: [0, 0, 0],
+      tableLineWidth: 0.1,
+      tableWidth: 120,
+      styles: { fontSize: 10 }
+    });
+
+     doc.save("table.pdf");
+    }
+
     onGeneratePDF(): void 
     {
         // Lógica para generar el PDF
@@ -106,6 +145,7 @@ export class DashboardPage
 
         this.uploadPdfToServer(pdfOutput);
     }
+    
 
     uploadPdfToServer(pdfBlob: Blob): void
     {
