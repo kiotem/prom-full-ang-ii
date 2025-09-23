@@ -9,6 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import jsPDF from 'jspdf';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-dashboard-page',
@@ -87,4 +89,39 @@ export class DashboardPage
         'Últimos 15 días'
     },
   };
+
+    constructor(private http: HttpClient) {}
+
+    onGeneratePDF(): void 
+    {
+        // Lógica para generar el PDF
+        console.log('Generando PDF...');
+
+        const doc = new jsPDF(); // or use pdfMake's document definition
+        doc.text('Hello world!', 10, 10); // Add content to your PDF
+        //doc.save('dashboard.pdf'); // Save the PDF
+        //doc.output('dataurlnewwindow');
+
+        const pdfOutput = doc.output('blob'); // Get PDF as a Blob
+
+        this.uploadPdfToServer(pdfOutput);
+    }
+
+    uploadPdfToServer(pdfBlob: Blob): void
+    {
+      const formData = new FormData();
+      formData.append('pdfFile', pdfBlob, 'document.pdf'); // 'pdfFile' is the field name on server
+
+      // Send the FormData using Angular's HttpClient
+
+      this.http.post('https://www.safetrack.live/lab/pdf/upload_pdf.php', formData).subscribe(
+        (response) => {
+          console.log('PDF uploaded successfully!', response);
+        },
+        (error) => {
+          console.error('Error uploading PDF:', error);
+        }
+      );
+      
+    }
 }
