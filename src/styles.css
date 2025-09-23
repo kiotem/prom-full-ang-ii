@@ -280,6 +280,7 @@ select::-ms-expand {
 .input-search:hover, .input-field:hover, .select-search:hover, .select-field:hover
 {
     border: 1px solid var(--color-a);
+    color: var(--color-a);
 
     #b_icon{
         color: #ffffff;
@@ -290,8 +291,8 @@ select::-ms-expand {
 
 .input-search:focus, .input-field:focus, .select-search:focus, .select-field:focus{
     border: 1px solid var(--color-a);
-    background-color: var(--color-a);
-    color: var(--white);
+    /*background-color: var(--color-a);*/
+    color: var(--color-a);
     outline: none;
 }
 
@@ -310,12 +311,13 @@ select::-ms-expand {
 .input-search-fit:hover, .select-search:hover
 {
     border: 1px solid var(--color-a);
+    color: var(--color-a);
 }
 
 .input-search-fit:focus, .select-search:focus{
     border: 1px solid var(--color-a);
-    background-color: var(--color-a);
-    color: var(--white);
+    /*background-color: var(--color-a);*/
+    color: var(--color-a);
     outline: none;
 }
 

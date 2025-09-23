@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { MenuComponent } from '../../../components/menu-component/menu-component';
 import { LoaderComponent } from '../../../components/loader-component/loader-component';
 import { ProjectSelectorComponent } from '../../../components/project-selector-component/project-selector-component';
@@ -9,6 +9,7 @@ import { provideNativeDateAdapter } from '@angular/material/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SaleService } from '../../../services/sale-service';
 import { LoaderService } from '../../../services/loader-service';
+import { getTextFromField } from '../../../commons/utils';
 
 @Component({
   selector: 'app-properties-quotation-list-page',
@@ -25,7 +26,7 @@ export class PropertiesQuotationListPage implements OnInit {
     end: new FormControl<Date | null>(null),
   });
 
-  constructor(private router: Router, public salesService: SaleService, private loaderService: LoaderService) {
+  constructor(private router: Router, public salesService: SaleService, private loaderService: LoaderService, private cdr: ChangeDetectorRef) {
     let today = new Date().toLocaleDateString('en-CA'); // Formato YYYY-MM-DD
     let startDate = new Date(today + ' 00:00:00').toISOString();
     let endDate = new Date(today + ' 00:00:00').toISOString();
@@ -37,9 +38,12 @@ export class PropertiesQuotationListPage implements OnInit {
     this.range.valueChanges.subscribe(newValue => {
     console.log('Reactive Form value changed:', newValue);
 
-    console.log('Initial range:', this.range.value);
+    if(!this.range.invalid) 
+    {
+      this.download({});
+    }
 
-    this.list();
+    //this.list();
     });
 
   }
@@ -60,6 +64,10 @@ export class PropertiesQuotationListPage implements OnInit {
   {
       console.log('Key pressed:', event.key);
       //this.checkFilter();
+      if (event.key === 'Enter') 
+      {
+        this.download({});
+      }
   }
 
   convertTimeToLocal(time: any): string 
@@ -72,36 +80,37 @@ export class PropertiesQuotationListPage implements OnInit {
   {
     console.log('Status changed:', event.target.value); 
     //this.checkFilter();
+    let search = getTextFromField('i_search');
+    if(search.length > 2)
+    {
+      this.download({});
+    }
   }
 
-  onInputChange(event: Event): void {
-    const inputValue = (event.target as HTMLInputElement).value;
-    console.log('Input value changed:', inputValue);
-    // Perform actions based on the new value
-  }
-
-  list(): void
-  {
-    console.log('List quotations with filters:');
-    console.log('Date Range:', this.range.value);
+    download(jsont: any) 
+    {
+    let search = getTextFromField('i_search');
+    let searchBy = getTextFromField('s_status');
 
     let startDate = this.range.value.start ? this.range.value.start.toISOString() : null;
     let endDate = this.range.value.end ? this.range.value.end.toISOString() : null;
-
-    console.log('Start Date (ISO):', startDate);
-    console.log('End Date (ISO):', endDate);
 
     if(endDate) {
       const end = new Date(this.range.value.end!);
       end.setDate(end.getDate() + 1);
       endDate = end.toISOString();
-      console.log('End Date +1 day (ISO):', endDate);
     }
 
-    // Implement the logic to list quotations based on the selected date range
-  }
+    let json =
+    {
+      search: search,
+      searchBy: searchBy,
+      start: startDate,
+      end: endDate
+    }
 
-    download(json: any) {
+    console.log('Downloading sales with parameters:', json);
+
     this.loaderService.show();
     this.salesService.list(json).subscribe({
       next: (data) => {
@@ -114,11 +123,7 @@ export class PropertiesQuotationListPage implements OnInit {
         // Fill the service's sales array
         this.salesService.fill(sales);
 
-        //this.propertyService.setData(data.result);
-        // Then here:
-        //this.cdr.detectChanges();
-
-
+        this.cdr.detectChanges();
       },
       error: (error) => {
         this.loaderService.hide();
