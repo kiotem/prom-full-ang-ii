@@ -42,6 +42,8 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
     {
       this.propertyQuoteFormComponent.process();
     }
+
+    this.propertiesQuotationService.calculate();
   }
 
   cancelSearchProperty(): void 
@@ -134,6 +136,9 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
           let expires_at = expirationDate.toISOString();
           */
 
+          this.sendPlanToWhatsApp();
+
+          /*
           this.wompiService.createLink(
             'Separación de propiedad',
             'Lote ' + this.propertiesQuotationService.property.code,
@@ -160,7 +165,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
               console.error('Error creating Wompi link:', error);           
               alert('Error al crear el link de pago: ' + error.error.code);
             }
-          });
+          });*/
         }else
         {
           alert('Error al crear: ' + result.message);
@@ -177,20 +182,6 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
 
   sendLinktToWhatsApp(wompiId: string): void 
   {
-    /*
-    let jsonSale = 
-    { 
-      objectId: this.propertiesQuotationService.saleId,
-      amount: this.propertiesQuotationService.separationQuotaValue,
-      propertyId: this.propertiesQuotationService.property.objectId,
-      clientName: this.propertiesQuotationService.client.name+' '+this.propertiesQuotationService.client.lastName1,
-      clientPmsId: this.propertiesQuotationService.client.pmsId,
-      clientPhone: this.propertiesQuotationService.client.phone,
-      clientEmail: this.propertiesQuotationService.client.email,
-      propertyCode: this.propertiesQuotationService.property.code,
-      projectName: this.propertiesQuotationService.project.name
-    };*/
-
     let json = this.propertiesQuotationService.getJsonWhatsApp();
 
     let data: WhatsApp = {
@@ -204,6 +195,32 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
       wompiObject: this.propertiesQuotationService.wompiResponse,
       saleObject: json
     };
+
+    this.whatsAppService.sendMessageSeparation(data).subscribe({
+      next: (response) => {
+        console.log('WhatsApp message sent successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error sending WhatsApp message:', error);
+      }
+    });
+  }
+
+  sendPlanToWhatsApp(): void 
+  {
+    //let json = this.propertiesQuotationService.getJsonWhatsApp();
+
+    let data: WhatsApp = {
+      //phone: this.propertyQuoteService.client.phone,
+      phone: '3156738411',
+      body: '',
+      template: 'separation_plan',
+      name: this.propertiesQuotationService.client.name,
+      arg1: this.propertiesQuotationService.property.code+' de '+this.propertiesQuotationService.project.name,
+      arg2: 'quotas.pdf'
+    };
+
+    console.log('Sending plan to WhatsApp:', data);
 
     this.whatsAppService.sendMessageSeparation(data).subscribe({
       next: (response) => {

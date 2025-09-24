@@ -32,4 +32,12 @@ export class WhatsAppService {
     console.log('Login method called');
     return this.http.post<WhatsApp>(API_URL+'sendWhatsAppSeparation', data, httpOptions)
   }
+
+  sendMessageSeparationPlan(data: WhatsApp) 
+  {
+    console.log('Send message method called: '+data); 
+    this.whatsapp = data;
+
+    return this.http.post<WhatsApp>(API_URL+'sendWhatsAppSeparationPlan', data, httpOptions)
+  }
 }
