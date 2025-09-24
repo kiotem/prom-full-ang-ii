@@ -200,7 +200,7 @@ export class DashboardPage
       let quotas = this.createTestRecords();
 
       let position = 0;
-      let pageSize = 10;
+      let pageSize = 45;
 
       let totalQuotas = quotas.length;
       let totalPages = Math.ceil(totalQuotas / pageSize);
@@ -243,7 +243,7 @@ export class DashboardPage
           }
         }
 
-        this.tabular(doc, head, data, currentBlock);
+        this.tabular(doc, head, data, currentBlock, position);
       }
 
         
@@ -266,17 +266,21 @@ export class DashboardPage
     
     }
 
-    tabular(doc: jsPDF, head: any[], data: any[], block: number): void 
+    tabular(doc: jsPDF, head: any[], data: any[], block: number, position: number): void 
     {
       // Implementación de la tabla
       let left = 10;
       let right = 10;
 
+      if(block % 2 == 0 && block > 0) {
+        doc.addPage();
+      }
+
       if(block % 2 == 0) {
         left = 15;
         right = 10;
       }else{
-        left = 105;
+        left = 110;
         right = 10;
       }
 
@@ -296,11 +300,14 @@ export class DashboardPage
         3: { cellWidth: 20, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 } // Capital
       },
       margin: { top: 15, left: left, right: right, bottom: 15 },
+      startY: 15,
       tableLineColor: [0, 0, 0],
       tableLineWidth: 0.1,
       tableWidth: 85,
       styles: { fontSize: 9, cellPadding: 1, overflow: 'linebreak' }
     });
+
+
 
     }
 
