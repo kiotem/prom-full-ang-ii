@@ -216,7 +216,8 @@ export class DashboardPage
       let currentBlock = -1;
       let createRows = 0;
 
-      while (totalQuotas > 0) {
+      while (totalQuotas > 0) 
+      {
         currentBlock++;
 
          data = [];
@@ -229,18 +230,21 @@ export class DashboardPage
           totalQuotas = 0;
         }
         
-        for(let j = 0; j < createRows; j++) {
-          if(quotas[position]) {
+        for(let j = 0; j < createRows; j++)
+        {
+          if(quotas[position]) 
+          {
             const quota = quotas[position];
             data.push([quota.concept, quota.expiration, quota.value, quota.paid]);
             position++;
-          } else {
+          }else 
+          {
             data.push(['', '', '', '']);
           }
-      }
+        }
 
-      this.tabular(doc, head, data);
-    }
+        this.tabular(doc, head, data, currentBlock);
+      }
 
         
 
@@ -262,9 +266,19 @@ export class DashboardPage
     
     }
 
-    tabular(doc: jsPDF, head: any[], data: any[]): void 
+    tabular(doc: jsPDF, head: any[], data: any[], block: number): void 
     {
       // Implementación de la tabla
+      let left = 10;
+      let right = 10;
+
+      if(block % 2 == 0) {
+        left = 15;
+        right = 10;
+      }else{
+        left = 105;
+        right = 10;
+      }
 
     autoTable(doc, {
       head: head,
@@ -281,7 +295,7 @@ export class DashboardPage
         2: { cellWidth: 20, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 }, // Index
         3: { cellWidth: 20, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 } // Capital
       },
-      margin: { top: 15, left: 10, right: 10, bottom: 15 },
+      margin: { top: 15, left: left, right: right, bottom: 15 },
       tableLineColor: [0, 0, 0],
       tableLineWidth: 0.1,
       tableWidth: 85,
