@@ -104,6 +104,7 @@ export class DashboardPage
 
     onGenerateTable(): void 
     {
+      /*
     const head = [["Cuota", "Fecha", "Valor", "Pagado"]];
     const data = this.genDataArray();
 
@@ -156,6 +157,8 @@ export class DashboardPage
 
      //doc.save("table.pdf");
      doc.output('dataurlnewwindow');
+     */
+      this.testTable();
     }
 
     onGeneratePDF(): void 
@@ -191,4 +194,112 @@ export class DashboardPage
       );
       
     }
-}
+
+
+    testTable(): void {
+      let quotas = this.createTestRecords();
+
+      let position = 0;
+      let pageSize = 10;
+
+      let totalQuotas = quotas.length;
+      let totalPages = Math.ceil(totalQuotas / pageSize);
+
+  
+
+      const head = [["Cuota", "Fecha", "Valor", "Pagado"]];
+
+      const doc = new jsPDF();
+
+     var data: any[] = [];
+
+      let currentBlock = -1;
+      let createRows = 0;
+
+      while (totalQuotas > 0) {
+        currentBlock++;
+
+         data = [];
+
+        if(totalQuotas > pageSize) {
+          createRows = pageSize;
+          totalQuotas -= pageSize;
+        }else{
+          createRows = totalQuotas;
+          totalQuotas = 0;
+        }
+        
+        for(let j = 0; j < createRows; j++) {
+          if(quotas[position]) {
+            const quota = quotas[position];
+            data.push([quota.concept, quota.expiration, quota.value, quota.paid]);
+            position++;
+          } else {
+            data.push(['', '', '', '']);
+          }
+      }
+
+      this.tabular(doc, head, data);
+    }
+
+        
+
+
+      /*
+      while (position < totalQuotas) {
+        let pageQuotas = quotas.slice(position, position + pageSize);
+        console.log(`Página ${Math.floor(position / pageSize) + 1}:`, pageQuotas);
+        position += pageSize;
+
+        for (let i = 0; i < pageQuotas.length; i++) {
+        const quota = pageQuotas[i];
+        data.push([quota.concept, quota.expiration, quota.value, quota.paid]);
+        }
+      this.tabular(doc, head, data);
+      }*/
+
+      doc.output('dataurlnewwindow');
+    
+    }
+
+    tabular(doc: jsPDF, head: any[], data: any[]): void 
+    {
+      // Implementación de la tabla
+
+    autoTable(doc, {
+      head: head,
+      body: data,
+      didDrawCell: data => 
+      {
+        //console.log(data.column.index);
+      },
+      rowPageBreak: 'auto',
+      headStyles: { fillColor: [22, 160, 133], lineColor: [0, 0, 0], halign: 'center', lineWidth: 0.1 },
+      columnStyles: { 
+        0: { cellWidth: 25, lineColor: [0, 0, 0], lineWidth: 0.1 }, // ID
+        1: { cellWidth: 20, lineColor: [0, 0, 0], lineWidth: 0.1 }, // Country
+        2: { cellWidth: 20, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 }, // Index
+        3: { cellWidth: 20, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 } // Capital
+      },
+      margin: { top: 15, left: 10, right: 10, bottom: 15 },
+      tableLineColor: [0, 0, 0],
+      tableLineWidth: 0.1,
+      tableWidth: 85,
+      styles: { fontSize: 9, cellPadding: 1, overflow: 'linebreak' }
+    });
+
+    }
+
+    createTestRecords(): any[] {
+      const records = [];
+      for (let i = 1; i <= 100; i++) {
+        records.push({
+          concept: `Ordinaria ${i}`,
+          expiration: '09/09/2025',
+          value:   (Math.random() * 3 + 5).toFixed(7),
+          paid: (Math.random() * 100).toFixed(7)
+        });
+      }
+      return records;
+    }
+  }
