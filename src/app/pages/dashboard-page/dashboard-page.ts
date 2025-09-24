@@ -94,41 +94,68 @@ export class DashboardPage
 
     constructor(private http: HttpClient) {}
 
+    genDataArray(): any[] {
+      const data = [];
+          for (let i = 10; i <= 89; i++) {
+        data.push([`Ordinaria ${i}`, '09/09/2025', (Math.random() * 3 + 5).toFixed(7), (Math.random() * 3 + 5).toFixed(7)]);
+      }
+      return data;
+    }
+
     onGenerateTable(): void 
     {
-          const head = [["ID", "Country", "Index", "Capital"]];
-    const data = [
-      [1, "Finland", 7.632, "Helsinki"],
-      [2, "Norway", 7.594, "Oslo"],
-      [3, "Denmark", 7.555, "Copenhagen"],
-      [4, "Iceland", 7.495, "Reykjavík"],
-      [5, "Switzerland", 7.487, "Bern"],
-      [9, "Sweden", 7.314, "Stockholm"],
-      [73, "Belarus", 5.483, "Minsk"]
-    ];
+    const head = [["Cuota", "Fecha", "Valor", "Pagado"]];
+    const data = this.genDataArray();
 
     const doc = new jsPDF();
     autoTable(doc, {
       head: head,
       body: data,
-      didDrawCell: data => {
+      didDrawCell: data => 
+      {
         //console.log(data.column.index);
       },
-      headStyles: { fillColor: [22, 160, 133], lineColor: [0, 0, 0], lineWidth: 0.1 },
+      rowPageBreak: 'auto',
+      headStyles: { fillColor: [22, 160, 133], lineColor: [0, 0, 0], halign: 'center', lineWidth: 0.1 },
       columnStyles: { 
-        0: { cellWidth: 10, lineColor: [0, 0, 0], lineWidth: 0.1 }, // ID
-        1: { cellWidth: 40, lineColor: [0, 0, 0], lineWidth: 0.1 }, // Country
-        2: { cellWidth: 30, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 }, // Index
-        3: { cellWidth: 40, lineColor: [0, 0, 0], lineWidth: 0.1 } // Capital
+        0: { cellWidth: 25, lineColor: [0, 0, 0], lineWidth: 0.1 }, // ID
+        1: { cellWidth: 20, lineColor: [0, 0, 0], lineWidth: 0.1 }, // Country
+        2: { cellWidth: 20, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 }, // Index
+        3: { cellWidth: 20, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 } // Capital
       },
-      margin: { top: 10, left: 10, right: 10, bottom: 10 },
+      margin: { top: 15, left: 10, right: 10, bottom: 15 },
       tableLineColor: [0, 0, 0],
       tableLineWidth: 0.1,
-      tableWidth: 120,
-      styles: { fontSize: 10 }
+      tableWidth: 85,
+      styles: { fontSize: 9, cellPadding: 1, overflow: 'linebreak' }
     });
 
-     doc.save("table.pdf");
+  autoTable(doc, {
+      head: head,
+      body: data,
+      didDrawCell: data => 
+      {
+        //console.log(data.column.index);
+      },
+      rowPageBreak: 'auto',
+      headStyles: { fillColor: [22, 160, 133], lineColor: [0, 0, 0], halign: 'center', lineWidth: 0.1 },
+      columnStyles: { 
+        0: { cellWidth: 25, lineColor: [0, 0, 0], lineWidth: 0.1 }, // ID
+        1: { cellWidth: 20, lineColor: [0, 0, 0], lineWidth: 0.1 }, // Country
+        2: { cellWidth: 20, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 }, // Index
+        3: { cellWidth: 20, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 } // Capital
+      },
+      margin: { top: 15, left: 10, right: 10, bottom: 15 },
+      tableLineColor: [0, 0, 0],
+      tableLineWidth: 0.1,
+      tableWidth: 85,
+      styles: { fontSize: 9, cellPadding: 1, overflow: 'linebreak'},
+      startY: 200
+    });
+
+
+     //doc.save("table.pdf");
+     doc.output('dataurlnewwindow');
     }
 
     onGeneratePDF(): void 
