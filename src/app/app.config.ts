@@ -20,7 +20,7 @@ export const appConfig: ApplicationConfig = {
     provideZonelessChangeDetection(),
     provideRouter(routes),
     provideHttpClient(),
-    /*ES_LOCALE_PROVIDER,*/
+    ES_LOCALE_PROVIDER,
     /*US_LOCALE_PROVIDER,*/
     provideHighcharts({
       // Optional: Define the Highcharts instance dynamically

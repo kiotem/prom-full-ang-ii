@@ -306,9 +306,6 @@ export class DashboardPage
       tableWidth: 85,
       styles: { fontSize: 9, cellPadding: 1, overflow: 'linebreak' }
     });
-
-
-
     }
 
     createTestRecords(): any[] {

@@ -140,7 +140,7 @@ export class PropertiesQuotationService {
     this.quotas.push({
       id: '',
       number: count,
-      type: 'Separacion',
+      type: 'Separación',
       amount: this.separationQuotaValue,
       amountPaid: 0,
       amountLate: 0,

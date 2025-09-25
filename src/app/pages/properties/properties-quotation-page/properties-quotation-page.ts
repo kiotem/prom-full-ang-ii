@@ -43,7 +43,6 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
       this.propertyQuoteFormComponent.process();
     }
 
-    this.propertiesQuotationService.calculate();
   }
 
   cancelSearchProperty(): void 
@@ -96,6 +95,12 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
 
   submit()
   {
+    console.log('Quotas Length:', this.propertiesQuotationService.quotas.length);
+    if(this.propertiesQuotationService.quotas.length == 0) {
+      this.propertyQuoteFormComponent.process();
+      console.log('Quotas were empty, processed form to generate quotas.');
+    }
+
     this.loaderService.show();
 
     if (this.propertiesQuotationService.separationForm.invalid) 
@@ -136,9 +141,9 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
           let expires_at = expirationDate.toISOString();
           */
 
-          this.sendPlanToWhatsApp();
+          /*this.sendPlanToWhatsApp();
 
-          /*
+          
           this.wompiService.createLink(
             'Separación de propiedad',
             'Lote ' + this.propertiesQuotationService.property.code,
@@ -222,7 +227,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
 
     console.log('Sending plan to WhatsApp:', data);
 
-    this.whatsAppService.sendMessageSeparation(data).subscribe({
+    this.whatsAppService.sendMessageSeparationPlan(data).subscribe({
       next: (response) => {
         console.log('WhatsApp message sent successfully:', response);
       },

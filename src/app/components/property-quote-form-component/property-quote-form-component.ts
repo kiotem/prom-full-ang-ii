@@ -104,6 +104,8 @@ constructor(public propertiesQuotationService: PropertiesQuotationService, priva
 
     this.propertiesQuotationService.separationForm = this.separationForm;
 
+    this.quotas.setValue(this.propertiesQuotationService.quotas);
+
     this.cdr.detectChanges();
     
     return true;

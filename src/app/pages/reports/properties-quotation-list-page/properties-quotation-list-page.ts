@@ -10,10 +10,11 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { SaleService } from '../../../services/sale-service';
 import { LoaderService } from '../../../services/loader-service';
 import { getTextFromField } from '../../../commons/utils';
+import { DecimalPipe } from '@angular/common';
 
 @Component({
   selector: 'app-properties-quotation-list-page',
-  imports: [MenuComponent, LoaderComponent, ProjectSelectorComponent,MatInputModule, MatDatepickerModule, ReactiveFormsModule, LoaderComponent],
+  imports: [MenuComponent, LoaderComponent, ProjectSelectorComponent,MatInputModule, MatDatepickerModule, ReactiveFormsModule, LoaderComponent, DecimalPipe],
   templateUrl: './properties-quotation-list-page.html',
   styleUrls: ['./properties-quotation-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css'],
     providers: [provideNativeDateAdapter()],
