@@ -16,7 +16,7 @@ import { WompiService } from '../../../services/wompi-service';
 import { SaleService } from '../../../services/sale-service';
 import { WhatsAppService } from '../../../services/whatsapp-service';
 import WhatsApp from '../../../models/WhatsApp';
-import { PDFService } from '../../../services/pdf-service';
+import { PDFEstadoCuentaService } from '../../../services/pdf-estado-cuenta-service';
 
 @Component({
   selector: 'app-properties-quotation-page',
@@ -28,8 +28,8 @@ import { PDFService } from '../../../services/pdf-service';
 export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, PropertySearchInterface
 {
   @ViewChild(PropertyQuoteFormComponent, { static: false }) propertyQuoteFormComponent!: PropertyQuoteFormComponent;
-  
-  constructor(public propertiesQuotationService: PropertiesQuotationService, private loaderService: LoaderService, private saleService: SaleService, private wompiService: WompiService, private whatsAppService: WhatsAppService, private pdfService: PDFService) 
+
+  constructor(public propertiesQuotationService: PropertiesQuotationService, private loaderService: LoaderService, private saleService: SaleService, private wompiService: WompiService, private whatsAppService: WhatsAppService, private pdfEstadoCuenta: PDFEstadoCuentaService) 
   {
     this.propertiesQuotationService.reset();
   }
@@ -167,7 +167,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
               }
             },
             error: (error) => {
-                this.loaderService.hide();
+              this.loaderService.hide();
               console.error('Error creating Wompi link:', error);           
               alert('Error al crear el link de pago: ' + error.error.code);
             }
@@ -247,6 +247,6 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
 
   testPDF(): void
   {
-    this.pdfService.createEstadoIndividual(this.propertiesQuotationService.client);
+    this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.client);
   }
 }
