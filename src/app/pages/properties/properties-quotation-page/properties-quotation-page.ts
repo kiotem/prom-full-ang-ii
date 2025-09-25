@@ -16,6 +16,7 @@ import { WompiService } from '../../../services/wompi-service';
 import { SaleService } from '../../../services/sale-service';
 import { WhatsAppService } from '../../../services/whatsapp-service';
 import WhatsApp from '../../../models/WhatsApp';
+import { PDFService } from '../../../services/pdf-service';
 
 @Component({
   selector: 'app-properties-quotation-page',
@@ -28,7 +29,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
 {
   @ViewChild(PropertyQuoteFormComponent, { static: false }) propertyQuoteFormComponent!: PropertyQuoteFormComponent;
   
-  constructor(public propertiesQuotationService: PropertiesQuotationService, private loaderService: LoaderService, private saleService: SaleService, private wompiService: WompiService, private whatsAppService: WhatsAppService) 
+  constructor(public propertiesQuotationService: PropertiesQuotationService, private loaderService: LoaderService, private saleService: SaleService, private wompiService: WompiService, private whatsAppService: WhatsAppService, private pdfService: PDFService) 
   {
     this.propertiesQuotationService.reset();
   }
@@ -141,7 +142,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
           let expires_at = expirationDate.toISOString();
           */
 
-          /*this.sendPlanToWhatsApp();
+          this.sendPlanToWhatsApp();
 
           
           this.wompiService.createLink(
@@ -170,7 +171,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
               console.error('Error creating Wompi link:', error);           
               alert('Error al crear el link de pago: ' + error.error.code);
             }
-          });*/
+          });
         }else
         {
           alert('Error al crear: ' + result.message);
@@ -202,10 +203,12 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
     };
 
     this.whatsAppService.sendMessageSeparation(data).subscribe({
-      next: (response) => {
+      next: (response) => 
+      {
         console.log('WhatsApp message sent successfully:', response);
       },
-      error: (error) => {
+      error: (error) => 
+      {
         console.error('Error sending WhatsApp message:', error);
       }
     });
@@ -240,5 +243,10 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
   clientCreated(event: any): void 
   {
     console.log('Client created event:', event);
+  }
+
+  testPDF(): void
+  {
+    this.pdfService.createEstadoIndividual(this.propertiesQuotationService.client);
   }
 }
