@@ -11,6 +11,7 @@ import { SaleService } from '../../../services/sale-service';
 import { LoaderService } from '../../../services/loader-service';
 import { getTextFromField } from '../../../commons/utils';
 import { DecimalPipe } from '@angular/common';
+import Sale from '../../../models/Sale';
 
 @Component({
   selector: 'app-properties-quotation-list-page',
@@ -132,5 +133,46 @@ export class PropertiesQuotationListPage implements OnInit {
       }
     });
   }
+
+  onClick(sale: Sale): void
+  {
+    console.log('Sale clicked:', sale);
+
+    let search = ''+sale.objectId;
+    let searchBy = 'id';
+
+    let json =
+    {
+      search: search,
+      searchBy: searchBy
+    }
+
+    console.log('Downloading sales with parameters:', json);
+
+    this.loaderService.show();
+    this.salesService.getSale(json).subscribe({
+      next: (data) => {
+        this.loaderService.hide();
+        console.log('Sales fetched successfully:', data);
+        //this.properties = data.result;
+
+        /*
+        let sales = data.result.sales;
+        let size = sales.length;
+        console.log('Number of sales received:', size);
+        // Fill the service's sales array
+        this.salesService.fill(sales);
+
+        this.cdr.detectChanges();
+        */
+      },
+      error: (error) => {
+        this.loaderService.hide();
+        console.error('Error fetching properties:', error);
+      }
+    });
+  }
+
+
 
 }

@@ -31,4 +31,9 @@ export class SaleService {
     console.log('List method called');
     return this.http.post<any>(API_URL+'salesList', params, httpOptions);
   }
+
+  getSale(params: any)
+  {
+    return this.http.post<any>(API_URL+'salesList', params, httpOptions);
+  }
 }

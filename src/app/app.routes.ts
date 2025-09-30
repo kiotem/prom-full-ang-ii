@@ -6,7 +6,6 @@ import { PropertiesCreatePage } from './pages/properties/properties-create-page/
 import { ClientsListPage } from './pages/clients/clients-list-page/clients-list-page';
 import { PropertiesMapPage } from './pages/properties/properties-map-page/properties-map-page';
 import { ClientsCreatePage } from './pages/clients/clients-create-page/clients-create-page';
-import { PropertiesQuotePage } from './pages/properties/properties-quote-page_old/properties-quote-page';
 import { LinksListPage } from './pages/links/links-list-page/links-list-page';
 import { PropertiesQuotationPage } from './pages/properties/properties-quotation-page/properties-quotation-page';
 import { PropertiesQuotationListPage } from './pages/reports/properties-quotation-list-page/properties-quotation-list-page';

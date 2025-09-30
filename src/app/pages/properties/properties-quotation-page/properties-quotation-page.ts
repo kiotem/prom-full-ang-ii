@@ -70,12 +70,6 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
       displayHTML('property-search-component', 'block');
     }
   }
-/*
-  generateQuotas(event: any): void  
-  {
-    this.propertiesQuotationService.calculateQuotas();
-  }
-*/
 
   ngOnInit(): void 
   {
@@ -132,46 +126,40 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
 
           console.log('ObjectId created:', object.objectId);
 
+          this.downloadSale(object.objectId);
+
           /*
-          //vencimiento en 24 horas
-          let expirationDate = new Date();
-          expirationDate.setHours(expirationDate.getHours() + 24);
+            this.sendPlanToWhatsApp();
 
-          console.log('Expiration Date:', expirationDate.toISOString());
+            
+            this.wompiService.createLink(
+              'Separación de propiedad',
+              'Lote ' + this.propertiesQuotationService.property.code,
+              this.propertiesQuotationService.separationQuotaValue,
+              object.objectId
+            ).subscribe({
+              next: (linkResponse: any) => {
+                console.log('Wompi link created successfully:', linkResponse);
 
-          let expires_at = expirationDate.toISOString();
-          */
-
-          this.sendPlanToWhatsApp();
-
-          
-          this.wompiService.createLink(
-            'Separación de propiedad',
-            'Lote ' + this.propertiesQuotationService.property.code,
-            this.propertiesQuotationService.separationQuotaValue,
-            object.objectId
-          ).subscribe({
-            next: (linkResponse: any) => {
-              console.log('Wompi link created successfully:', linkResponse);
-
-              this.propertiesQuotationService.wompiResponse = linkResponse.data;
-              
-              let wompiId = linkResponse.data.id;
-              if(wompiId) 
-              {
-                console.log('Wompi ID:', wompiId);
-                this.sendLinktToWhatsApp(wompiId);
-              }else
-              {
-                console.error('Wompi ID not found');
+                this.propertiesQuotationService.wompiResponse = linkResponse.data;
+                
+                let wompiId = linkResponse.data.id;
+                if(wompiId) 
+                {
+                  console.log('Wompi ID:', wompiId);
+                  this.sendLinktToWhatsApp(wompiId);
+                }else
+                {
+                  console.error('Wompi ID not found');
+                }
+              },
+              error: (error) => {
+                this.loaderService.hide();
+                console.error('Error creating Wompi link:', error);           
+                alert('Error al crear el link de pago: ' + error.error.code);
               }
-            },
-            error: (error) => {
-              this.loaderService.hide();
-              console.error('Error creating Wompi link:', error);           
-              alert('Error al crear el link de pago: ' + error.error.code);
-            }
-          });
+            });
+          */
         }else
         {
           alert('Error al crear: ' + result.message);
@@ -186,7 +174,41 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
     });
   }
 
-  sendLinktToWhatsApp(wompiId: string): void 
+  createWompiLink(): void
+  {
+    this.loaderService.show();
+
+    this.wompiService.createLink(
+      'Separación de propiedad',
+      'Lote ' + this.propertiesQuotationService.property.code,
+      this.propertiesQuotationService.separationQuotaValue,
+      this.propertiesQuotationService.saleId
+    ).subscribe({
+      next: (linkResponse: any) => 
+      {
+        console.log('Wompi link created successfully:', linkResponse);
+        this.propertiesQuotationService.wompiResponse = linkResponse.data;
+        
+        let wompiId = linkResponse.data.id;
+        if(wompiId) 
+        {
+          console.log('Wompi ID:', wompiId);
+          this.sendWompiLinktToWhatsApp(wompiId);
+        }else
+        {
+          console.error('Wompi ID not found');
+        }
+      },
+      error: (error) => 
+      {
+        this.loaderService.hide();
+        console.error('Error creating Wompi link:', error);           
+        alert('Error al crear el link de pago: ' + error.error.code);
+      }
+    });
+  }
+
+  sendWompiLinktToWhatsApp(wompiId: string): void 
   {
     let json = this.propertiesQuotationService.getJsonWhatsApp();
 
@@ -243,6 +265,53 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
   clientCreated(event: any): void 
   {
     console.log('Client created event:', event);
+  }
+
+  downloadSale(id: string): void
+  {
+    console.log('Downloading sale with ID:', id);
+
+    let search = ''+id;
+    let searchBy = 'id';
+
+    let json =
+    {
+      search: search,
+      searchBy: searchBy
+    }
+
+    console.log('Downloading sales with parameters:', json);
+
+    this.loaderService.show();
+    this.saleService.getSale(json).subscribe({
+      next: (data) => {
+        this.loaderService.hide();
+        console.log('Sales fetched successfully:', data);
+
+        let sales = data.result.sales;
+        let size = sales.length;
+        console.log('Number of sales received:', size);
+
+        if(size > 0)
+        {
+          this.propertiesQuotationService.sale = sales[0];
+        }
+
+        /*
+          let sales = data.result.sales;
+          let size = sales.length;
+          console.log('Number of sales received:', size);
+          // Fill the service's sales array
+          this.salesService.fill(sales);
+
+          this.cdr.detectChanges();
+        */
+      },
+      error: (error) => {
+        this.loaderService.hide();
+        console.error('Error fetching properties:', error);
+      }
+    });
   }
 
   testPDF(): void

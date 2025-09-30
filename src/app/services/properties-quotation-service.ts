@@ -6,6 +6,7 @@ import Agent from '../models/Agent';
 import Quota from '../models/Quota';
 import { ProjectService } from './project-service';
 import { formatDate } from '@angular/common';
+import Sale from '../models/Sale';
 
 @Injectable({
   providedIn: 'root'
@@ -18,6 +19,8 @@ export class PropertiesQuotationService {
   quotas: Quota[];
   saleId: string;
   wompiResponse: any;
+
+  sale: Sale | undefined;
 
   separationForm: any;
 
@@ -66,6 +69,8 @@ export class PropertiesQuotationService {
     this.project = this.projectService.getSelected() as Project;
 
     this.quotas = [];
+
+    this.sale = undefined;
   }
 
   reset()
