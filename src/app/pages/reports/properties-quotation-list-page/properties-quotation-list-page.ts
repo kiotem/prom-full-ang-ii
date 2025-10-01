@@ -150,7 +150,7 @@ export class PropertiesQuotationListPage implements OnInit {
     console.log('Downloading sales with parameters:', json);
 
     this.loaderService.show();
-    this.salesService.getSale(json).subscribe({
+    this.salesService.getSalesStatus(json).subscribe({
       next: (data) => {
         this.loaderService.hide();
         console.log('Sales fetched successfully:', data);

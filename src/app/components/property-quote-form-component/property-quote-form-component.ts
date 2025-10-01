@@ -3,6 +3,7 @@ import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { PropertiesQuotationService } from '../../services/properties-quotation-service';
 import { getNumberFromField } from '../../commons/utils';
 import { AgentService } from '../../services/agent-service';
+import { ProjectService } from '../../services/project-service';
 
 @Component({
   selector: 'app-property-quote-form-component',
@@ -29,9 +30,10 @@ export class PropertyQuoteFormComponent implements OnInit {
   propertyId: FormControl;
   propertyAmount: FormControl;
   quotas : FormControl;
+  projectId: FormControl
 
 
-constructor(public propertiesQuotationService: PropertiesQuotationService, private cdr: ChangeDetectorRef, public agentService: AgentService) 
+constructor(public propertiesQuotationService: PropertiesQuotationService, private projectService: ProjectService, private cdr: ChangeDetectorRef, public agentService: AgentService) 
 {
     this.separationQuota = new FormControl(1000000);
     this.discountPercent = new FormControl(0);
@@ -48,6 +50,7 @@ constructor(public propertiesQuotationService: PropertiesQuotationService, priva
     this.propertyId = new FormControl('');  
     this.propertyAmount = new FormControl('');
     this.quotas = new FormControl([]);
+    this.projectId = new FormControl(this.projectService.getSelected()?.objectId);
 
     this.separationForm = new FormGroup({
       separationQuota: this.separationQuota,
@@ -64,7 +67,8 @@ constructor(public propertiesQuotationService: PropertiesQuotationService, priva
       clientId: this.clientId,
       propertyId: this.propertyId,
       propertyAmount: this.propertyAmount,
-      quotas: this.quotas
+      quotas: this.quotas,
+      projectId : this.projectId
       });
 
       this.getAgents({});

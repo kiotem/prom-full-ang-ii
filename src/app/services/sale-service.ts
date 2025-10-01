@@ -32,8 +32,8 @@ export class SaleService {
     return this.http.post<any>(API_URL+'salesList', params, httpOptions);
   }
 
-  getSale(params: any)
+  getSalesStatus(params: any)
   {
-    return this.http.post<any>(API_URL+'salesList', params, httpOptions);
+    return this.http.post<any>(API_URL+'salesStatus', params, httpOptions);
   }
 }

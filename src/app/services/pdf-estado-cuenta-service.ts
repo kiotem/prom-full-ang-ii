@@ -16,7 +16,7 @@ export class PDFEstadoCuentaService
     // Initialization code if needed
   }
 
-  createEstadoIndividual(client: Client/*, sales: Sale, quotas: Quota[], property: Property*/): void
+  createEstadoIndividual(sale: Sale, payments: any[]): void
   {
     const doc = new jsPDF();
 
@@ -68,12 +68,12 @@ export class PDFEstadoCuentaService
 
     const clientData: any[] = [];
 
-    clientData.push( {title: 'CC/NIT', value: client.pmsId});
-    clientData.push( { title: 'Nombre', value: client.name + ' ' + client.lastName1 + ' ' + (client.lastName2 ? client.lastName2 : '')});
-    clientData.push( { title: 'Email', value: client.email });
-    clientData.push( { title: 'Teléfono', value: client.phone });
-    clientData.push( { title: 'Dirección', value: client.address });
-    clientData.push( { title: 'Ciudad', value: client.city });
+    clientData.push( {title: 'CC/NIT', value: sale.client.pmsId});
+    clientData.push( { title: 'Nombre', value: sale.client.name + ' ' + sale.client.lastName1 + ' ' + (sale.client.lastName2 ? sale.client.lastName2 : '')});
+    clientData.push( { title: 'Email', value: sale.client.email });
+    clientData.push( { title: 'Teléfono', value: sale.client.phone });
+    clientData.push( { title: 'Dirección', value: sale.client.address });
+    clientData.push( { title: 'Ciudad', value: sale.client.city });
 
     autoTable(doc, {
       body: clientData,

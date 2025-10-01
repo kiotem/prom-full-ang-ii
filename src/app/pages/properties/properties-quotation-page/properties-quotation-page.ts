@@ -283,7 +283,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
     console.log('Downloading sales with parameters:', json);
 
     this.loaderService.show();
-    this.saleService.getSale(json).subscribe({
+    this.saleService.getSalesStatus(json).subscribe({
       next: (data) => {
         this.loaderService.hide();
         console.log('Sales fetched successfully:', data);
@@ -316,6 +316,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
 
   testPDF(): void
   {
-    this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.client);
+    if(this.propertiesQuotationService.sale)
+    this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, []);
   }
 }
