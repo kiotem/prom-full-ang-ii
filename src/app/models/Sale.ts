@@ -1,5 +1,6 @@
 import Agent from "./Agent";
 import Client from "./Client";
+import Project from "./Project";
 import Property from "./Property";
 
 export default interface Sale 
@@ -23,28 +24,7 @@ export default interface Sale
     phase?: string;
     phaseType?: string;
     property: Property;
+    project: Project;
     saleDate?: Date;
     separationValue: number;
-
-    /*
-    objectId: string;
-    createdAt: Date;
-    limitDate?: Date;
-    defaultRate?: number;
-    saleDate?: Date;
-    amount?: number;
-    comments?: string;
-    status?: string;
-    phase?: string;
-    separationValue?: number;
-    initialValue?: number;
-    initialNumberOfQuotas?: number;
-    initialQuota?: number;
-    finalValue?: number;
-    finalNumberOfQuotas?: number;
-    finalQuota?: number;
-    balance?: number;
-    agentId?: string;
-    clientId?: string;
-    propertyId?: string;*/
 }

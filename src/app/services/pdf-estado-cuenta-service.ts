@@ -5,19 +5,28 @@ import jsPDF from 'jspdf';
 import Quota from '../models/Quota';
 import Property from '../models/Property';
 import autoTable from 'jspdf-autotable';
+import Payment from '../models/Payment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PDFEstadoCuentaService 
 {
+  sale: Sale | undefined;
+  quotas: Quota[] | undefined;
+  payments: Payment[] | undefined;
+  
   constructor() 
   {
     // Initialization code if needed
   }
 
-  createEstadoIndividual(sale: Sale, payments: any[]): void
+  createEstadoIndividual(sale: Sale, payments: Payment[], quotas: Quota[]): void
   {
+    this.sale = sale;
+    this.payments = payments;
+    this.quotas = quotas;
+
     const doc = new jsPDF();
 
     let margin = 15;
@@ -96,14 +105,14 @@ export class PDFEstadoCuentaService
     });
 
     const propertyData: any[] = [];
-    propertyData.push( {title: 'Propiedad', value: 'L45'});
-    propertyData.push( { title: 'Área', value: '452 m2'});
-    propertyData.push( { title: 'Proyecto', value: 'Riviera Esmeralda'});
-    propertyData.push( { title: 'Valor', value: '$ 20.000.000' });
-    propertyData.push( { title: 'Fecha de compra', value: '12/09/2025' });
+    propertyData.push( {title: 'Propiedad', value: this.sale.property.code });
+    propertyData.push( { title: 'Área', value: this.sale.property.area + ' m2'});
+    propertyData.push( { title: 'Proyecto', value: this.sale.project.name });
+    propertyData.push( { title: 'Valor', value: '$ '+this.sale.amount.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) });
+    propertyData.push( { title: 'Fecha de compra', value: this.sale.saleDate?.toLocaleDateString('es-CO') });
     propertyData.push( { title: 'Tasa de Mora E.M.', value: '3.00%' });
-    propertyData.push( { title: 'Saldo', value: '$ 15.000.000' });
-    propertyData.push( { title: 'Fecha de corte', value: '12/09/2025 07:00:00 a.m.' });
+    propertyData.push( { title: 'Saldo', value: '$ '+this.sale.balance.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) });
+    propertyData.push( { title: 'Fecha de corte', value:new Date().toLocaleString('es-CO') });
 
 
     autoTable(doc, {
