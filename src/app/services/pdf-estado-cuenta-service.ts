@@ -15,19 +15,22 @@ export class PDFEstadoCuentaService
   sale: Sale | undefined;
   quotas: Quota[] | undefined;
   payments: Payment[] | undefined;
+
+  doc: jsPDF;
   
   constructor() 
   {
+    this.doc = new jsPDF();
     // Initialization code if needed
   }
 
-  createEstadoIndividual(sale: Sale, payments: Payment[], quotas: Quota[]): void
+  createEstadoIndividual(sale: Sale, quotas: Quota[], payments: Payment[]): void
   {
     this.sale = sale;
-    this.payments = payments;
     this.quotas = quotas;
+    this.payments = payments;
 
-    const doc = new jsPDF();
+    //const doc = new jsPDF();
 
     let margin = 15;
 
@@ -35,17 +38,17 @@ export class PDFEstadoCuentaService
     let textHeader = 'Estado individual de cartera';
     let textFooter = `Página ${currentPage}`;
 
-    this.newPage('', textFooter, doc, false);
+    this.newPage('', textFooter, this.doc, false);
 
-    doc.setFontSize(14);
-    //doc.text(textHeader, 15, 52);
+    this.doc.setFontSize(14);
+    //this.doc.text(textHeader, 15, 52);
 
-    doc.text(textHeader, doc.internal.pageSize.width / 2, 48, { align: 'center' });
+    this.doc.text(textHeader, this.doc.internal.pageSize.width / 2, 48, { align: 'center' });
 
 
-    doc.setFontSize(11);
+    this.doc.setFontSize(11);
 
-    doc.text('Reciba cordial saludo', 15, 66);
+    this.doc.text('Reciba cordial saludo', 15, 66);
 
 
 
@@ -56,21 +59,21 @@ export class PDFEstadoCuentaService
 
     
     // Ancho máximo del texto (ancho de la página - márgenes)
-    const pageHeight = doc.internal.pageSize.height;
-    const maxWidth = doc.internal.pageSize.width - (2 * margin);
+    const pageHeight = this.doc.internal.pageSize.height;
+    const maxWidth = this.doc.internal.pageSize.width - (2 * margin);
 
     // Divide el texto en líneas que caben en el ancho de la página
-    const splitText = doc.splitTextToSize(parrafo, maxWidth);
+    const splitText = this.doc.splitTextToSize(parrafo, maxWidth);
 
     splitText.forEach((linex: string) => {
       if (yPosition + 7 > pageHeight) { // Si la línea excede la altura de la página
-        //doc.addPage(); // Añade una nueva página
+        //this.doc.addPage(); // Añade una nueva página
         currentPage++;
         textFooter = `Página ${currentPage}`;
-        this.newPage(textHeader, textFooter, doc, true);
+        this.newPage(textHeader, textFooter, this.doc, true);
         yPosition = margin; // Reinicia la posición Y al margen
       }
-      doc.text(linex, margin, yPosition); // Dibuja la línea
+      this.doc.text(linex, margin, yPosition); // Dibuja la línea
       yPosition += 7; // Incrementa la posición Y para la siguiente línea
     });
 
@@ -84,7 +87,7 @@ export class PDFEstadoCuentaService
     clientData.push( { title: 'Dirección', value: sale.client.address });
     clientData.push( { title: 'Ciudad', value: sale.client.city });
 
-    autoTable(doc, {
+    autoTable(this.doc, {
       body: clientData,
       didDrawCell: data => 
       {
@@ -109,13 +112,12 @@ export class PDFEstadoCuentaService
     propertyData.push( { title: 'Área', value: this.sale.property.area + ' m2'});
     propertyData.push( { title: 'Proyecto', value: this.sale.project.name });
     propertyData.push( { title: 'Valor', value: '$ '+this.sale.amount.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) });
-    propertyData.push( { title: 'Fecha de compra', value: this.sale.saleDate?.toLocaleDateString('es-CO') });
+    propertyData.push( { title: 'Fecha de compra', value: this.sale.createdAt });
     propertyData.push( { title: 'Tasa de Mora E.M.', value: '3.00%' });
     propertyData.push( { title: 'Saldo', value: '$ '+this.sale.balance.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 }) });
     propertyData.push( { title: 'Fecha de corte', value:new Date().toLocaleString('es-CO') });
 
-
-    autoTable(doc, {
+    autoTable(this.doc, {
       body: propertyData,
       didDrawCell: data => 
       {
@@ -135,26 +137,117 @@ export class PDFEstadoCuentaService
       styles: { fontSize: 9, cellPadding: 1, overflow: 'linebreak' }
     });
 
-    /*
-        doc.text(`Cliente: ${client.name} ${client.lastName1}`, 15, 32);
-        doc.text(`DNI: ${client.pmsId}`, 15, 40);
-        doc.text(`Email: ${client.email}`, 15, 48);
-        doc.text(`Teléfono: ${client.phone}`, 15, 56);
-    */
-    doc.output('dataurlnewwindow');
+    this.generateQuotas();
+
+    this.doc.output('dataurlnewwindow');
   }
 
   newPage(header: string, footer: string, doc: jsPDF, add: boolean)
   {
     if(add)
     {
-      doc.addPage();
+      this.doc.addPage();
     }
     
     doc.setFontSize(10);
     doc.text(header, 10, 10);
     doc.setFontSize(9);
     doc.text(footer, 200, 290, { align: 'right' });
+  }
+
+  generateQuotas(): void
+  {
+    let position = 0;
+    let pageSize = 45;
+
+    if(this.quotas) 
+    {
+      this.newPage('', '', this.doc, true);
+      
+      let totalQuotas = this.quotas.length;
+
+      let head = [["Cuota", "Fecha", "Valor", "Pagado"]];
+
+       var data: any[] = [];
+
+      let currentBlock = -1;
+      let createRows = 0;
+
+      while (totalQuotas > 0) 
+      {
+        currentBlock++;
+
+         data = [];
+
+        if(totalQuotas > pageSize) {
+          createRows = pageSize;
+          totalQuotas -= pageSize;
+        }else{
+          createRows = totalQuotas;
+          totalQuotas = 0;
+        }
+        
+        for(let j = 0; j < createRows; j++)
+        {
+          if(this.quotas[position]) 
+          {
+            const quota = this.quotas[position];
+
+            const formattedDate = quota.dueDate | Date 'dd/MM/yyyy';
+
+            data.push([quota.type, formattedDate, quota.amount, quota.paid]);
+            position++;
+          }else 
+          {
+            data.push(['', '', '', '']);
+          }
+        }
+
+        this.tabQuotas(this.doc, head, data, currentBlock, position);
+      }
+    }
+  }
+
+  tabQuotas(doc: jsPDF, head: any[], data: any[], block: number, position: number): void 
+  {
+    // Implementación de la tabla
+    let left = 10;
+    let right = 10;
+
+    if(block % 2 == 0 && block > 0) {
+      doc.addPage();
+    }
+
+    if(block % 2 == 0) {
+      left = 15;
+      right = 10;
+    }else{
+      left = 110;
+      right = 10;
+    }
+
+    autoTable(doc, {
+      head: head,
+      body: data,
+      didDrawCell: data => 
+      {
+        //console.log(data.column.index);
+      },
+      rowPageBreak: 'auto',
+      headStyles: { fillColor: [22, 160, 133], lineColor: [0, 0, 0], halign: 'center', lineWidth: 0.1 },
+      columnStyles: { 
+        0: { cellWidth: 25, lineColor: [0, 0, 0], lineWidth: 0.1 }, // ID
+        1: { cellWidth: 20, lineColor: [0, 0, 0], lineWidth: 0.1 }, // Country
+        2: { cellWidth: 20, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 }, // Index
+        3: { cellWidth: 20, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 } // Capital
+      },
+      margin: { top: 15, left: left, right: right, bottom: 15 },
+      //startY: 15,
+      tableLineColor: [0, 0, 0],
+      tableLineWidth: 0.1,
+      tableWidth: 85,
+      styles: { fontSize: 9, cellPadding: 1, overflow: 'linebreak' }
+    });
   }
 
 }

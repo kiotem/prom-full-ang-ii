@@ -17,6 +17,7 @@ export class PropertiesQuotationService {
   property: Property;
   agent: string;
   quotas: Quota[];
+  
   saleId: string;
   wompiResponse: any;
 

@@ -289,6 +289,8 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
         console.log('Sales fetched successfully:', data);
 
         this.propertiesQuotationService.sale = data.result.sale;
+        this.propertiesQuotationService.quotas = data.result.quotas;
+
 
         /*
         let sales = data.result.sales;
@@ -321,6 +323,6 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
   testPDF(): void
   {
     if(this.propertiesQuotationService.sale)
-    this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, [], []);
+    this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, []);
   }
 }
