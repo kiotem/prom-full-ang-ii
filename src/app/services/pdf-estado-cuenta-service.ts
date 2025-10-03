@@ -287,7 +287,7 @@ export class PDFEstadoCuentaService
 
     // Send the FormData using Angular's HttpClient
 
-    this.http.post('https://www.safetrack.live/lab/pdf/upload_pdf.php', formData).subscribe(
+    this.http.post('https://promotorasfull.co/media/upload_pdf.php', formData).subscribe(
       (response) => {
         console.log('PDF uploaded successfully!', response);
 

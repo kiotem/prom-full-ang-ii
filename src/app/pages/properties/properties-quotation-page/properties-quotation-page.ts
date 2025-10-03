@@ -17,6 +17,7 @@ import { SaleService } from '../../../services/sale-service';
 import { WhatsAppService } from '../../../services/whatsapp-service';
 import WhatsApp from '../../../models/WhatsApp';
 import { PDFEstadoCuentaService } from '../../../services/pdf-estado-cuenta-service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-properties-quotation-page',
@@ -29,7 +30,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
 {
   @ViewChild(PropertyQuoteFormComponent, { static: false }) propertyQuoteFormComponent!: PropertyQuoteFormComponent;
 
-  constructor(public propertiesQuotationService: PropertiesQuotationService, private loaderService: LoaderService, private saleService: SaleService, private wompiService: WompiService, private whatsAppService: WhatsAppService, private pdfEstadoCuenta: PDFEstadoCuentaService) 
+  constructor(public propertiesQuotationService: PropertiesQuotationService, private loaderService: LoaderService, private saleService: SaleService, private wompiService: WompiService, private whatsAppService: WhatsAppService, private pdfEstadoCuenta: PDFEstadoCuentaService, private router: Router) 
   {
     this.propertiesQuotationService.reset();
   }
@@ -43,7 +44,6 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
     {
       this.propertyQuoteFormComponent.process();
     }
-
   }
 
   cancelSearchProperty(): void 
@@ -91,7 +91,8 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
   submit()
   {
     console.log('Quotas Length:', this.propertiesQuotationService.quotas.length);
-    if(this.propertiesQuotationService.quotas.length == 0) {
+    if(this.propertiesQuotationService.quotas.length == 0) 
+    {
       this.propertyQuoteFormComponent.process();
       console.log('Quotas were empty, processed form to generate quotas.');
     }
@@ -212,7 +213,8 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
   {
     let json = this.propertiesQuotationService.getJsonWhatsApp();
 
-    let data: WhatsApp = {
+    let data: WhatsApp = 
+    {
       //phone: this.propertyQuoteService.client.phone,
       phone: '3156738411',
       body: '',
@@ -227,15 +229,20 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
     this.whatsAppService.sendMessageSeparation(data).subscribe({
       next: (response) => 
       {
+        this.loaderService.hide();
+        //continue to CCotizacionReports
+        this.router.navigate(['properties/quotation/list']);
         console.log('WhatsApp message sent successfully:', response);
       },
       error: (error) => 
       {
+        this.loaderService.hide();
         console.error('Error sending WhatsApp message:', error);
       }
     });
   }
 
+  /*
   sendPlanToWhatsApp(): void 
   {
     //let json = this.propertiesQuotationService.getJsonWhatsApp();
@@ -260,7 +267,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
         console.error('Error sending WhatsApp message:', error);
       }
     });
-  }
+  }*/
 
   clientCreated(event: any): void 
   {
@@ -291,27 +298,14 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
         this.propertiesQuotationService.sale = data.result.sale;
         this.propertiesQuotationService.quotas = data.result.quotas;
 
-
-        /*
-        let sales = data.result.sales;
-        let size = sales.length;
-        console.log('Number of sales received:', size);
-
-        if(size > 0)
+        if(this.propertiesQuotationService.sale)
         {
-          this.propertiesQuotationService.sale = sales[0];
+          this.createWompiLink();
+          this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, [], 'whatsapp');
         }
-        */
+        
 
-        /*
-          let sales = data.result.sales;
-          let size = sales.length;
-          console.log('Number of sales received:', size);
-          // Fill the service's sales array
-          this.salesService.fill(sales);
 
-          this.cdr.detectChanges();
-        */
       },
       error: (error) => {
         this.loaderService.hide();

@@ -13,10 +13,11 @@ import { getTextFromField } from '../../../commons/utils';
 import { DecimalPipe } from '@angular/common';
 import Sale from '../../../models/Sale';
 import { PDFEstadoCuentaService } from '../../../services/pdf-estado-cuenta-service';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 @Component({
   selector: 'app-properties-quotation-list-page',
-  imports: [MenuComponent, LoaderComponent, ProjectSelectorComponent,MatInputModule, MatDatepickerModule, ReactiveFormsModule, LoaderComponent, DecimalPipe],
+  imports: [MenuComponent, LoaderComponent, ProjectSelectorComponent,MatInputModule, MatDatepickerModule, ReactiveFormsModule, LoaderComponent, DecimalPipe, MatTooltipModule],
   templateUrl: './properties-quotation-list-page.html',
   styleUrls: ['./properties-quotation-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css'],
     providers: [provideNativeDateAdapter()],
