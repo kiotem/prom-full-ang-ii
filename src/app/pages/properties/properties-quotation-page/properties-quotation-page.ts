@@ -323,6 +323,6 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
   testPDF(): void
   {
     if(this.propertiesQuotationService.sale)
-    this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, []);
+    this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, [], 'view');
   }
 }

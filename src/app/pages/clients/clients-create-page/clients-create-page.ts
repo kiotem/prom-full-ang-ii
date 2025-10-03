@@ -99,7 +99,8 @@ handleSubmit() {
             // Handle login error, e.g., show an error message
           }
         });
-    }else{
+    }else
+    {
       console.error('Form is invalid');
       alert('Por favor llena los campos requeridos');
     }

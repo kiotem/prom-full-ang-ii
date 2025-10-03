@@ -12,6 +12,7 @@ import { LoaderService } from '../../../services/loader-service';
 import { getTextFromField } from '../../../commons/utils';
 import { DecimalPipe } from '@angular/common';
 import Sale from '../../../models/Sale';
+import { PDFEstadoCuentaService } from '../../../services/pdf-estado-cuenta-service';
 
 @Component({
   selector: 'app-properties-quotation-list-page',
@@ -28,7 +29,7 @@ export class PropertiesQuotationListPage implements OnInit {
     end: new FormControl<Date | null>(null),
   });
 
-  constructor(private router: Router, public salesService: SaleService, private loaderService: LoaderService, private cdr: ChangeDetectorRef) {
+  constructor(private router: Router, public salesService: SaleService, private loaderService: LoaderService, private cdr: ChangeDetectorRef, private pdfService: PDFEstadoCuentaService) {
     let today = new Date().toLocaleDateString('en-CA'); // Formato YYYY-MM-DD
     let startDate = new Date(today + ' 00:00:00').toISOString();
     let endDate = new Date(today + ' 00:00:00').toISOString();
@@ -154,6 +155,13 @@ export class PropertiesQuotationListPage implements OnInit {
       next: (data) => {
         this.loaderService.hide();
         console.log('Sales fetched successfully:', data);
+
+        let sale = data.result.sale;
+        let payments = data.result.payments;
+        let quotas = data.result.quotas;
+
+        this.pdfService.createEstadoIndividual(sale, quotas, payments, 'mail');
+
         //this.properties = data.result;
 
         /*

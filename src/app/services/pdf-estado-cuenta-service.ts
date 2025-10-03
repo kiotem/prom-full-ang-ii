@@ -6,6 +6,9 @@ import Quota from '../models/Quota';
 import Property from '../models/Property';
 import autoTable from 'jspdf-autotable';
 import Payment from '../models/Payment';
+import { HttpClient } from '@angular/common/http';
+import WhatsApp from '../models/WhatsApp';
+import { WhatsAppService } from './whatsapp-service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,14 +21,16 @@ export class PDFEstadoCuentaService
 
   doc: jsPDF;
   
-  constructor() 
+  constructor(private http: HttpClient, private whatsAppService: WhatsAppService) 
   {
     this.doc = new jsPDF();
     // Initialization code if needed
   }
 
-  createEstadoIndividual(sale: Sale, quotas: Quota[], payments: Payment[]): void
+  createEstadoIndividual(sale: Sale, quotas: Quota[], payments: Payment[], destiny: string): void
   {
+    this.doc = new jsPDF();
+
     this.sale = sale;
     this.quotas = quotas;
     this.payments = payments;
@@ -139,7 +144,33 @@ export class PDFEstadoCuentaService
 
     this.generateQuotas();
 
-    this.doc.output('dataurlnewwindow');
+    switch (destiny) {
+      case 'download':
+        this.doc.save(`estado_individual_${this.sale.property.code}.pdf`);
+        break;
+      case 'print':
+        this.doc.autoPrint();
+        this.doc.output('dataurlnewwindow');
+        break;
+      case 'view':
+        this.doc.output('dataurlnewwindow');
+        break;
+      case 'mail':
+        //this.doc.output('dataurlnewwindow');
+        let pdfOutputMail = this.doc.output('blob'); // Get PDF as a Blob
+        this.uploadPdfToServer(pdfOutputMail);
+        break;
+      case 'whatsapp':
+        //this.doc.output('dataurlnewwindow');
+        let pdfOutputWA = this.doc.output('blob'); // Get PDF as a Blob
+        this.uploadPdfToServer(pdfOutputWA);
+
+        break;
+      default:
+        this.doc.output('dataurlnewwindow');
+        break;
+    }
+    //this.doc.output('dataurlnewwindow');
   }
 
   newPage(header: string, footer: string, doc: jsPDF, add: boolean)
@@ -193,9 +224,7 @@ export class PDFEstadoCuentaService
           {
             const quota = this.quotas[position];
 
-            const formattedDate = quota.dueDate | Date 'dd/MM/yyyy';
-
-            data.push([quota.type, formattedDate, quota.amount, quota.paid]);
+            data.push([quota.type, quota.dueDateString, '$' + quota.amount.toLocaleString('es-CO', { minimumFractionDigits: 0, maximumFractionDigits: 0 }), quota.paid]);
             position++;
           }else 
           {
@@ -242,11 +271,57 @@ export class PDFEstadoCuentaService
         3: { cellWidth: 20, halign: 'right', lineColor: [0, 0, 0], lineWidth: 0.1 } // Capital
       },
       margin: { top: 15, left: left, right: right, bottom: 15 },
-      //startY: 15,
+      startY: 15,
       tableLineColor: [0, 0, 0],
       tableLineWidth: 0.1,
       tableWidth: 85,
       styles: { fontSize: 9, cellPadding: 1, overflow: 'linebreak' }
+    });
+  }
+
+  uploadPdfToServer(pdfBlob: Blob): void
+  {
+    const formData = new FormData();
+    //formData.append('pdfFile', pdfBlob, 'document.pdf'); // 'pdfFile' is the field name on server
+    formData.append('pdfFile', pdfBlob, 'fl_'+this.sale?.objectId+'.pdf'); // 'pdfFile' is the field name on server
+
+    // Send the FormData using Angular's HttpClient
+
+    this.http.post('https://www.safetrack.live/lab/pdf/upload_pdf.php', formData).subscribe(
+      (response) => {
+        console.log('PDF uploaded successfully!', response);
+
+        this.sendWhatsappFile()
+      },
+      (error) => {
+        console.error('Error uploading PDF:', error);
+      }
+    );
+    
+  }
+
+
+  sendWhatsappFile(): void
+  {
+    let data: WhatsApp = {
+      //phone: this.propertyQuoteService.client.phone,
+      phone: '3156738411',
+      body: '',
+      template: 'separation_plan',
+      name: this.sale!.client.name,
+      arg1: this.sale!.property.code+' de '+this.sale!.project.name,
+      arg2: 'fl_'+this.sale!.objectId+'.pdf'
+    };
+
+    console.log('Sending plan to WhatsApp:', data);
+
+    this.whatsAppService.sendMessageSeparationPlan(data).subscribe({
+      next: (response) => {
+        console.log('WhatsApp message sent successfully:', response);
+      },
+      error: (error) => {
+        console.error('Error sending WhatsApp message:', error);
+      }
     });
   }
 
