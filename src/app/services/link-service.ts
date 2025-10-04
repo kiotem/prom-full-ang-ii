@@ -3,6 +3,7 @@ import Link from '../models/Link';
 import { API_URL, httpOptions } from '../commons/enviroments';
 import { HttpClient } from '@angular/common/http';
 import { StorageService } from './storage-service';
+import Sale from '../models/Sale';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,27 @@ export class LinkService
       this.storageService.setItem('links', JSON.stringify(this.links));
       console.log('Links filled:', this.links);
     */
+  }
+
+  savePaymentLink(sale: Sale, wompiObject: any, callback: (success: boolean, data: any) => void)
+  {
+    let json = 
+    {
+      saleObject: sale,
+      wompiObject: wompiObject
+    };
+    
+    console.log('savePaymentLink method called');
+    this.http.post<any>(API_URL+'savePaymentLink', json, httpOptions).subscribe(
+      response => {
+        console.log('Payment link saved successfully:', response);
+        callback(true, response);
+      },
+      error => {
+        console.error('Error saving payment link:', error);
+        callback(false, error);
+      }
+    );
   }
 
   download(data: any)

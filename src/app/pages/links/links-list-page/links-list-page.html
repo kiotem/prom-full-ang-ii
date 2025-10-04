@@ -3,20 +3,34 @@
 <div style="position: absolute; top: 20px; left: 20px; z-index: 100; display: inline-flex; justify-content: space-between;" >
     <input type="text" id="i_search" name="i_search" class="form-control" (keyup)="onKeyUp($event)" placeholder="Buscar:" class="input-search" style=" width: 180px;">
 
-    <div style="display: flex; align-items: center; margin-left:-10px; width: 200px;" >
-    <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 180px;" (change)="onChangeStatus($event)">
-        <option value="All">TODOS</option>
-        <option value="pending">Pendientes</option>
-        <option value="approved">Aprobados</option>
-        <option value="declined">Declinados</option>
-        <option value="expired">Expirados</option>
-        <option value="cancelled">Cancelados</option>
-        <option value="error">Erroneos</option>
-    </select>
-    
-    <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
-        <i class="fas fa-angle-down"></i>
-    </button>
+    <div style="display: flex; align-items: center; margin-left:10px;" >
+        <mat-form-field  (click)="picker3.open()" class="mat-mdc-form-field-infix-date-range">
+            <mat-date-range-input [rangePicker]="picker3" class=" mat-field-input-date-range" id="iDateRange" name="iDateRange" [formGroup]="range">
+                <input matStartDate placeholder="Desde" formControlName="start" id=" iStartDate" name=" iStartDate" readonly required>
+                <input matEndDate placeholder="Hasta" formControlName="end" id=" iEndDate" name=" iEndDate" readonly required>
+            </mat-date-range-input>
+            <mat-date-range-picker #picker3></mat-date-range-picker>
+        </mat-form-field>
+
+        <button style="background: none; border: none; cursor: pointer; margin-left: -30px; z-index: 10000;" class="b_icon"  (click)="picker3.open()">
+            <i class="fa-regular fa-calendar"></i>
+        </button>
+    </div>
+
+    <div style="display: flex; align-items: center; margin-left-10px; width: 200px;" >
+        <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 180px;" (change)="onChangeStatus($event)">
+            <option value="All">TODOS</option>
+            <option value="pending">Pendientes</option>
+            <option value="approved">Aprobados</option>
+            <option value="declined">Declinados</option>
+            <option value="expired">Expirados</option>
+            <option value="cancelled">Cancelados</option>
+            <option value="error">Erroneos</option>
+        </select>
+        
+        <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
+            <i class="fas fa-angle-down"></i>
+        </button>
     </div>
     
 </div>

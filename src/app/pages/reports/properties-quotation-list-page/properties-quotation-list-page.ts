@@ -20,7 +20,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
   imports: [MenuComponent, LoaderComponent, ProjectSelectorComponent,MatInputModule, MatDatepickerModule, ReactiveFormsModule, LoaderComponent, DecimalPipe, MatTooltipModule],
   templateUrl: './properties-quotation-list-page.html',
   styleUrls: ['./properties-quotation-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css'],
-    providers: [provideNativeDateAdapter()],
+  providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class PropertiesQuotationListPage implements OnInit {

@@ -103,7 +103,7 @@ export default class MenuItems {
                         "id": 'paymentLinksList',
                         "name": "Listar",
                         "icon": "fa-regular fa-clipboard-list",
-                        "router": "paymentLinks/list",
+                        "router": "links/list",
                         "title": "Links de pago / Listar",
                         "is_action": true,
                         "subitems":[]
