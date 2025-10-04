@@ -18,6 +18,7 @@ export class PDFEstadoCuentaService
   sale: Sale | undefined;
   quotas: Quota[] | undefined;
   payments: Payment[] | undefined;
+  destiny: string | undefined;
 
   doc: jsPDF;
   
@@ -34,6 +35,7 @@ export class PDFEstadoCuentaService
     this.sale = sale;
     this.quotas = quotas;
     this.payments = payments;
+    this.destiny = destiny;
 
     //const doc = new jsPDF();
 
@@ -46,23 +48,17 @@ export class PDFEstadoCuentaService
     this.newPage('', textFooter, this.doc, false);
 
     this.doc.setFontSize(14);
-    //this.doc.text(textHeader, 15, 52);
 
     this.doc.text(textHeader, this.doc.internal.pageSize.width / 2, 48, { align: 'center' });
-
 
     this.doc.setFontSize(11);
 
     this.doc.text('Reciba cordial saludo', 15, 66);
 
-
-
     let yPosition = 80;
 
     let parrafo = 'Estimado cliente, a continuación adjuntamos el estado de su cartera actualizado a la fecha para su respectivo conocimiento, control, y conciliación, por lo tanto, si hay diferencias, por favor háganoslo saber a la brevedad para aclarar sus inquietudes.';
 
-
-    
     // Ancho máximo del texto (ancho de la página - márgenes)
     const pageHeight = this.doc.internal.pageSize.height;
     const maxWidth = this.doc.internal.pageSize.width - (2 * margin);
@@ -158,12 +154,43 @@ export class PDFEstadoCuentaService
       case 'mail':
         //this.doc.output('dataurlnewwindow');
         let pdfOutputMail = this.doc.output('blob'); // Get PDF as a Blob
-        this.uploadPdfToServer(pdfOutputMail);
+
+        this.uploadPdfToServerCB(pdfOutputMail, (success) => {
+          if(success) 
+          {
+            /*
+            console.log('PDF uploaded, now sending WhatsApp message.');
+            this.sendWhatsappFileCB((whatsappSuccess) => {
+              if (whatsappSuccess) {
+                console.log('WhatsApp message sent successfully!');
+              }
+            });
+            */
+          }
+        });
         break;
       case 'whatsapp':
-        //this.doc.output('dataurlnewwindow');
         let pdfOutputWA = this.doc.output('blob'); // Get PDF as a Blob
-        this.uploadPdfToServer(pdfOutputWA);
+
+        this.uploadPdfToServerCB(pdfOutputWA, (success) => {
+          if(success) 
+          {
+            console.log('PDF uploaded, now sending WhatsApp message.');
+
+            this.whatsAppService.sendAccountStatus(this.sale!, (whatsappSuccess) => {
+              if (whatsappSuccess) {
+                console.log('WhatsApp message sent successfully from callback!');
+              }
+            });
+            /*
+            this.sendWhatsappFileCB((whatsappSuccess) => {
+              if (whatsappSuccess) {
+                console.log('WhatsApp message sent successfully!');
+              }
+            });
+            */
+          }
+        });
 
         break;
       default:
@@ -291,7 +318,7 @@ export class PDFEstadoCuentaService
       (response) => {
         console.log('PDF uploaded successfully!', response);
 
-        this.sendWhatsappFile()
+        this.sendWhatsappFile();
       },
       (error) => {
         console.error('Error uploading PDF:', error);
@@ -300,6 +327,23 @@ export class PDFEstadoCuentaService
     
   }
 
+  uploadPdfToServerCB(pdfBlob: Blob, callback: (success: boolean) => void): void
+  {
+    console.log('Uploading PDF to server... callback');
+    const formData = new FormData();
+    formData.append('pdfFile', pdfBlob, 'fl_'+this.sale?.objectId+'.pdf');
+
+    this.http.post('https://promotorasfull.co/media/upload_pdf.php', formData).subscribe(
+      (response) => {
+        console.log('PDF uploaded successfully!', response);
+        callback(true);
+      },
+      (error) => {
+        console.error('Error uploading PDF:', error);
+        callback(false);
+      }
+    );
+  }
 
   sendWhatsappFile(): void
   {
@@ -323,6 +367,32 @@ export class PDFEstadoCuentaService
         console.error('Error sending WhatsApp message:', error);
       }
     });
+  }
+
+  sendWhatsappFileCB(callback: (success: boolean) => void): void
+  {
+    let data: WhatsApp = {
+      //phone: this.propertyQuoteService.client.phone,
+      phone: '3156738411',
+      body: '',
+      template: 'separation_plan',
+      name: this.sale!.client.name,
+      arg1: this.sale!.property.code+' de '+this.sale!.project.name,
+      arg2: 'fl_'+this.sale!.objectId+'.pdf'
+    };
+
+        this.whatsAppService.sendMessageSeparationPlan(data).subscribe({
+      next: (response) => {
+        console.log('WhatsApp message sent successfully:', response);
+        callback
+      },
+      error: (error) => {
+        console.error('Error sending WhatsApp message:', error);
+        callback(false);
+      }
+    });
+
+
   }
 
 }

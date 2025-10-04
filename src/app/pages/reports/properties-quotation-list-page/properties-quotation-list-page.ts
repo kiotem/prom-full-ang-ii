@@ -138,6 +138,7 @@ export class PropertiesQuotationListPage implements OnInit {
 
   onClick(sale: Sale): void
   {
+    /*
     console.log('Sale clicked:', sale);
 
     let search = ''+sale.objectId;
@@ -162,26 +163,35 @@ export class PropertiesQuotationListPage implements OnInit {
         let quotas = data.result.quotas;
 
         this.pdfService.createEstadoIndividual(sale, quotas, payments, 'mail');
-
-        //this.properties = data.result;
-
-        /*
-        let sales = data.result.sales;
-        let size = sales.length;
-        console.log('Number of sales received:', size);
-        // Fill the service's sales array
-        this.salesService.fill(sales);
-
-        this.cdr.detectChanges();
-        */
       },
       error: (error) => {
         this.loaderService.hide();
         console.error('Error fetching properties:', error);
       }
-    });
+    });*/
   }
 
+  onDownload(sale: Sale): void
+  {
+    console.log('Download clicked for sale:', sale);
+  }
 
+  
 
+  onPrint(sale: Sale): void
+  {
+    console.log('Print clicked for sale:', sale);  
+  }
+
+  onWhatsApp(sale: Sale): void
+  {
+    console.log('WhatsApp clicked for sale:', sale);  
+    //this.onClick(sale);
+  }
+
+  onEmail(sale: Sale): void
+  {
+    console.log('Email clicked for sale:', sale);  
+    //this.onClick(sale);
+  }
 }
