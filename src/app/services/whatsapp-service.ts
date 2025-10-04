@@ -54,7 +54,7 @@ export class WhatsAppService {
     };
 
     console.log('Send account status method called: '+data);
-    this.http.post<WhatsApp>(API_URL+'sendWhatsAppAccountStatus', data, httpOptions).subscribe(
+    this.http.post<WhatsApp>(API_URL+'sendWhatsAppSeparationPlan', data, httpOptions).subscribe(
       (response) => 
       {
         console.log('WhatsApp message sent successfully!', response);

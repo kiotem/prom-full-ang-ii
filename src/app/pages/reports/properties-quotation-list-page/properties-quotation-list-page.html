@@ -77,10 +77,10 @@
                     <div class="col" style="max-width: auto;">{{item.agent.name}} {{item.agent.lastName1}}</div>
                     <div class="col" style="max-width: 150px;">{{item.phase}}</div>
                     <div class="col-button button-circle-table" style="max-width: 150px;  display: flex;">
-                        <a (click)="onDownload(item)" matTooltip="Descargar aquí"><i class="fa-light fa-arrow-down-to-line"></i></a>&nbsp;&nbsp;
-                        <a (click)="onPrint(item)" matTooltip="Imprimir"><i class="fa-light fa-print"></i></a>&nbsp;&nbsp;
-                        <a (click)="onWhatsApp(item)" matTooltip="Enviar por WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>&nbsp;&nbsp;
-                        <a (click)="onEmail(item)" matTooltip="Enviar por correo"><i class="fa-light fa-envelope"></i></a>
+                        <a (click)="onClickButton(item, 'download')" matTooltip="Descargar aquí"><i class="fa-light fa-arrow-down-to-line"></i></a>&nbsp;&nbsp;
+                        <a (click)="onClickButton(item, 'print')" matTooltip="Imprimir"><i class="fa-light fa-print"></i></a>&nbsp;&nbsp;
+                        <a (click)="onClickButton(item, 'whatsapp')" matTooltip="Enviar por WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>&nbsp;&nbsp;
+                        <a (click)="onClickButton(item, 'email')" matTooltip="Enviar por correo"><i class="fa-light fa-envelope"></i></a>
                     </div>
 
                 </div>

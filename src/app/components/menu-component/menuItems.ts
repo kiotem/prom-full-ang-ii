@@ -94,7 +94,7 @@ export default class MenuItems {
             {
                 "id": 'paymentLinks',
                 "name": "Links de pago",
-                "icon": "fa-solid fa-clipboard-list",
+                "icon": "fa-regular fa-money-check-dollar",
                 "router": "-",
                 "title": "-",
                 "is_action": true,
@@ -102,7 +102,7 @@ export default class MenuItems {
                 {
                         "id": 'paymentLinksList',
                         "name": "Listar",
-                        "icon": "fa-solid fa-clipboard-list",
+                        "icon": "fa-regular fa-clipboard-list",
                         "router": "paymentLinks/list",
                         "title": "Links de pago / Listar",
                         "is_action": true,
@@ -122,34 +122,7 @@ export default class MenuItems {
             {
                 "id": 'vehicles_list',
                 "name": "Registrar Pago",
-                "icon": "fa-solid fa-clipboard-list",
-                "router": "-",
-                "title": "-",
-                "is_action": true,
-                "subitems":[]
-            },
-            {
-                "id": 'vehicles_add',
-                "name": "Pagos registrados",
-                "icon": "fa-solid fa-plus",
-                "router": "-",
-                "title": "-",
-                "is_action": true,
-                "subitems":[]
-            },
-            {
-                "id": 'vehicles_add',
-                "name": "Pagos Pendientes",
-                "icon": "fa-solid fa-plus",
-                "router": "-",
-                "title": "-",
-                "is_action": true,
-                "subitems":[]
-            },
-            {
-                "id": 'vehicles_add',
-                "name": "Pagos a terceros",
-                "icon": "fa-solid fa-plus",
+                "icon": "fa-regular fa-credit-card",
                 "router": "-",
                 "title": "-",
                 "is_action": true,
@@ -182,6 +155,44 @@ export default class MenuItems {
                 "title": "Reportes / Cotizaciones",
                 "is_action": true,
                 "subitems":[]
+            },
+            {
+                "id": 'properties_quotation_list',
+                "name": "Pagos",
+                "icon": "fa-regular fa-money-check-dollar",
+                "router": "-",
+                "title": "Reportes / Pagos",
+                "is_action": false,
+                "subitems":
+                [
+                    {
+                        "id": 'vehicles_add',
+                        "name": "Pagos registrados",
+                        "icon": "fa-solid fa-plus",
+                        "router": "-",
+                        "title": "-",
+                        "is_action": true,
+                        "subitems":[]
+                    },
+                    {
+                        "id": 'vehicles_add',
+                        "name": "Pagos Pendientes",
+                        "icon": "fa-solid fa-plus",
+                        "router": "-",
+                        "title": "-",
+                        "is_action": true,
+                        "subitems":[]
+                    },
+                    {
+                        "id": 'vehicles_add',
+                        "name": "Pagos a terceros",
+                        "icon": "fa-solid fa-plus",
+                        "router": "-",
+                        "title": "-",
+                        "is_action": true,
+                        "subitems":[]
+                    }
+                ]
             },
             {
                 "id": 'history',

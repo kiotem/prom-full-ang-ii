@@ -91,8 +91,8 @@ export class PropertiesQuotationListPage implements OnInit {
     }
   }
 
-    download(jsont: any) 
-    {
+  download(jsont: any) 
+  {
     let search = getTextFromField('i_search');
     let searchBy = getTextFromField('s_status');
 
@@ -171,27 +171,33 @@ export class PropertiesQuotationListPage implements OnInit {
     });*/
   }
 
-  onDownload(sale: Sale): void
+  onClickButton(sale: Sale, type: string): void
   {
-    console.log('Download clicked for sale:', sale);
-  }
+    this.loaderService.show();
+    console.log('Button clicked for sale:', sale);
 
-  
+    let search = ''+sale.objectId;
+    let searchBy = 'id';
 
-  onPrint(sale: Sale): void
-  {
-    console.log('Print clicked for sale:', sale);  
-  }
+    let json =
+    {
+      search: search,
+      searchBy: searchBy
+    }
 
-  onWhatsApp(sale: Sale): void
-  {
-    console.log('WhatsApp clicked for sale:', sale);  
-    //this.onClick(sale);
-  }
+    this.salesService.downloadSale(json, (data, success) => {
+      if (success) {
+        let sale = data.result.sale;
+        let payments = data.result.payments;
+        let quotas = data.result.quotas;
 
-  onEmail(sale: Sale): void
-  {
-    console.log('Email clicked for sale:', sale);  
-    //this.onClick(sale);
+        this.pdfService.createEstadoIndividual(sale, quotas, payments, type);
+        this.loaderService.hide();
+      } else {
+        console.error('Failed to download sale data');
+        this.loaderService.hide();
+      }
+    });
+
   }
 }
