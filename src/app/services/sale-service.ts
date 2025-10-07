@@ -37,15 +37,29 @@ export class SaleService {
     return this.http.post<any>(API_URL+'salesStatus', params, httpOptions);
   }
 
+  createSale(data: Sale, callback : (data: any, success: boolean) => void)
+  {
+    this.http.post<any>(API_URL+'createSale', data, httpOptions).subscribe({
+      next: (data) => {
+        //console.log('Sale created successfully:', data);
+        callback(data, true);
+      },
+      error: (error) => {
+        //console.error('Error creating sale:', error);
+        callback(error, false);
+      }
+    });
+  }
+  
   downloadSale(params: any, callback : (data: any, success: boolean) => void)
   {
     this.http.post<any>(API_URL+'salesStatus', params, httpOptions).subscribe({
       next: (data) => {
-        console.log('Sale downloaded successfully:', data);
+        //console.log('Sale downloaded successfully:', data);
         callback(data, true);
       },
       error: (error) => {
-        console.error('Error downloading sale:', error);
+        //console.error('Error downloading sale:', error);
         callback(null, false);
       }
     });

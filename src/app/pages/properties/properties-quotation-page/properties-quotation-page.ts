@@ -18,6 +18,7 @@ import { WhatsAppService } from '../../../services/whatsapp-service';
 import WhatsApp from '../../../models/WhatsApp';
 import { PDFEstadoCuentaService } from '../../../services/pdf-estado-cuenta-service';
 import { Router } from '@angular/router';
+import { LinkService } from '../../../services/link-service';
 
 @Component({
   selector: 'app-properties-quotation-page',
@@ -30,7 +31,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
 {
   @ViewChild(PropertyQuoteFormComponent, { static: false }) propertyQuoteFormComponent!: PropertyQuoteFormComponent;
 
-  constructor(public propertiesQuotationService: PropertiesQuotationService, private loaderService: LoaderService, private saleService: SaleService, private wompiService: WompiService, private whatsAppService: WhatsAppService, private pdfEstadoCuenta: PDFEstadoCuentaService, private router: Router) 
+  constructor(public propertiesQuotationService: PropertiesQuotationService, private loaderService: LoaderService, private saleService: SaleService, private wompiService: WompiService, private whatsAppService: WhatsAppService, private pdfEstadoCuenta: PDFEstadoCuentaService, private router: Router, public linkService: LinkService) 
   {
     this.propertiesQuotationService.reset();
   }
@@ -88,89 +89,62 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
     displayHTML('client-search-component', 'none');
   }
 
-  submit()
+  onSubmit(): void
   {
-    console.log('Quotas Length:', this.propertiesQuotationService.quotas.length);
-    if(this.propertiesQuotationService.quotas.length == 0) 
+    if(this.propertiesQuotationService.separationForm.invalid)
     {
-      this.propertyQuoteFormComponent.process();
-      console.log('Quotas were empty, processed form to generate quotas.');
+      console.log('Por favor llene los campos requeridos');
+      return;
     }
 
     this.loaderService.show();
 
-    if (this.propertiesQuotationService.separationForm.invalid) 
-    {
-      this.loaderService.hide();
-      alert('Formulario inválido. Por favor, verifica los datos ingresados.');
-      return;
-    }
-
     let jsonData = this.propertiesQuotationService.separationForm.value;
 
-    console.log('Form Data:', jsonData);
+    this.saleService.createSale(jsonData, (response, success) => {
+      this.loaderService.hide();
+      if(success)
+      {
+        console.log('Sale created successfully:', response);
 
-    this.saleService.create(jsonData).subscribe({
-      next: (response) => {
-        console.log('Create successful', response);
+        let object = response.result.object;
 
-        let result = response.result;
+        this.propertiesQuotationService.saleId = object.objectId;
 
-        this.loaderService.hide();
+        alert('Cotización creada exitosamente');
 
-        if(result.success) {
-          alert('Cotización creada exitosamente');
+        this.getSale(object.objectId);
+      }else
+      {
+        console.error('Error creating sale');
+        alert('Error al crear la cotización');
+      }
+    });
+  }
 
-          let object = result.object;
+  getSale(id: string): void
+  {
+    console.log('Getting sale with ID:', id);
+    this.loaderService.show();
 
-          this.propertiesQuotationService.saleId = object.objectId;
+    this.saleService.downloadSale({ search: id, searchBy: 'id'}, (data, success) => {
+      this.loaderService.hide();
+      if(success)
+      {
+        console.log('Sale downloaded successfully:', data);
 
-          console.log('ObjectId created:', object.objectId);
+        this.propertiesQuotationService.sale = data.result.sale;
+        this.propertiesQuotationService.quotas = data.result.quotas;
 
-          this.downloadSale(object.objectId);
-
-          /*
-            this.sendPlanToWhatsApp();
-
-            
-            this.wompiService.createLink(
-              'Separación de propiedad',
-              'Lote ' + this.propertiesQuotationService.property.code,
-              this.propertiesQuotationService.separationQuotaValue,
-              object.objectId
-            ).subscribe({
-              next: (linkResponse: any) => {
-                console.log('Wompi link created successfully:', linkResponse);
-
-                this.propertiesQuotationService.wompiResponse = linkResponse.data;
-                
-                let wompiId = linkResponse.data.id;
-                if(wompiId) 
-                {
-                  console.log('Wompi ID:', wompiId);
-                  this.sendLinktToWhatsApp(wompiId);
-                }else
-                {
-                  console.error('Wompi ID not found');
-                }
-              },
-              error: (error) => {
-                this.loaderService.hide();
-                console.error('Error creating Wompi link:', error);           
-                alert('Error al crear el link de pago: ' + error.error.code);
-              }
-            });
-          */
-        }else
+        if(this.propertiesQuotationService.sale)
         {
-          alert('Error al crear: ' + result.message);
+          this.createWompiLink();
+          //this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, [], 'whatsapp');
         }
-      },
-      error: (error) => {
-        console.error('Create failed', error);
-        console.log('Create failed error', error.error.code);
-        alert('Error al crear: ' + error.error.code);
-        this.loaderService.hide();
+        
+      }else
+      {
+        console.error('Error downloading sale');
       }
     });
   }
@@ -183,28 +157,51 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
       'Separación de propiedad',
       'Lote ' + this.propertiesQuotationService.property.code,
       this.propertiesQuotationService.separationQuotaValue,
-      this.propertiesQuotationService.saleId
-    ).subscribe({
-      next: (linkResponse: any) => 
+      this.propertiesQuotationService.saleId,
+      (success, linkResponse) => 
       {
-        console.log('Wompi link created successfully:', linkResponse);
-        this.propertiesQuotationService.wompiResponse = linkResponse.data;
-        
-        let wompiId = linkResponse.data.id;
-        if(wompiId) 
+        if(success)
         {
+          this.loaderService.hide();
+          console.log('Wompi link created successfully:', linkResponse);
+          this.propertiesQuotationService.wompiResponse = linkResponse.data;
+          
+          let wompiId = linkResponse.data.id;
+
           console.log('Wompi ID:', wompiId);
-          this.sendWompiLinktToWhatsApp(wompiId);
+          if(wompiId)
+          {
+            this.saveLink(linkResponse.data);
+          }else
+          {
+            console.error('Wompi ID not found');
+          }
         }else
         {
-          console.error('Wompi ID not found');
+          this.loaderService.hide();
+          console.error('Error creating Wompi link:', linkResponse);           
+          alert('Error al crear el link de pago: ' + linkResponse);
         }
-      },
-      error: (error) => 
+      });
+  }
+
+  saveLink(wompiObject: any): void
+  {
+    this.loaderService.show();
+
+    let saleObject = this.propertiesQuotationService.getJsonWhatsApp();
+
+    this.linkService.save(saleObject as any, wompiObject, (data, success) => {
+      this.loaderService.hide();
+      if(success)
       {
-        this.loaderService.hide();
-        console.error('Error creating Wompi link:', error);           
-        alert('Error al crear el link de pago: ' + error.error.code);
+        console.log('Link saved successfully:', data);
+        this.sendWompiLinktToWhatsApp(wompiObject.id);
+        //this.sendWompiLinktToWhatsApp(wompiObject.id);
+      }else
+      {
+        console.error('Error saving link:', data);
+        alert('Error al guardar el link de pago');
       }
     });
   }
@@ -227,14 +224,14 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
     };
 
     this.whatsAppService.sendMessageSeparation(data).subscribe({
-      next: (response) => 
+      next:(response) => 
       {
         this.loaderService.hide();
         //continue to CCotizacionReports
         this.router.navigate(['properties/quotation/list']);
         console.log('WhatsApp message sent successfully:', response);
       },
-      error: (error) => 
+      error:(error) => 
       {
         this.loaderService.hide();
         console.error('Error sending WhatsApp message:', error);
@@ -274,6 +271,8 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
     console.log('Client created event:', event);
   }
 
+
+  /*
   downloadSale(id: string): void
   {
     console.log('Downloading sale with ID:', id);
@@ -318,5 +317,5 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
   {
     if(this.propertiesQuotationService.sale)
     this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, [], 'view');
-  }
+  }*/
 }

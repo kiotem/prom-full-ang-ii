@@ -41,6 +41,7 @@ export class WhatsAppService {
 
     return this.http.post<WhatsApp>(API_URL+'sendWhatsAppSeparationPlan', data, httpOptions)
   }
+  
 
   sendAccountStatus(sale: Sale, callback: (success: boolean) => void) {
     let data: WhatsApp = {

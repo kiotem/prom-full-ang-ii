@@ -64,13 +64,14 @@
     @if(this.propertiesQuotationService.quotas.length > 0)
     {
         <div class="button" id='bt_submit' style="position: absolute; margin-bottom: 40px; width: 370px; top: 590px; left: 830px;" align="center">
-            <a (click)="submit()" >Registrar Cotización&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-check"></i></a>
+            <a (click)="onSubmit()" >Registrar Cotización&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-check"></i></a>
         </div> 
     }
-
-    <div class="button" id='bt_submit' style="position: absolute; margin-bottom: 40px; width: 370px; top: 650px; left: 830px;" align="center">
-        <a (click)="testPDF()" >Generar PDF TEST&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-check"></i></a>
-    </div> 
+    <!--
+        <div class="button" id='bt_submit' style="position: absolute; margin-bottom: 40px; width: 370px; top: 650px; left: 830px;" align="center">
+            <a (click)="testPDF()" >Generar PDF TEST&nbsp;&nbsp;&nbsp;<i class="fa-solid fa-check"></i></a>
+        </div> 
+    -->
 </div>
 
 

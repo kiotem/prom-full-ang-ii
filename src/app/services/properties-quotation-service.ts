@@ -206,6 +206,7 @@ export class PropertiesQuotationService {
       objectId: this.saleId,
       amount: this.separationQuotaValue,
       propertyId: this.property.objectId,
+      clientId: this.client.objectId,
       clientName: this.client.name+' '+this.client.lastName1,
       clientPmsId: this.client.pmsId,
       clientPhone: this.client.phone,

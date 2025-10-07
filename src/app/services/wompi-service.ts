@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { API_URL_WOMPI_TEST, httpWompiOptions } from '../commons/enviroments';
+import { API_URL, API_URL_WOMPI_TEST, httpOptions, httpWompiOptions } from '../commons/enviroments';
 import Order from '../models/Order';
 
 @Injectable({
@@ -8,7 +8,7 @@ import Order from '../models/Order';
 })
 export class WompiService {
   linkData: any;
-  urlApiSandbox: string = 'https://api.sandbox.payouts.wompi.co/v1/'; // URL base para el entorno de pruebas de Wompi
+  //urlApiSandbox: string = 'https://api.sandbox.payouts.wompi.co/v1/'; // URL base para el entorno de pruebas de Wompi
 
   constructor(private http: HttpClient) 
   {
@@ -16,7 +16,7 @@ export class WompiService {
     this.linkData = {};
   }
 
-  createLink(name: String, description: String, amount: number, sku: String) {
+  createLink(name: String, description: String, amount: number, sku: String, callback : (sucess: boolean, linkResponse: any) => void) {
     console.log('Create link method called');
 
     let expirationDate = new Date();
@@ -41,7 +41,19 @@ export class WompiService {
         "sku": sku // Si el pago current por un monto especifico, si no lo incluyes el pagador podrá elegir el valor a pagar,
     };
 
-    return this.http.post<Order>(API_URL_WOMPI_TEST+'payment_links', this.linkData, httpWompiOptions);
+    this.http.post<any>(API_URL_WOMPI_TEST+'payment_links', this.linkData, httpWompiOptions).subscribe(
+      (linkResponse) => 
+      {
+        console.log('Wompi sent successfully!', linkResponse);
+        callback(true, linkResponse);
+      },
+      (error) => {
+        console.error('Error creating Wompi link:', error);
+        callback(false, error);
+      }
+    );
+
+    //return this.http.post<Order>(API_URL_WOMPI_TEST+'payment_links', this.linkData, httpWompiOptions);
   }
 
   getPayouts()

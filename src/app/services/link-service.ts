@@ -11,16 +11,34 @@ import Sale from '../models/Sale';
 export class LinkService 
 {
   links: Link[];
+  
   constructor(private http: HttpClient, public storageService: StorageService) 
   {
     this.links = [];
   }
 
-  getLinks() {
+  save(saleObject: Sale, wompiObject: any, callback: (data: any, success: boolean) => void)
+  {    
+    console.log('saveLink method called');
+    this.http.post<any>(API_URL+'saveLink', { saleObject: saleObject, wompiObject: wompiObject }, httpOptions).subscribe(
+      response => {
+        console.log('Payment link saved successfully:', response);
+        callback(response, true);
+      },
+      error => {
+        console.error('Error saving payment link:', error);
+        callback(error, false);
+      }
+    );
+  }
+
+  getLinks()
+  {
     // Logic to retrieve links
   }
 
-  createLink(link: Link) {
+  createLink(link: Link) 
+  {
     // Logic to create a new link
   }
 
@@ -43,6 +61,7 @@ export class LinkService
     */
   }
 
+  /*
   savePaymentLink(sale: Sale, wompiObject: any, callback: (success: boolean, data: any) => void)
   {
     let json = 
@@ -53,16 +72,18 @@ export class LinkService
     
     console.log('savePaymentLink method called');
     this.http.post<any>(API_URL+'savePaymentLink', json, httpOptions).subscribe(
-      response => {
+      response => 
+      {
         console.log('Payment link saved successfully:', response);
         callback(true, response);
       },
-      error => {
+      error => 
+      {
         console.error('Error saving payment link:', error);
         callback(false, error);
       }
     );
-  }
+  }*/
 
   download(data: any)
   {
