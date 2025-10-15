@@ -3,6 +3,7 @@ import WhatsApp from '../models/WhatsApp';
 import { HttpClient } from '@angular/common/http';
 import { API_URL, httpOptions } from '../commons/enviroments';
 import Sale from '../models/Sale';
+import Client from '../models/Client';
 
 @Injectable({
   providedIn: 'root'
@@ -40,6 +41,33 @@ export class WhatsAppService {
     this.whatsapp = data;
 
     return this.http.post<WhatsApp>(API_URL+'sendWhatsAppSeparationPlan', data, httpOptions)
+  }
+
+  sendSeparationLink(wompiId: string, client: Client, propertyCode: string, projectName: string, callback: (data: any, success: boolean) => void) 
+  {
+    let data: WhatsApp = {
+      //phone: this.propertyQuoteService.client.phone,
+      phone: '3156738411',
+      body: '',
+      template: 'template_separation_x',
+      name: client.name,
+      arg1: propertyCode+' de '+projectName,
+      arg2: 'https://checkout.wompi.co/l/' + wompiId
+    };
+
+    console.log('Send account status method called: '+data);
+    this.http.post<WhatsApp>(API_URL+'sendWhatsAppSeparationLink', data, httpOptions).subscribe(
+      (response) => 
+      {
+        console.log('WhatsApp message sent successfully!', response);
+        callback(response, true);
+      },
+      (error) => 
+      {
+        console.error('Error sending WhatsApp message:', error);
+        callback(error, false);
+      }
+    );
   }
   
 

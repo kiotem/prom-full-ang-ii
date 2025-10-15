@@ -30,7 +30,9 @@ export class LinksListPage {
 
     this.range.setValue({start: new Date(startDate), end: new Date(endDate)});
     console.log('Initial range:', this.range.value);
-    
+
+
+    /*
     this.range.valueChanges.subscribe(newValue => {
     console.log('Reactive Form value changed:', newValue);
 
@@ -40,7 +42,7 @@ export class LinksListPage {
     }
 
     //this.list();
-    });
+    });*/
   }
 
     onKeyUp(event: any) {
@@ -53,5 +55,19 @@ export class LinksListPage {
 
   goCreate() {
     console.log('Go to create link page');
+  }
+
+  goSearch() {
+    console.log('Go to search links page');
+  }
+
+  toggleStatusDropdown() {
+    console.log('Toggle status dropdown');
+    const dropdown = document.getElementById('s_status');
+    if (dropdown) {
+      dropdown.classList.toggle('show');
+    } else {
+      console.warn('Dropdown element not found');
+    }
   }
 }

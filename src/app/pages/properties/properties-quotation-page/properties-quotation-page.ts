@@ -15,7 +15,6 @@ import { LoaderService } from '../../../services/loader-service';
 import { WompiService } from '../../../services/wompi-service';
 import { SaleService } from '../../../services/sale-service';
 import { WhatsAppService } from '../../../services/whatsapp-service';
-import WhatsApp from '../../../models/WhatsApp';
 import { PDFEstadoCuentaService } from '../../../services/pdf-estado-cuenta-service';
 import { Router } from '@angular/router';
 import { LinkService } from '../../../services/link-service';
@@ -139,7 +138,7 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
         if(this.propertiesQuotationService.sale)
         {
           this.createWompiLink();
-          //this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, [], 'whatsapp');
+          this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, [], 'whatsapp');
         }
         
       }else
@@ -197,7 +196,6 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
       {
         console.log('Link saved successfully:', data);
         this.sendWompiLinktToWhatsApp(wompiObject.id);
-        //this.sendWompiLinktToWhatsApp(wompiObject.id);
       }else
       {
         console.error('Error saving link:', data);
@@ -208,114 +206,30 @@ export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, P
 
   sendWompiLinktToWhatsApp(wompiId: string): void 
   {
-    let json = this.propertiesQuotationService.getJsonWhatsApp();
 
-    let data: WhatsApp = 
-    {
-      //phone: this.propertyQuoteService.client.phone,
-      phone: '3156738411',
-      body: '',
-      template: 'template_separation_x',
-      name: this.propertiesQuotationService.client.name,
-      arg1: this.propertiesQuotationService.property.code+' de '+this.propertiesQuotationService.project.name,
-      arg2: 'https://checkout.wompi.co/l/' + wompiId,
-      wompiObject: this.propertiesQuotationService.wompiResponse,
-      saleObject: json
-    };
+    this.loaderService.show();
 
-    this.whatsAppService.sendMessageSeparation(data).subscribe({
-      next:(response) => 
+    if(this.propertiesQuotationService.property.code)
+
+    this.whatsAppService.sendSeparationLink(wompiId, this.propertiesQuotationService.client, this.propertiesQuotationService.property.code, this.propertiesQuotationService.project.name, (data, success) => {
+      this.loaderService.hide();
+      if(success)
       {
-        this.loaderService.hide();
-        //continue to CCotizacionReports
+        alert('Link de pago enviado exitosamente al WhatsApp del cliente');
         this.router.navigate(['properties/quotation/list']);
-        console.log('WhatsApp message sent successfully:', response);
-      },
-      error:(error) => 
+        console.log('WhatsApp message sent successfully:', data);
+      }
+      else
       {
         this.loaderService.hide();
-        console.error('Error sending WhatsApp message:', error);
+        alert('Error al enviar el link de pago al WhatsApp del cliente');
+        console.error('Error sending WhatsApp message:', data);
       }
     });
   }
-
-  /*
-  sendPlanToWhatsApp(): void 
-  {
-    //let json = this.propertiesQuotationService.getJsonWhatsApp();
-
-    let data: WhatsApp = {
-      //phone: this.propertyQuoteService.client.phone,
-      phone: '3156738411',
-      body: '',
-      template: 'separation_plan',
-      name: this.propertiesQuotationService.client.name,
-      arg1: this.propertiesQuotationService.property.code+' de '+this.propertiesQuotationService.project.name,
-      arg2: 'quotas.pdf'
-    };
-
-    console.log('Sending plan to WhatsApp:', data);
-
-    this.whatsAppService.sendMessageSeparationPlan(data).subscribe({
-      next: (response) => {
-        console.log('WhatsApp message sent successfully:', response);
-      },
-      error: (error) => {
-        console.error('Error sending WhatsApp message:', error);
-      }
-    });
-  }*/
 
   clientCreated(event: any): void 
   {
     console.log('Client created event:', event);
   }
-
-
-  /*
-  downloadSale(id: string): void
-  {
-    console.log('Downloading sale with ID:', id);
-
-    let search = ''+id;
-    let searchBy = 'id';
-
-    let json =
-    {
-      search: search,
-      searchBy: searchBy
-    }
-
-    console.log('Downloading sales with parameters:', json);
-
-    this.loaderService.show();
-    this.saleService.getSalesStatus(json).subscribe({
-      next: (data) => {
-        this.loaderService.hide();
-        console.log('Sales fetched successfully:', data);
-
-        this.propertiesQuotationService.sale = data.result.sale;
-        this.propertiesQuotationService.quotas = data.result.quotas;
-
-        if(this.propertiesQuotationService.sale)
-        {
-          this.createWompiLink();
-          this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, [], 'whatsapp');
-        }
-        
-
-
-      },
-      error: (error) => {
-        this.loaderService.hide();
-        console.error('Error fetching properties:', error);
-      }
-    });
-  }
-
-  testPDF(): void
-  {
-    if(this.propertiesQuotationService.sale)
-    this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, [], 'view');
-  }*/
 }

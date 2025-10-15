@@ -56,34 +56,6 @@ export default class MenuItems {
         ]
     },
     {
-        "id": 'clients',
-        "name": "Clientes",
-        "icon": "fa fa-users",
-        "router": "",
-        "title": "",
-        "is_action": false,
-        "subitems":[
-            {
-                "id": 'clients_list',
-                "name": "Listar",
-                "icon": "fa-solid fa-clipboard-list",
-                "router": "clients/list",
-                "title": "Clientes / Listar",
-                "is_action": true,
-                "subitems":[]
-            },
-            {
-                "id": 'clients_create',
-                "name": "Crear",
-                "icon": "fa-solid fa-plus",
-                "router": "clients/create",
-                "title": "Clientes / Crear",
-                "is_action": true,
-                "subitems":[]
-            }
-        ]
-    },
-    {
         "id": 'cartera',
         "name": "Cartera",
         "icon": "fa fa-credit-card",
@@ -134,6 +106,34 @@ export default class MenuItems {
                 "icon": "fa-solid fa-plus",
                 "router": "-",
                 "title": "-",
+                "is_action": true,
+                "subitems":[]
+            }
+        ]
+    },
+    {
+        "id": 'clients',
+        "name": "Clientes",
+        "icon": "fa fa-users",
+        "router": "",
+        "title": "",
+        "is_action": false,
+        "subitems":[
+            {
+                "id": 'clients_list',
+                "name": "Listar",
+                "icon": "fa-solid fa-clipboard-list",
+                "router": "clients/list",
+                "title": "Clientes / Listar",
+                "is_action": true,
+                "subitems":[]
+            },
+            {
+                "id": 'clients_create',
+                "name": "Crear",
+                "icon": "fa-solid fa-plus",
+                "router": "clients/create",
+                "title": "Clientes / Crear",
                 "is_action": true,
                 "subitems":[]
             }

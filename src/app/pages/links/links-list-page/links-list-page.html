@@ -3,7 +3,18 @@
 <div style="position: absolute; top: 20px; left: 20px; z-index: 100; display: inline-flex; justify-content: space-between;" >
     <input type="text" id="i_search" name="i_search" class="form-control" (keyup)="onKeyUp($event)" placeholder="Buscar:" class="input-search" style=" width: 180px;">
 
-    <div style="display: flex; align-items: center; margin-left:10px;" >
+    <div style="display: flex; align-items: center; margin-left: 10px; " >
+        <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="width: 130px;" (change)="onChangeStatus($event)">
+            <option value="All">Buscar por</option>
+            <option value="cc">Cédula</option>
+            <option value="lastname">Apellido</option>
+            <option value="property">Propiedad</option>
+            <option value="project">Proyecto</option>
+            <option value="id">ID Ticket</option>
+        </select>
+    </div>
+
+    <div style="display: flex; align-items: center; margin-left:20px;" >
         <mat-form-field  (click)="picker3.open()" class="mat-mdc-form-field-infix-date-range">
             <mat-date-range-input [rangePicker]="picker3" class=" mat-field-input-date-range" id="iDateRange" name="iDateRange" [formGroup]="range">
                 <input matStartDate placeholder="Desde" formControlName="start" id=" iStartDate" name=" iStartDate" readonly required>
@@ -17,9 +28,9 @@
         </button>
     </div>
 
-    <div style="display: flex; align-items: center; margin-left-10px; width: 200px;" >
-        <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 180px;" (change)="onChangeStatus($event)">
-            <option value="All">TODOS</option>
+    <div style="display: flex; align-items: center; margin-left: 10px;" >
+        <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 150px;" (change)="onChangeStatus($event)">
+            <option value="All">Todos</option>
             <option value="pending">Pendientes</option>
             <option value="approved">Aprobados</option>
             <option value="declined">Declinados</option>
@@ -27,10 +38,10 @@
             <option value="cancelled">Cancelados</option>
             <option value="error">Erroneos</option>
         </select>
-        
-        <button style="background: none; border: none; cursor: pointer; margin-left: -30px;" class="b_icon">
-            <i class="fas fa-angle-down"></i>
-        </button>
+    </div>
+
+    <div class="button" style="margin-top: 8px; margin-left: 10px;;">
+        <a (click)="goSearch()">Buscar</a>
     </div>
     
 </div>
