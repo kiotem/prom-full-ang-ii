@@ -32,6 +32,7 @@ export class PropertiesCreatePage implements OnInit {
   width: FormControl;
   depth: FormControl;
 
+
   constructor(public projectService: ProjectService, private propertyService: PropertyService, public loaderService: LoaderService) {
     this.currentProject = this.projectService.getSelected();
 
@@ -109,6 +110,13 @@ export class PropertiesCreatePage implements OnInit {
     if(this.propertyForm.valid) 
       {
         this.loaderService.show();
+
+        
+        
+        /*
+
+
+        ///
         
         let jsonData = this.propertyForm.value;
         
@@ -160,7 +168,7 @@ export class PropertiesCreatePage implements OnInit {
 
           this.loaderService.hide();
           }
-        });
+        });*/
     }else{
       console.error('Form is invalid');
       alert('Por favor llena los campos requeridos');

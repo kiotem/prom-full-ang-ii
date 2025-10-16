@@ -16,10 +16,21 @@ export class PropertyService {
       this.propertiesFiltered = [];
     }
 
-    create(data: Property)
+    create(data: any, callback: (data: any, success: boolean) => void)
     {
-        console.log('downloadProjects method called');
-        return this.http.post<any>(API_URL+'createProperty', data, httpOptions);
+      //console.log('Create property method called');
+      //return this.http.post<any>(API_URL+'createProperty', data, httpOptions);
+
+      this.http.post<any>(API_URL+'createProperty', data, httpOptions).subscribe({
+        next: (data) => {
+          //console.log('Sale downloaded successfully:', data);
+          callback(data, true);
+        },
+        error: (error) => {
+          //console.error('Error downloading sale:', error);
+          callback(null, false);
+        }
+      });
     }
 
     clear() {
