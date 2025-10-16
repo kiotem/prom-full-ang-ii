@@ -5,10 +5,11 @@ import { LoaderComponent } from '../loader-component/loader-component';
 import { ProjectService } from '../../services/project-service';
 import { LoaderService } from '../../services/loader-service';
 import { PropertyService } from '../../services/property-service';
+import { displayHTML, getNumberFromField } from '../../commons/utils';
 
 @Component({
   selector: 'app-property-create-component',
-  imports: [ReactiveFormsModule, LoaderComponent],
+  imports: [ReactiveFormsModule],
   templateUrl: './property-create-component.html',
   styleUrl: './property-create-component.css'
 })
@@ -77,6 +78,13 @@ export class PropertyCreateComponent {
   {
     console.log('Key pressed:', event.key);
 
+    let widthValue = parseFloat(getNumberFromField('i_width'));
+    let depthValue = parseFloat(getNumberFromField('i_depth'));
+
+    let area = widthValue * depthValue;
+
+    this.area.setValue(area);
+/*
     let i_width = document.getElementById('i_width');
     let i_depth = document.getElementById('i_depth');
 
@@ -105,7 +113,7 @@ export class PropertyCreateComponent {
           this.area.setValue('');
         }
       }
-    }
+    }*/
   }
 
   onSubmit(): void 
@@ -133,5 +141,10 @@ export class PropertyCreateComponent {
       console.error('Form is invalid');
       alert('Por favor llena los campos requeridos');
     }
+  }
+
+  onCancel()
+  {
+    displayHTML('property-create-component', 'none');
   }
 }

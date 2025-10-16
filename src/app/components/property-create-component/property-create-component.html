@@ -1,22 +1,103 @@
 <div id="property-create-component" style="display: none;">
-
     <div style="position: absolute; top: 50px; left: 50%; transform: translateX(-50%); font-size: 16px; z-index: 100; color: #333333;">
         CREACIÓN DE PROPIEDAD
     </div>
     
     <div id="property-create-box">
-        <div style="display: flex; flex-direction: row; align-items: center;">
+        <div style="display: flex; flex-direction: row; align-items: center;"></div>
+        <form [formGroup]="propertyForm" style="width: 90%; max-width: 300px; padding: 30px; margin-top: 50px;" autocomplete="off">
+            <div class="field-row">
+                <label for="i_propertyType">Tipo de propiedad</label>
 
-        </div>
+                <div style="display: flex; align-items: center; margin-left:0px; width: 200px;" >
+                    <select id="i_propertyType" name="i_propertyType"  formControlName="propertyType" class="select-field" style="width: 200px;">
 
-        <div>
-            <div class="button" style="margin-top: 20px;">
-                <!--
-                <a (click)="doCreate()">Crear Nueva</a>
-                &nbsp;
-                <a (click)="triggerCancelAction()">Cancelar</a>
-                -->
+                        @if(currentProject != undefined) 
+                        {
+                            @for(type of currentProject.propertyTypes; track $index) 
+                            {
+                                <option value="{{type}}">{{type}}</option>  
+                            }
+                        }
+                    </select>
+                </div>
             </div>
-        </div>
+            
+            <div class="field-row" style="display: none;">
+                <label for="i_name">Nombre *</label>
+                <input type="text" id="i_name" name="i_name" class="input-field" formControlName="name">
+            </div>
+
+            <div class="flex-container">
+                <div class="field-row">
+                    <label for="i_propertiesGroup">Grupo o Manzana *</label>
+
+                    <div style="display: flex; align-items: center; margin-left:0px; width: 200px;" >
+                        <select id="i_propertiesGroup" name="i_propertiesGroup" required formControlName="propertiesGroup" class="select-field" style="width: 150px;">
+
+                            @if(currentProject != undefined) {
+                                @for(group of currentProject.propertiesGroup; track $index) 
+                                {
+                                    <option value="{{group}}">{{group}}</option>
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <label for="i_number">Número *</label>
+                    <input type="number" id="i_number" name="i_number" class="input-field" style="width: 120px;" required formControlName="number">
+                </div>
+            </div>
+
+            <div class="field-row" style="display: none;">
+                <label for="i_address">Dirección</label>
+                <input type="text" id="i_address" name="i_address" class="form-control" formControlName="address"  style="width: 500px;">
+            </div>
+
+            <div class="flex-container" style="margin-top: 10px;">
+                <div class="field-row">
+                    <label for="i_width">Ancho *</label>
+                    <input type="number" id="i_width" name="i_width" required  class="input-field" style="width: 120px;" (keyup)="onKeyup($event)" formControlName="width">
+                </div>
+
+                <div class="field-row">
+                    <label for="i_depth">Profundidad *</label>
+                    <input type="number" id="i_depth" name="i_depth" required  class="input-field" style="width: 120px;" (keyup)="onKeyup($event)" formControlName="depth">
+                </div>
+            </div>
+            
+            <div class="flex-container" style="margin-top: 10px;">
+                <div class="field-row">
+                    <label for="i_totalArea">Área total *</label>
+                    <input type="number" id="i_totalArea" name="i_totalArea" required  class="input-field" style="width: 120px;" formControlName="area" style="width: 150px;">
+                </div>
+
+                <div class="field-row" style="display: none;">
+                    <label for="i_builtArea">Área construida</label>
+                    <input type="number" id="i_builtArea" name="i_builtArea"  class="input-field" style="width: 120px;" formControlName="builtUpArea" style="width: 150px;">
+                </div>
+            </div>
+
+            <div class="field-row" style="display: none;">
+                <label for="i_floors">Pisos</label>
+                <input type="number" id="i_floors" name="i_floors" class="form-control" formControlName="floors">
+            </div>
+
+            <div class="field-row" style="display: none;">
+                <label for="s_status">Estado *</label>
+                <select id="s_status" name="s_status" formControlName="status">
+                    <option value="Libre" selected>Libre</option>
+                    <option value="Vendido">Vendido</option>
+                    <option value="Reservado">Reservado</option>
+                </select>
+            </div>
+
+            <div class="button" id='bt_create' style="margin-top: 50px;">
+                <a (click)="onCancel()" ><i class="fa-regular fa-xmark"></i>&nbsp;Cancelar</a>&nbsp;&nbsp;
+                <a (click)="onSubmit()" ><i class="fa-regular fa-floppy-disk"></i>&nbsp;Guardar datos</a>
+            </div>   
+        </form> 
     </div>
 </div>

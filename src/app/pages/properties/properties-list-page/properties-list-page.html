@@ -1,68 +1,66 @@
 <div class="main-container">
 
-<div style="position: absolute; top: 20px; left: 20px; z-index: 100; display: inline-flex; justify-content: space-between;" >
-    <input type="text" id="i_search" name="i_search" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar:" class="input-search" style=" width: 180px;">
+    <div style="position: absolute; top: 20px; left: 20px; z-index: 100; display: inline-flex; justify-content: space-between;" >
+        <input type="text" id="i_search" name="i_search" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar:" class="input-search" style=" width: 180px;">
 
-    <div style="display: flex; align-items: center; margin-left:-10px; width: 200px;" >
-    <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 180px;" (change)="onChangeStatus($event)">
-        <option value="All">TODOS</option>
-        <option value="Libre">LIBRE</option>
-        <option value="Separado">SEPARADO</option>
-        <option value="Bloqueado">BLOQUEADO</option>
-    </select>
-    </div>
-</div>
-
-<div class="button" style="position: absolute; top: 30px; right: 20px; z-index: 100;">
-    <a (click)="goMap()"><i class="fa-solid fa-map"></i>&nbsp;Ver Mapa</a>&nbsp;&nbsp;&nbsp;
-    <a (click)="goCreate()"><i class="fa-solid fa-plus"></i>&nbsp;Crear nueva</a>
-</div>
-
-
-<div class="properties-list" style="position: absolute; top: 75px; z-index: 100; width: 100%; height: calc(100% - 130px);">
-
-    <div class="row-header">
-        <div class="col" style="max-width: 30px;" align="right"></div>
-        <div class="col" style="max-width: 50px;" align="right">#</div>
-        <div class="col" style="max-width: 150px;">ID</div>
-        <div class="col" style="max-width: 100px;">ÁREA</div>
-        <div class="col" style="max-width: 90px;">ANCHO</div>
-        <div class="col" style="max-width: 90px;">LARGO</div>
-        <div class="col" style="max-width: 200px;">ULT. ACTUALIZACIÓN</div>
-        <div class="col" style="max-width: auto;">FASE</div>
-        <div class="col" style="max-width: 115px;">ESTADO</div>
+        <div style="display: flex; align-items: center; margin-left:-10px; width: 200px;" >
+            <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 180px;" (change)="onChangeStatus($event)">
+                <option value="All">TODOS</option>
+                <option value="Libre">LIBRE</option>
+                <option value="Separado">SEPARADO</option>
+                <option value="Bloqueado">BLOQUEADO</option>
+            </select>
+        </div>
     </div>
 
-    <div class="table-content">
-        @for (item of this.propertyService.propertiesFiltered; track $index) 
-        {
-            
-            <div class="row">
-                <div class="col" style="max-width: 30px;" align="center"><i class="fa fa-home" style="font-size: 14px;"></i></div>
-                <div class="col" style="max-width: 50px;" align="right">{{item.code}}</div>
-                <div class="col" style="max-width: 150px;">{{item.objectId}}</div>
-                <div class="col" style="max-width: 100px;">{{item.area}}</div>
-                <div class="col" style="max-width: 90px;">{{item.width}}</div>
-                <div class="col" style="max-width: 90px;">{{item.depth}}</div>
-                <div class="col" style="max-width: 200px;">{{convertTimeToLocal(item.updatedAt)}}</div>
-                <div class="col" style="max-width: auto;"></div>
-                <div class="col" style="max-width: 100px;">{{item.status}}</div>
-
-                <!--
-                @if(item.agent != '' && item.agent != undefined) {
-                    <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
-                }@else {
-                    <div class="col-image">&nbsp;</div>
-                }
-                -->
-            </div>
-        
-        }
+    <div class="button" style="position: absolute; top: 30px; right: 20px; z-index: 100;">
+        <a (click)="goMap()"><i class="fa-solid fa-map"></i>&nbsp;Ver Mapa</a>&nbsp;&nbsp;&nbsp;
+        <a (click)="goCreate()"><i class="fa-solid fa-plus"></i>&nbsp;Crear nueva</a>
     </div>
-</div>
 
+
+    <div class="properties-list" style="position: absolute; top: 75px; z-index: 100; width: 100%; height: calc(100% - 130px);">
+
+        <div class="row-header">
+            <div class="col" style="max-width: 30px;" align="right"></div>
+            <div class="col" style="max-width: 50px;" align="right">#</div>
+            <div class="col" style="max-width: 150px;">ID</div>
+            <div class="col" style="max-width: 100px;">ÁREA</div>
+            <div class="col" style="max-width: 90px;">ANCHO</div>
+            <div class="col" style="max-width: 90px;">LARGO</div>
+            <div class="col" style="max-width: 200px;">ULT. ACTUALIZACIÓN</div>
+            <div class="col" style="max-width: auto;">FASE</div>
+            <div class="col" style="max-width: 115px;">ESTADO</div>
+        </div>
+
+        <div class="table-content">
+            @for(item of this.propertyService.propertiesFiltered; track $index)
+            {
+                <div class="row">
+                    <div class="col" style="max-width: 30px;" align="center"><i class="fa fa-home" style="font-size: 14px;"></i></div>
+                    <div class="col" style="max-width: 50px;" align="right">{{item.code}}</div>
+                    <div class="col" style="max-width: 150px;">{{item.objectId}}</div>
+                    <div class="col" style="max-width: 100px;">{{item.area}}</div>
+                    <div class="col" style="max-width: 90px;">{{item.width}}</div>
+                    <div class="col" style="max-width: 90px;">{{item.depth}}</div>
+                    <div class="col" style="max-width: 200px;">{{convertTimeToLocal(item.updatedAt)}}</div>
+                    <div class="col" style="max-width: auto;"></div>
+                    <div class="col" style="max-width: 100px;">{{item.status}}</div>
+
+                    <!--
+                        @if(item.agent != '' && item.agent != undefined) {
+                            <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
+                        }@else {
+                            <div class="col-image">&nbsp;</div>
+                        }
+                    -->
+                </div>
+            }
+        </div>
+    </div>
 </div>
 
 <app-menu-component></app-menu-component>
 <app-project-selector-component></app-project-selector-component>
 <app-loader-component></app-loader-component>
+<app-property-create-component></app-property-create-component>

@@ -19,7 +19,6 @@ export class UserService {
 
     login(data: any) {
         console.log('Login method called');
-        //return this.http.post<any>(API_URL+'login', data, httpOptions)
         return this.http.post<any>(API_URL+'loginWithProjects', data, httpOptions)
     }
 
@@ -50,16 +49,20 @@ export class UserService {
         this.storageService.removeItem('sessionToken');
     }
 
-    loadUser() {    
+    loadUser() 
+    {    
         const userData = this.storageService.getItem('user');
-        if (userData) {
+        if(userData) 
+        {
             this.user = JSON.parse(userData);
-        } else {
+        }else 
+        {
             this.user = undefined;
         }
     }
 
-    getUser(): User | undefined {
+    getUser(): User | undefined 
+    {
         if (!this.user) {
             this.loadUser();
         }

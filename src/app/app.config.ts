@@ -10,6 +10,7 @@ import { NgModule, LOCALE_ID } from '@angular/core';
 import { ES_LOCALE_PROVIDER, US_LOCALE_PROVIDER } from '../locale/es';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatNativeDateModule } from '@angular/material/core';
+import { provideSweetAlert2 } from '@sweetalert2/ngx-sweetalert2';
     // ... otras importaciones
 
 
@@ -47,5 +48,10 @@ export const appConfig: ApplicationConfig = {
         ];
       },
     }),
+    provideSweetAlert2({
+      // Optional configuration
+      fireOnInit: false,
+      dismissOnDestroy: true,
+    })
   ]
 };

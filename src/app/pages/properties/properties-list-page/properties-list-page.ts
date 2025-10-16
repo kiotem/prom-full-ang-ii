@@ -6,10 +6,12 @@ import { ProjectSelectorComponent } from '../../../components/project-selector-c
 import { LoaderComponent } from "../../../components/loader-component/loader-component";
 import { LoaderService } from '../../../services/loader-service';
 import { Router } from '@angular/router';
+import { PropertyCreateComponent } from "../../../components/property-create-component/property-create-component";
+import { displayHTML } from '../../../commons/utils';
 
 @Component({
   selector: 'app-properties-list-page',
-  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent],
+  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, PropertyCreateComponent],
   templateUrl: './properties-list-page.html',
   styleUrls: ['./properties-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css']
 })
@@ -80,7 +82,7 @@ export class PropertiesListPage implements OnInit
     }
   }
 
-    download(json: any) {
+  download(json: any) {
       this.loaderService.show();
     this.propertyService.getProperties(json).subscribe({
       next: (data) => {
@@ -100,7 +102,8 @@ export class PropertiesListPage implements OnInit
   }
 
   goCreate(): void {
-    this.router.navigate(['properties/create']);
+    //this.router.navigate(['properties/create']);
+    displayHTML('property-create-component', 'block');
   }
 
   goMap(): void {

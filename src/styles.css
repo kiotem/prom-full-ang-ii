@@ -365,3 +365,29 @@ select::-ms-expand {
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 */
+
+.swal2-confirm {
+  background-color: var(--color-a) !important; /* Green confirm button */
+  color: white !important;
+}
+
+.swal2-cancel {
+  background-color: #ffc107 !important; /* Yellow cancel button */
+  color: #333 !important;
+}
+
+.swal2-confirm:hover {
+  background-color: var(--color-b) !important; /* Green confirm button */
+  color: white !important;
+}
+
+.swal2-cancel:hover {
+  background-color: #a08a46 !important; /* Yellow cancel button */
+  color: #333 !important;
+}
+
+.swal2-title
+{
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: normal !important;
+}
