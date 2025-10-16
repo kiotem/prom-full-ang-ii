@@ -13,10 +13,11 @@ export default class MenuItems {
         "id": 'properties',
         "name": "Propiedades",
         "icon": "fa fa-home",
-        "router": "-",
+        "router": "properties/list",
         "title": "Propiedades",
-        "is_action": false,
+        "is_action": true,
         "subitems":[
+            /*
             {
                 "id": 'properties_map',
                 "name": "Mapa",
@@ -52,8 +53,17 @@ export default class MenuItems {
                 "title": "Propiedades / Crear",
                 "is_action": true,
                 "subitems":[]
-            }
+            }*/
         ]
+    },
+    {
+        "id": 'properties_cotizar',
+        "name": "Cotizar",
+        "icon": "fa-solid fa-house-laptop",
+        "router": "properties/quotation",
+        "is_action": true,
+        "title": "Propiedades / Cotizar",
+        "subitems":[]
     },
     {
         "id": 'cartera',
@@ -64,14 +74,24 @@ export default class MenuItems {
         "is_action": false,
         "subitems":[
             {
+                "id": 'vehicles_list',
+                "name": "Registrar Pago",
+                "icon": "fa-regular fa-credit-card",
+                "router": "-",
+                "title": "-",
+                "is_action": true,
+                "subitems":[]
+            },
+            {
                 "id": 'paymentLinks',
                 "name": "Links de pago",
                 "icon": "fa-regular fa-money-check-dollar",
                 "router": "-",
                 "title": "-",
                 "is_action": true,
-                "subitems":[
-                {
+                "subitems":
+                [
+                    {
                         "id": 'paymentLinksList',
                         "name": "Listar",
                         "icon": "fa-regular fa-clipboard-list",
@@ -92,15 +112,6 @@ export default class MenuItems {
                 ]
             },
             {
-                "id": 'vehicles_list',
-                "name": "Registrar Pago",
-                "icon": "fa-regular fa-credit-card",
-                "router": "-",
-                "title": "-",
-                "is_action": true,
-                "subitems":[]
-            },
-            {
                 "id": 'vehicles_add',
                 "name": "Liquidar",
                 "icon": "fa-solid fa-plus",
@@ -115,10 +126,11 @@ export default class MenuItems {
         "id": 'clients',
         "name": "Clientes",
         "icon": "fa fa-users",
-        "router": "",
-        "title": "",
-        "is_action": false,
+        "router": "clients/list",
+        "title": "Clientes",
+        "is_action": true,
         "subitems":[
+            /*
             {
                 "id": 'clients_list',
                 "name": "Listar",
@@ -136,7 +148,7 @@ export default class MenuItems {
                 "title": "Clientes / Crear",
                 "is_action": true,
                 "subitems":[]
-            }
+            }*/
         ]
     },
     {
