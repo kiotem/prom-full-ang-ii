@@ -390,3 +390,17 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-family: 'Montserrat', sans-serif !important;
     font-weight: normal !important;
 }
+
+.swal2-overlay {
+  z-index: 100000;
+}
+
+.swal2-popup
+{
+    z-index: 120001;
+}
+
+.swal2-container
+{
+    z-index: 120001;
+}

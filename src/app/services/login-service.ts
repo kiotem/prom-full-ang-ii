@@ -25,4 +25,16 @@ export class LoginService {
       }
     });
   }
+
+  logout(callback: (data: any, success: boolean) => void)
+  {
+    this.http.post<any>(API_URL+'logout', {}, httpOptions).subscribe({
+      next: (data) => {
+        callback(data, true);
+      },
+      error: (error) => {
+        callback(null, false);
+      }
+    });
+  }
 }

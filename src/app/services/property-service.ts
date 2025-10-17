@@ -32,6 +32,7 @@ export class PropertyService {
         }
       });
     }
+    
 
     clear() {
       this.properties = [];

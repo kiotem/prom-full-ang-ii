@@ -6,6 +6,7 @@ import { ProjectService } from '../../services/project-service';
 import { LoaderService } from '../../services/loader-service';
 import { PropertyService } from '../../services/property-service';
 import { displayHTML, getNumberFromField } from '../../commons/utils';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-property-create-component',
@@ -125,7 +126,14 @@ export class PropertyCreateComponent {
       this.propertyService.create(this.propertyForm.value, (data: any, success: boolean) => {
         if(success) {
           console.log('Property created successfully:', data);
-          alert('Propiedad creada exitosamente');
+          //alert('Propiedad creada exitosamente');
+          Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'Propiedad creada exitosamente'
+          });
+
+          displayHTML('property-create-component', 'none');
 
           this.propertyForm.reset();
 
@@ -139,7 +147,13 @@ export class PropertyCreateComponent {
       });
     }else{
       console.error('Form is invalid');
-      alert('Por favor llena los campos requeridos');
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Por favor llena los campos requeridos'
+      });
+      
+      //
     }
   }
 
