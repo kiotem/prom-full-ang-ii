@@ -8,7 +8,7 @@
                     <i class="fa-regular fa-user-viewfinder" style="font-size: 36px; margin-right: 15px; color: var(--color-b);"></i>
                     <div>
                             <div style="font-size: 14px;"><b>Carlos Valderrama</b></div>
-                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">CC. 53.234.434</div>
+                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">CC. 53.234.434&nbsp;&nbsp;[Cliente]</div>
                             <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">carlos.valderrama@example.com</div>
                         <!--
                             <div style="font-size: 14px;"><b>{{ this.propertiesQuotationService.client.name.toUpperCase() }}&nbsp;{{ this.propertiesQuotationService.client.lastName1.toUpperCase() }}</b></div>
@@ -40,6 +40,31 @@
                     <a (click)="showPropertySearch(true)">Cambiar</a>
                 </div>
             </div>
+
+
+            <div id="panel-agent-name" style="margin-top: 20px; background-color: #fbfbfb; min-width: 280px; box-shadow: 0 0 4px #bbbbbb; border-radius: 10px; padding: 10px;  color: #444444; display:block;" >
+                <div align="left">
+                    <div style="display: flex; align-items: center;  padding-right: 20px; " class="project-card">
+                        <i class="fa-regular fa-user-tie" style="font-size: 36px; margin-right: 15px; color: var(--color-b);"></i>
+                        <div>
+                            <div style="font-size: 15px;"><b>Pablo Picapiedra</b></div>
+                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">CC. 76.424.434&nbsp;&nbsp;[Asesor]</div>
+                            <!--<div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Asesor</div>-->
+                            <!--
+                                <div style="font-size: 15px;"><b>{{ this.propertiesQuotationService.property.code?.toUpperCase() }}</b></div>
+                                <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Área: {{ this.propertiesQuotationService.property.area }} m2</div>
+                                <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Valor: ${{ this.propertiesQuotationService.property.amount | number: '1.0-0' }}</div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-small" style="margin-top: 0px; text-align: right;">
+                    <a (click)="showPropertySearch(true)">Cambiar</a>
+                </div>
+            </div>
+
+            
 
 
             
