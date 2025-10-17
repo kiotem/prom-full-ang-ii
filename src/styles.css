@@ -136,8 +136,7 @@ html
     padding-right: 15px;
     padding-top: 10px;
     padding-bottom: 10px;
-    border-radius: 12px;
-    /*text-transform: uppercase;*/
+    border-radius: 4px;
     background: var(--primary-color, var(--color-a));
     transition: background 0.3s ease, transform 0.2s ease;
 }
@@ -284,7 +283,7 @@ select::-ms-expand {
     font-size: 15px;
     /*text-transform: uppercase;*/
     padding-left: 15px;
-    border-radius: 12px;
+    border-radius: 8px;
 }
 
 .select-search, .select-field {
@@ -293,7 +292,7 @@ select::-ms-expand {
     height: 38px;
     /*text-transform: uppercase;*/
     padding-left: 15px;
-    border-radius: 12px;
+    border-radius: 8px;
 }
 
 .b_icon

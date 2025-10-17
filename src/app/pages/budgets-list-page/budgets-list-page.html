@@ -1,0 +1,79 @@
+<div class="main-container">
+    <div style="position: absolute; top: 20px; left: 20px; z-index: 100; display: inline-flex; justify-content: space-between;" >
+        <input type="text" id="i_search" name="i_search" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar:" class="input-search" style=" width: 180px;" autocomplete="off">
+
+        <div style="display: flex; align-items: center; margin-left:-10px; width: 200px;" >
+            <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 180px;" (change)="onChangeStatus($event)">
+                <option value="na">Buscar por</option>
+                <option value="property">Lote</option>
+                <option value="cc">Cédula</option>
+                <option value="lastname">Apellido</option>
+            </select>
+        </div>
+
+         <div style="display: flex; align-items: center; margin-left:10px;" >
+            <mat-form-field  (click)="picker3.open()" class="mat-mdc-form-field-infix-date-range">
+            <mat-date-range-input [rangePicker]="picker3" class=" mat-field-input-date-range" id="iDateRange" name="iDateRange" [formGroup]="range">
+                <input matStartDate placeholder="Desde" formControlName="start" id=" iStartDate" name=" iStartDate" readonly required>
+                <input matEndDate placeholder="Hasta" formControlName="end" id=" iEndDate" name=" iEndDate" readonly required>
+            </mat-date-range-input>
+            <mat-date-range-picker #picker3></mat-date-range-picker>
+            </mat-form-field>
+
+            <button style="background: none; border: none; cursor: pointer; margin-left: -30px; z-index: 10000;" class="b_icon"  (click)="picker3.open()">
+                <i class="fa-regular fa-calendar"></i>
+            </button>
+        </div>
+        
+    </div>
+
+    <div class="button" style="position: absolute; top: 30px; right: 20px; z-index: 100;">
+        <a (click)="goCreate()"><i class="fa-solid fa-plus"></i>&nbsp;Crear nueva</a>
+    </div>
+
+    <div class="properties-list" style="position: absolute; top: 75px; z-index: 100; width: 100%; height: calc(100% - 130px);">
+
+        <div class="row-header">
+            <div class="col" style="max-width: 30px;" align="right"></div>
+            <div class="col" style="max-width: 50px;" align="right">#</div>
+            <div class="col" style="max-width: 180px;">FECHA</div>
+            <div class="col" style="max-width: 120px;">CÉDULA</div>
+            <div class="col" style="max-width: 200px;">CLIENTE</div>
+            <div class="col" style="max-width: 100px;">VALOR</div>
+            <div class="col" style="max-width: auto;">ASESOR</div>
+            <div class="col" style="max-width: 150px;">FASE</div>
+            <div class="col" style="max-width: 150px;">&nbsp;</div>
+        </div>
+
+        <div class="table-content">
+            @for (item of this.salesService.sales; track $index) 
+            {
+                
+                <div class="row" (click)="onClickRow(item)">
+                    <div class="col" style="max-width: 30px;" align="center"><i class="fa fa-home" style="font-size: 14px;"></i></div>
+                    <div class="col" style="max-width: 50px;" align="right">{{item.property.code}}</div>
+                    <div class="col" style="max-width: 180px;">{{convertTimeToLocal(item.createdAt)}}</div>
+                    <div class="col" style="max-width: 120px;">{{item.client.pmsId | number: '1.0-0'}}</div>
+                    <div class="col" style="max-width: 200px;">{{item.client.name}} {{item.client.lastName1}}</div>
+                    <div class="col" style="max-width: 100px;">${{item.amount | number: '1.0-0' }}</div>
+                    <div class="col" style="max-width: auto;">{{item.agent.name}} {{item.agent.lastName1}}</div>
+                    <div class="col" style="max-width: 150px;">{{item.phase}}</div>
+                    <div class="col-button button-circle-table" style="max-width: 150px;  display: flex;">
+                        <a (click)="onClickButton(item, 'download')" matTooltip="Descargar aquí"><i class="fa-light fa-arrow-down-to-line"></i></a>&nbsp;&nbsp;
+                        <a (click)="onClickButton(item, 'print')" matTooltip="Imprimir"><i class="fa-light fa-print"></i></a>&nbsp;&nbsp;
+                        <a (click)="onClickButton(item, 'whatsapp')" matTooltip="Enviar por WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>&nbsp;&nbsp;
+                        <a (click)="onClickButton(item, 'email')" matTooltip="Enviar por correo"><i class="fa-light fa-envelope"></i></a>
+                    </div>
+
+                </div>
+            }
+        </div>
+
+        <!--<p>Selected range: {{range.value | json}}</p>-->
+    </div>
+</div>
+
+<app-menu-component></app-menu-component>
+<app-project-selector-component></app-project-selector-component>
+<app-budget-create-component></app-budget-create-component>
+<app-loader-component></app-loader-component>

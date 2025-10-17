@@ -58,11 +58,11 @@ export default class MenuItems {
     },
     {
         "id": 'properties_cotizar',
-        "name": "Cotizar",
+        "name": "Cotizaciones",
         "icon": "fa-solid fa-house-laptop",
-        "router": "properties/quotation",
+        "router": "budgets/list",
         "is_action": true,
-        "title": "Propiedades / Cotizar",
+        "title": "Cotizaciones",
         "subitems":[]
     },
     {
