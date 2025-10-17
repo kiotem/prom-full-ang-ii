@@ -196,7 +196,7 @@ html
     padding-right: 10px;
     padding-top: 3px;
     padding-bottom: 3px;
-    border-radius: 4px;
+    border-radius: 3px;
     background: var(--primary-color, var(--color-a));
     transition: background 0.3s ease, transform 0.2s ease;
 }
