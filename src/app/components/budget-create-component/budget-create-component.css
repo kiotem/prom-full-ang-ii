@@ -1,0 +1,39 @@
+#budget-create-component
+{
+    position: absolute; 
+    top: 0;
+    left: 0;
+    backdrop-filter: blur(10px);
+    min-width: 100%; 
+    min-height: 100%; 
+    z-index: 40000;
+    color: gray;
+
+    #budget-panel-box
+    {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 1000px;
+        height: 550px;
+        background-color: white;
+        border-radius: 14px;
+        box-shadow: 0 0 8px gainsboro;
+        padding: 20px;
+    }
+}
+
+.col-title
+{
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 4px;
+}
+
+.col-value
+{
+    font-size: 15px;
+    color: gray;
+    padding-left: 15px;
+}

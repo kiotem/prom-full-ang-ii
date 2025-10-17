@@ -31,7 +31,6 @@ export class BudgetsListPage implements OnInit
     end: new FormControl<Date | null>(null),
   });
 
-
   constructor(private router: Router, public salesService: SaleService, private loaderService: LoaderService, private cdr: ChangeDetectorRef, private pdfService: PDFEstadoCuentaService) 
   {
     let today = new Date().toLocaleDateString('en-CA'); // Formato YYYY-MM-DD
@@ -44,11 +43,10 @@ export class BudgetsListPage implements OnInit
     
     this.range.valueChanges.subscribe(newValue => {
     console.log('Reactive Form value changed:', newValue);
-
-    if(!this.range.invalid) 
-    {
-      this.download({});
-    }
+      if(!this.range.invalid) 
+      {
+        this.download();
+      }
     });
   }
 
@@ -56,7 +54,7 @@ export class BudgetsListPage implements OnInit
   ngOnInit(): void {
     console.log('Component initialized with range:', this.range.value);
     //this.list();
-    this.download({});
+    this.download();
   }
 
 
@@ -71,7 +69,7 @@ export class BudgetsListPage implements OnInit
       //this.checkFilter();
       if (event.key === 'Enter') 
       {
-        this.download({});
+        this.download();
       }
   }
 
@@ -88,11 +86,11 @@ export class BudgetsListPage implements OnInit
     let search = getTextFromField('i_search');
     if(search.length > 2)
     {
-      this.download({});
+      this.download();
     }
   }
 
-  download(jsont: any) 
+  download() 
   {
     let search = getTextFromField('i_search');
     let searchBy = getTextFromField('s_status');

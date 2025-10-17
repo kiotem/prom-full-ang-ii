@@ -1,0 +1,126 @@
+<div id="budget-create-component" style="display: block;">
+
+    <div id="side-container" style="display: flex; align-items: center; margin-top: 50px; margin-left: 30px;">
+        <div id="side-a" style="width: 350px;">
+
+            <div id="panel-client-name" style="background-color: #fbfbfb; min-width: 280px; box-shadow: 0 0 4px #bbbbbb; border-radius: 10px; padding: 15px;  color: #444444; display:block;" >
+                <div style="display: flex; align-items: center;  padding-right: 20px; " class="project-card">
+                    <i class="fa-regular fa-user-viewfinder" style="font-size: 36px; margin-right: 15px; color: var(--color-b);"></i>
+                    <div>
+                            <div style="font-size: 14px;"><b>Carlos Valderrama</b></div>
+                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">CC. 53.234.434</div>
+                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">carlos.valderrama@example.com</div>
+                        <!--
+                            <div style="font-size: 14px;"><b>{{ this.propertiesQuotationService.client.name.toUpperCase() }}&nbsp;{{ this.propertiesQuotationService.client.lastName1.toUpperCase() }}</b></div>
+                            <div style="font-size: 14px; margin-top: 4px; color: var(--gray);">CC. {{ this.propertiesQuotationService.client.pmsId }}</div>
+                            <div style="font-size: 14px; margin-top: 4px; color: var(--gray);">{{ this.propertiesQuotationService.client.email }}</div>
+                        -->
+                    </div>
+                </div>
+            </div>   
+
+            <div id="panel-property-name" style="margin-top: 20px; background-color: #fbfbfb; min-width: 280px; box-shadow: 0 0 4px #bbbbbb; border-radius: 10px; padding: 15px;  color: #444444; display:block;" >
+                <div align="left">
+                    <div style="display: flex; align-items: center;  padding-right: 20px; " class="project-card">
+                        <i class="fa-regular fa-house-blank" style="font-size: 36px; margin-right: 15px; color: var(--color-b);"></i>
+                        <div>
+                            <div style="font-size: 15px;"><b>L45</b></div>
+                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Área: 345 m2</div>
+                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Valor: $72.000.000</div>
+                            <!--
+                                <div style="font-size: 15px;"><b>{{ this.propertiesQuotationService.property.code?.toUpperCase() }}</b></div>
+                                <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Área: {{ this.propertiesQuotationService.property.area }} m2</div>
+                                <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Valor: ${{ this.propertiesQuotationService.property.amount | number: '1.0-0' }}</div>
+                            -->
+                        </div>
+                    </div>
+                </div>
+
+                <div class="button-small" style="margin-top: 5px; text-align: right;">
+                    <a (click)="showPropertySearch(true)">Cambiar</a>
+                </div>
+            </div>
+
+
+            
+                <div class="table-content-detail" style="background-color: #fbfbfb; width: 320px; box-shadow: 0 0 4px #bbbbbb; border-radius: 10px; padding: 15px;  color: #444444;">
+                    <div class="row-detail">
+                        <div class="col" style="width:100%;">
+                            <div class="col-title">Valor inmueble</div>
+                            <!--<div class="col-value">$ {{this.propertiesQuotationService.property.amount | number: '1.0-0'}}</div>-->
+                            <div class="col-value">$ 72.000.000</div>
+                        </div>
+                    </div>
+
+                    <div class="row-detail">
+                        <div class="col" style="width:100%;">
+                            <div class="col-title">Cuota de separación</div>
+                            <!--<div class="col-value">${{this.propertiesQuotationService.separationQuotaValue | number: '1.0-0'}}</div>-->
+                            <div class="col-value">$ 7.200.000</div>
+                        </div>
+                    </div>
+                    
+                    <div class="row-detail">
+                        <div class="col" style="width:100%;">
+                            <div class="col-title">Descuento</div>
+                            <!--<div class="col-value">{{this.propertiesQuotationService.discountPercentValue| number: '1.1-1'}}%  |  ${{this.propertiesQuotationService.discountValue| number: '1.0-0'}}</div>-->
+                            <div class="col-value">10%  |  $ 7.200.000</div>
+                        </div>
+                    </div>
+
+                    <div class="row-detail">
+                        <div class="col" style="width:100%;">
+                            <div class="col-title">Cuota inicial</div>
+                            <!--<div class="col-value">{{this.propertiesQuotationService.initialPercentValue| number: '1.1-1'}}%  |  ${{this.propertiesQuotationService.initialBalanceValue| number: '1.0-0'}}</div>-->
+                            <div class="col-value">30%  |  $ 21.600.000</div>
+                        </div>
+                    </div>
+
+                    <div class="row-detail">
+                        <div class="col" style="width:100%;">
+                            <div class="col-title"># de cuotas inicial</div>
+                            <!--<div class="col-value">{{this.propertiesQuotationService.initialNumberOfQuotasValue | number: '1.0-0'}}  x  ${{this.propertiesQuotationService.initialQuotaValue | number: '1.0-0'}}</div>-->
+                            <div class="col-value">12  x  $ 1.800.000</div>
+                        </div>
+                    </div>
+
+                    <div class="row-detail">
+                        <div class="col" style="width:100%;">
+                            <div class="col-title">Saldo final</div>
+                            <!--<div class="col-value">${{this.propertiesQuotationService.finalBalanceValue| number: '1.0-0'}}</div>-->
+                            <div class="col-value">$ 43.200.000
+                        </div>
+                    </div>
+
+                    <div class="row-detail">
+                        <div class="col" style="width:100%;">
+                            <div class="col-title"># de cuotas saldo</div>
+                            <!--<div class="col-value">{{this.propertiesQuotationService.finalNumberOfQuotasValue | number: '1.0-0'}}  x  ${{this.propertiesQuotationService.finalQuotaValue | number: '1.0-0'}}</div>-->
+                            <div class="col-value">24  x  $ 1.800.000
+                        </div>
+                    </div>
+
+                </div>
+
+            
+
+
+
+        </div>
+
+        <div id="side-b" style="width: 350px; margin-left: 30px;">
+            khjkjhkj
+        </div>
+
+        <div id="side-c" style="width: 350px; margin-left: 30px;">
+            lkhhkgkg
+        </div>
+
+    </div>
+
+
+
+
+
+
+</div>
