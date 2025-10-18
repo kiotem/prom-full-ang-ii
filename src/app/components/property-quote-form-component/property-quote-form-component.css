@@ -1,10 +1,8 @@
 #property-quote-form-box
 {
-    position: absolute;
-    top: 20px;
     left: 350px;
-    width: 400px;
-    height: 560px;
+    width: 350px;
+    height: 640px;
     background-color: #fbfbfb;
     border-radius: 12px;
     box-shadow: 0 0 4px gainsboro;
