@@ -1,13 +1,14 @@
 #budget-create-component
 {
     position: absolute; 
-    top: 0;
+    top: 40px;
     left: 0;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
     min-width: 100%; 
-    min-height: 100%; 
-    z-index: 40000;
+    min-height: calc(100% - 40px); 
+    z-index: 18000;
     color: gray;
+    overflow-y: hidden;
 
     #budget-panel-box
     {
@@ -28,7 +29,7 @@
         top: 20px;
         left: 830px;
         width: 370px;
-        height: 600px;
+        height: 640px;
         background-color: #fbfbfb;
         border-radius: 12px;
         box-shadow: 0 0 4px gainsboro;

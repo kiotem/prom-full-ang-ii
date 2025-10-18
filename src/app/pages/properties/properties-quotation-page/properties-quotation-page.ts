@@ -28,6 +28,7 @@ import { LinkService } from '../../../services/link-service';
 
 export class PropertiesQuotationPage implements OnInit, ClientSearchInterface, PropertySearchInterface
 {
+  
   @ViewChild(PropertyQuoteFormComponent, { static: false }) propertyQuoteFormComponent!: PropertyQuoteFormComponent;
 
   constructor(public propertiesQuotationService: PropertiesQuotationService, private loaderService: LoaderService, private saleService: SaleService, private wompiService: WompiService, private whatsAppService: WhatsAppService, private pdfEstadoCuenta: PDFEstadoCuentaService, private router: Router, public linkService: LinkService) 

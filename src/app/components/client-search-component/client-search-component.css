@@ -6,7 +6,7 @@
     backdrop-filter: blur(10px);
     min-width: 100%; 
     min-height: 100%; 
-    z-index: 40000;
+    z-index: 18000;
     color: gray;
 
     #client-search-box

@@ -1,6 +1,6 @@
-<div id="budget-create-component" style="display: block;">
+<div id="budget-create-component" style="display: none;">
 
-    <div id="side-container" style="display: flex; align-items: center; margin-top: 50px; margin-left: 30px;">
+    <div id="side-container" style="display: flex; align-items: center; margin-top: 30px; margin-left: 30px;">
         <div id="side-a" style="width: 350px;">
 
             <div id="panel-client-name" style="background-color: #fbfbfb; min-width: 280px; box-shadow: 0 0 4px #bbbbbb; border-radius: 10px; padding: 10px;  color: #444444; display:block;" >
@@ -91,13 +91,15 @@
                     </div>
                 }
             </div>
+
+            <div class="button" style="margin-top: 20px; text-align: right; padding-right: 10px;">
+                <a (click)="onCancel()">Cancelar</a>
+                &nbsp;<a (click)="onCreate()">Guardar datos</a>
+            </div>
+
         </div>
 
     </div>
-
-
-
-
-
-
 </div>
+
+<app-client-search-component></app-client-search-component>

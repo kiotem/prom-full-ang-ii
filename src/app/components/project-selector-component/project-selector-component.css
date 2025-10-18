@@ -17,7 +17,7 @@
     backdrop-filter: blur(10px);
     min-width: 100%; 
     min-height: 100%; 
-    z-index: 30000;
+    z-index: 20000;
     color: gray;
 }
 
