@@ -7,15 +7,14 @@
                 <div style="display: flex; align-items: center; " class="project-card">
                     <i class="fa-regular fa-user-viewfinder" style="font-size: 36px; margin-right: 15px; color: var(--color-b);"></i>
                     <div>
-                        <div style="font-size: 14px;"><b>Carlos Valderrama</b></div>
-                        <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">CC. 53.234.434&nbsp;&nbsp;[Cliente]</div>
-                        <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">carlos.valderrama@example.com</div>
-                        <!--
-                            <div style="font-size: 14px;"><b>{{ this.propertiesQuotationService.client.name.toUpperCase() }}&nbsp;{{ this.propertiesQuotationService.client.lastName1.toUpperCase() }}</b></div>
-                            <div style="font-size: 14px; margin-top: 4px; color: var(--gray);">CC. {{ this.propertiesQuotationService.client.pmsId }}</div>
-                            <div style="font-size: 14px; margin-top: 4px; color: var(--gray);">{{ this.propertiesQuotationService.client.email }}</div>
-                        -->
+                        <div style="font-size: 14px;"><b>{{ this.propertiesQuotationService.client.name.toUpperCase() }}&nbsp;{{ this.propertiesQuotationService.client.lastName1.toUpperCase() }}</b></div>
+                        <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">CC. {{ this.propertiesQuotationService.client.pmsId }}</div>
+                        <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">{{ this.propertiesQuotationService.client.email }}</div>
                     </div>
+                </div>
+
+                <div class="button-small" style="margin-top: 0px; text-align: right;">
+                    <a (click)="showClientSearch(true)">Cambiar</a>
                 </div>
             </div>   
 
@@ -23,15 +22,10 @@
                 <div align="left">
                     <div style="display: flex; align-items: center;  padding-right: 20px; " class="project-card">
                         <i class="fa-regular fa-house-blank" style="font-size: 36px; margin-right: 15px; color: var(--color-b);"></i>
-                        <div>
-                            <div style="font-size: 15px;"><b>L45</b></div>
-                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Área: 345 m2</div>
-                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Valor: $72.000.000</div>
-                            <!--
-                                <div style="font-size: 15px;"><b>{{ this.propertiesQuotationService.property.code?.toUpperCase() }}</b></div>
-                                <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Área: {{ this.propertiesQuotationService.property.area }} m2</div>
-                                <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Valor: ${{ this.propertiesQuotationService.property.amount | number: '1.0-0' }}</div>
-                            -->
+                        <div>                            
+                            <div style="font-size: 15px;"><b>{{ this.propertiesQuotationService.property.code?.toUpperCase() }}</b></div>
+                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Área: {{ this.propertiesQuotationService.property.area }} m2</div>
+                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Valor: ${{ this.propertiesQuotationService.property.amount | number: '1.0-0' }}</div>
                         </div>
                     </div>
                 </div>
@@ -102,4 +96,5 @@
     </div>
 </div>
 
-<app-client-search-component></app-client-search-component>
+<app-client-search-component (selectAction)="selectClient($event)" (cancelAction)="cancelSearchClient()"></app-client-search-component>
+<app-property-search-component (selectAction)="selectProperty($event)" (cancelAction)="cancelSearchProperty()"></app-property-search-component>
