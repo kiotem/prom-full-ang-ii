@@ -1,0 +1,37 @@
+<div id="agent-search-component" style="display: block;">
+
+    <div id="agent-search-box">
+
+        <div style="text-align: center; font-size: 14px; z-index: 100; color: #333333;">
+            BÚSQUEDA DE AGENTE
+        </div>
+
+        <div style="display: flex; flex-direction: row; align-items: center; margin-top: 10px;">
+            <input type="text" id="i_search_agent" name="i_search_agent" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar agente:" class="input-search" style=" width: 150px;" autocomplete="off">
+
+            <div style="display: flex; align-items: center; margin-left:-10px; width: 200px;" >
+                <select type="text" id="s_agent_status_field" name="s_agent_status_field" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 130px;" (change)="onChangeStatus($event)">
+                    <option value="pmsId">Por Cédula</option>
+                    <option value="name">Por Nombre</option>
+                    <option value="lastName1">Por Apellido</option>
+                </select>
+            </div>
+
+            <div class="button" style="margin-left: 20px;">
+                <a (click)="onSearch()">Buscar</a>
+            </div>
+        </div>
+
+        <div style="border: 0.8px solid #f3f3f3; margin-top: 15px; min-height: 420px; max-height: 420px; overflow-y: auto; border-radius: 12px;">
+            @for (agent of this.agentService.agents; track $index) 
+            {
+                <app-agent-card-component [agent]="agent" (click)="triggerSelectAction(agent)"></app-agent-card-component>
+            }
+        </div>
+        <div>
+            <div class="button" style="margin-top: 20px;">
+                <a (click)="triggerCancelAction()">Cancelar</a>
+            </div>
+        </div>
+    </div>
+</div>

@@ -6,11 +6,11 @@ import { ClientCardComponent } from "../client-card-component/client-card-compon
 import Client from '../../models/Client';
 import { Router } from '@angular/router';
 
-export default interface ClientSearchInterface {
+export default interface ClientSearchInterface 
+{
   selectClient(client: Client): void;
   cancelSearchClient(): void;
 }
-
 
 @Component({
   selector: 'app-client-search-component',
@@ -18,6 +18,7 @@ export default interface ClientSearchInterface {
   templateUrl: './client-search-component.html',
   styleUrl: './client-search-component.css'
 })
+
 export class ClientSearchComponent implements OnInit 
 {
   @Output() selectAction = new EventEmitter<Client>();
@@ -48,20 +49,23 @@ export class ClientSearchComponent implements OnInit
     this.search();
   }
 
-  search() {
+  search() 
+  {
     let searchValue = getTextFromField('i_search_client');
     let searchField = getTextFromField('s_status_field');
 
-    let json = {
+    let json = 
+    {
       search: searchValue,
       field: searchField
     };
 
     console.log('getClientBy called with Pre:', json);
-        this.loaderService.show();
+    this.loaderService.show();
   
     this.clientService.getBy(json).subscribe({
-      next: (data) => {
+      next: (data) => 
+      {
         this.loaderService.hide();
 
         try
@@ -71,7 +75,7 @@ export class ClientSearchComponent implements OnInit
           this.clientService.fill(data.result);
   
           this.cdr.detectChanges();
-        }catch(error) 
+        }catch(error)
         {
           console.error('Error processing client data:', error);
         }

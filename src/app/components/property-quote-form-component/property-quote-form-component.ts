@@ -71,7 +71,7 @@ constructor(public propertiesQuotationService: PropertiesQuotationService, priva
       projectId : this.projectId
       });
 
-      this.getAgents({});
+      //this.getAgents({});
   }
   ngOnInit(): void {
     
@@ -115,6 +115,7 @@ constructor(public propertiesQuotationService: PropertiesQuotationService, priva
     return true;
   }
 
+  /*
   getAgents(json: any) {
     this.agentService.getAgents(json).subscribe({
       next: (data) => {
@@ -127,7 +128,7 @@ constructor(public propertiesQuotationService: PropertiesQuotationService, priva
       }
     });
   }
-
+*/
   generateQuotas(): void {
     this.generateQuotasAction.emit({});
   }

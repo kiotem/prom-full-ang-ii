@@ -7,8 +7,8 @@ export default interface Agent{
     email: string;
     phone: string;
     agentType: string;
-    projects: any[];
-    address: string;
-    city: string;
-    status: string;
+    projects?: any[];
+    address?: string;
+    city?: string;
+    status?: string;
 }

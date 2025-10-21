@@ -1,0 +1,35 @@
+.agent-card
+{
+    display: flex;
+    align-items: center; 
+    border-bottom: 0.5px solid #f3f3f3; 
+    padding: 10px; 
+    padding-right: 20px; 
+    border-radius: 0px;
+
+    .agent-name
+    {
+        font-size: 16px; 
+        margin-top: 2px; 
+        color: black;
+    }
+
+    .client-pmsid
+    {
+        font-size: 13px; 
+        margin-top: 4px; 
+        color: var(--gray);
+    }
+}
+
+.agent-card:hover
+{
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+.agent-card:active
+{
+    background-color: #f3f3f3;
+    cursor: pointer;
+}

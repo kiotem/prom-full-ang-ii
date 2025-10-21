@@ -15,7 +15,7 @@ export class PropertiesQuotationService {
   client: Client;
   project: Project;
   property: Property;
-  agent: string;
+  agent: Agent;
   quotas: Quota[];
   
   saleId: string;
@@ -65,7 +65,17 @@ export class PropertiesQuotationService {
       amount: 0
     };
 
-    this.agent = '';
+    this.agent = 
+    {
+      objectId: '',
+      pmsId: '',
+      name: '',
+      lastName1: '',
+      lastName2: '',
+      email: '',
+      phone: '' ,
+      agentType: ''
+    };
 
     this.project = this.projectService.getSelected() as Project;
 
@@ -103,7 +113,17 @@ export class PropertiesQuotationService {
       amount: 0
     };
 
-    this.agent = '';
+    this.agent = 
+    {
+      objectId: '',
+      pmsId: '',
+      name: '',
+      lastName1: '',
+      lastName2: '',
+      email: '',
+      phone: '' ,
+      agentType: ''
+    };
 
     this.project = this.projectService.getSelected() as Project;
 

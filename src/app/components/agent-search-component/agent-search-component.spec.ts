@@ -1,0 +1,23 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { AgentSearchComponent } from './agent-search-component';
+
+describe('AgentSearchComponent', () => {
+  let component: AgentSearchComponent;
+  let fixture: ComponentFixture<AgentSearchComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AgentSearchComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(AgentSearchComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

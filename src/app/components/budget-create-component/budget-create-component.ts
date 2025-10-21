@@ -9,15 +9,17 @@ import Client from '../../models/Client';
 import { displayHTML } from '../../commons/utils';
 import PropertySearchInterface, { PropertySearchComponent } from '../property-search-component/property-search-component';
 import Property from '../../models/Property';
+import AgentSearchInterface, { AgentSearchComponent } from '../agent-search-component/agent-search-component';
+import Agent from '../../models/Agent';
 
 @Component({
   selector: 'app-budget-create-component',
-  imports: [PropertyQuoteFormComponent, PropertyQuoteCardComponent, DatePipe, DecimalPipe, ClientSearchComponent, PropertySearchComponent],
+  imports: [PropertyQuoteFormComponent, PropertyQuoteCardComponent, DatePipe, DecimalPipe, ClientSearchComponent, PropertySearchComponent, AgentSearchComponent],
   templateUrl: './budget-create-component.html',
   styleUrls: ['./budget-create-component.css', '../../../styles/reports.css']
 })
 
-export class BudgetCreateComponent implements ClientSearchInterface, PropertySearchInterface
+export class BudgetCreateComponent implements ClientSearchInterface, PropertySearchInterface, AgentSearchInterface
 {
   @ViewChild(PropertyQuoteFormComponent, { static: false }) propertyQuoteFormComponent!: PropertyQuoteFormComponent;
   
@@ -25,17 +27,33 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
   {
     console.log('BudgetCreateComponent initialized');
   }
+  selectAgent(agent: Agent): void {
+    console.log('Selected agent received BC:', agent);
+    this.propertiesQuotationService.agent = agent;
+
+    this.showAgentSearch(false);
+  }
+  cancelSearchAgent(): void {
+    console.log('Cancel search agent action triggered');
+    this.showAgentSearch(false);
+  }
+
   selectProperty(property: Property): void {
-    console.log('Selected property received:', property);
+    console.log('Selected property received BC:', property);
     this.propertiesQuotationService.property = property;
 
     if(this.propertyQuoteFormComponent)
     {
       this.propertyQuoteFormComponent.process();
     }
+
+    this.showPropertySearch(false);
   }
+
   cancelSearchProperty(): void {
-    throw new Error('Method not implemented.');
+    //throw new Error('Method not implemented.');
+    console.log('Cancel search property action triggered');
+    this.showPropertySearch(false);
   }
 
 
@@ -87,6 +105,20 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
     {
       displayHTML('budget-create-component', 'block');
       displayHTML('client-search-component', 'none');
+    }
+  }
+
+  showAgentSearch(visible: boolean) 
+  {
+    if(visible)
+    {
+      displayHTML('budget-create-component', 'none');
+      displayHTML('agent-search-component', 'block');
+    }
+    else
+    {
+      displayHTML('budget-create-component', 'block');
+      displayHTML('agent-search-component', 'none');
     }
   }
 

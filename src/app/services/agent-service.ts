@@ -20,9 +20,9 @@ export class AgentService
     this.agents = agents;
   }
 
-  getAgents(json: any)
+  getAgentsBy(json: any)
   {
     console.log('getAgents method called with search:', json);
-    return this.http.post<any>(API_URL+'getAgents', json, httpOptions);
+    return this.http.post<any>(API_URL+'getAgentsBy', json, httpOptions);
   }
 }
