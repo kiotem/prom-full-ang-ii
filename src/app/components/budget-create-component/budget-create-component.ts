@@ -48,6 +48,11 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
     }
 
     this.showPropertySearch(false);
+
+    if(this.propertiesQuotationService.agent.objectId == '')
+    {
+      this.showAgentSearch(true);
+    }
   }
 
   cancelSearchProperty(): void {
@@ -55,7 +60,6 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
     console.log('Cancel search property action triggered');
     this.showPropertySearch(false);
   }
-
 
   cancelSearchClient(): void {
     console.log('Cancel search client action triggered');
@@ -68,10 +72,6 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
     this.propertiesQuotationService.setClient(client);
 
     this.showClientSearch(false);
-
-    //displayHTML('client-search-component', 'none');
-
-    //displayHTML('budget-create-component', 'block');
 
     if(this.propertiesQuotationService.property.code == '')
     {
@@ -127,7 +127,7 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
     // Logic to launch the budget creation process
   }
 
-  onCreate()
+  onSend()
   {
     // Logic to create a new budget
   } 
