@@ -10,6 +10,7 @@ import { StorageService } from './storage-service';
 })
 export class ProjectService {
   projects: Project[] = [];
+  projectsFiltered: Project[] = [];
   selectedProject: Project | undefined;
 
   constructor(private http: HttpClient, public storageService: StorageService) {
@@ -32,6 +33,7 @@ export class ProjectService {
   fill(projects: Project[]): void 
   {
     this.projects = projects;
+    this.projectsFiltered = projects;
     this.storageService.setItem('projects', JSON.stringify(this.projects));
     this.storageService.removeItem('selectedProject');
 
@@ -42,8 +44,35 @@ export class ProjectService {
     let storedProjects = this.storageService.getItem('projects');
     if (storedProjects) {
       this.projects = JSON.parse(storedProjects) as Project[];
+      this.projectsFiltered = this.projects;
     }
     return this.projects;
+  }
+
+  getProjectsFiltered(search: string): Project[] {
+    let storedProjects = this.storageService.getItem('projects');
+    if (storedProjects) {
+      this.projectsFiltered = JSON.parse(storedProjects) as Project[];
+
+      // Apply filtering logic here if needed
+      // Example: filter projects by a property, e.g., only active projects
+      if (search && search.trim() !== '') {
+        const lowerSearch = search.toLowerCase();
+        this.projectsFiltered = this.projectsFiltered.filter(project => 
+          project.name.toLowerCase().includes(lowerSearch) || 
+          (project.name && project.name.toLowerCase().includes(lowerSearch))
+        );
+      }
+    }
+    console.log('Filtered Projects:', this.projectsFiltered);
+
+    return this.projects;
+  }
+
+  refillFiltered(): void 
+  {
+    this.getProjects();
+    this.projectsFiltered = this.projects;
   }
 
   setSelected(project: Project): void 

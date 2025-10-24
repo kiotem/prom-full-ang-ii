@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import { ProjectService } from '../../services/project-service';
 import Project from '../../models/Project';
 import { UserService } from '../../services/user-service';
 import { Router } from '@angular/router';
 import { ProjectCardComponent } from '../project-card-component/project-card-component';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { displayHTML } from '../../commons/utils';
 
 @Component({
   selector: 'app-project-selector-component',
@@ -15,10 +16,9 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 export class ProjectSelectorComponent {
   //projects: Project[];
 
-  constructor(public projectService: ProjectService, public userService: UserService, private router: Router)
+  constructor(public projectService: ProjectService, public userService: UserService, private router: Router, private cdr: ChangeDetectorRef)
   {
     console.log('ProjectSelectorComponent initialized');
-    //this.projects = projectService.reloadProjects();
   }
   ngOnInit(): void 
   {
@@ -39,11 +39,10 @@ export class ProjectSelectorComponent {
 
   openProjectSelector()
   {
-    let projectSelector = document.getElementById('project-selector');
-    if(projectSelector) 
-    {
-      projectSelector.style.display = 'block';
-    }
+    this.projectService.refillFiltered();
+    
+    displayHTML('project-selector', 'block');
+    this.cdr.detectChanges();
   }
 
   closeProjectSelector() 
@@ -69,5 +68,14 @@ export class ProjectSelectorComponent {
         projectSelector.style.display = 'block';
       }
     }
+  }
+
+  onKeyup(event: any) 
+  {
+    console.log(event.target.value);
+    
+      const searchValue = (event.target as HTMLInputElement).value;
+      this.projectService.getProjectsFiltered(searchValue);
+      this.cdr.detectChanges();
   }
 }

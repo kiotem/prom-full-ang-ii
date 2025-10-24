@@ -15,8 +15,8 @@
 
     <div class="fondo"></div>
 
-    <div class="container-form" style="display: none;">
-        <div align="center">
+    <div class="container-form" id="container-form" style="display: block;">
+        <div align="center" style="height: 120px;">
             <img src="/imgs/logo_pmfull_black.png" alt="Image" style="width: 200px; height: auto; ">
         </div>
 
@@ -49,12 +49,17 @@
     </div>
 
 
-<div id="project-selector" style="display: block;">
+<div id="project-selector" style="display: none;">
     <div id="panel-project-selector">
-        <div  id="close-project-selector"><a (click)="closeProjectSelector()"><i class="fa fa-times"></i></a></div>
+        <div  id="close-project-selector"><a (click)="showProjectSelector(false)"><i class="fa fa-times"></i></a></div>
             <div style="text-align: center; font-size: 14px; z-index: 100; color: #333333;">SELECCIONA UN PROYECTO</div>
+
+        <div style="display: flex; flex-direction: row; align-items: center; margin-top: 10px;">
+            <input type="text" id="i_search_project" name="i_search_project" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar proyecto:" class="input-search" style=" width: 200px;"  autocomplete="off">
+        </div>
+
         <div id="panel-project-selector-content">
-            @for(p of projectService.getProjects(); track $index)
+            @for(p of projectService.projectsFiltered; track $index)
             {
                 <app-project-card-component [project]="p"></app-project-card-component>
             }

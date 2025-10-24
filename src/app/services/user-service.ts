@@ -96,12 +96,15 @@ export class UserService {
         return false;
     }
 
-    isLoggedIn(): boolean {
+    isLoggedIn(): boolean 
+    {
         this.loadUser();
-        if(this.user)
+
+        if(!this.user)
         {
-            return true;
+            return false;
         }
-        return false;
+
+        return true;
     }
 }

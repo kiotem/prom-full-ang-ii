@@ -33,7 +33,7 @@
     color: black;
     width: 100%;
     padding: 3px 0px 3px 5px;
-    background: aliceblue;
+    background: white;
     height: 34px;
     outline: 0;
     padding-left: 5px;
@@ -48,7 +48,7 @@
 
 .input-login:hover
 { 
-    background: aliceblue;
+    background: white;
     border: none;
     border-bottom: 2.5px solid var(--color-a);
 

@@ -11,6 +11,7 @@ import Swal from 'sweetalert2';
 import { LoginService } from '../../services/login-service';
 import { ProjectSelectorComponent } from "../../components/project-selector-component/project-selector-component";
 import { ProjectCardComponent } from '../../components/project-card-component/project-card-component';
+import { displayHTML } from '../../commons/utils';
 
 @Component({
   selector: 'app-login-page',
@@ -27,7 +28,6 @@ tempUser: any;
   launchVerificationCode: boolean;
 
   //@ViewChild(VerificationCodeComponent) verificationCodeChild: VerificationCodeComponent | undefined;
-
 
   constructor(private renderer: Renderer2, private loaderService: LoaderService, private userService: UserService, private cdr: ChangeDetectorRef, private storageService: StorageService, private router: Router, public projectService: ProjectService, private loginService: LoginService) {
     this.launchVerificationCode = false; // Initialize the flag for verification code component
@@ -88,17 +88,17 @@ tempUser: any;
         if(success) {
           console.log('Login successful', response);
           this.tempUser = response.result.user;
-          //console.log('TempUser', this.tempUser);
 
           this.userService.setTempUser(this.tempUser);
-          //this.storageService.setItem('tempUser', JSON.stringify(this.tempUser));
           this.projectService.fill(response.result.projects);
 
           this.loaderService.hide();
 
           if(this.userService.confirmLogin())
           {
-            this.doDashboard();
+            //this.doDashboard();
+            this.loginForm.reset();
+            this.showProjectSelector(true);
           } 
           
           /*
@@ -119,6 +119,7 @@ tempUser: any;
     }
   }
 
+  /*
   handleSubmit() 
   {
     if(this.loginForm.valid) {
@@ -147,12 +148,6 @@ tempUser: any;
             
             //fin quitar paso direct
 
-            /*
-            if(this.verificationCodeChild)
-            {
-                this.verificationCodeChild.sendVerificationCode({ user: this.tempUser });
-            }*/
-
             this.cdr.detectChanges(); // Trigger change detection to update the view
           },
         error: (error) => 
@@ -169,18 +164,33 @@ tempUser: any;
       });
     }
   }
+  */
 
-  doDashboard() {
+  doDashboard() 
+  {
     this.router.navigate(['/dashboard']);
   }
 
-  closeProjectSelector()
+  onKeyup(event: any) 
   {
+    console.log(event.target.value);
     
+      const searchValue = (event.target as HTMLInputElement).value;
+      this.projectService.getProjectsFiltered(searchValue);
+      this.cdr.detectChanges();
   }
 
-  showProjectSelector()
+  showProjectSelector(visible: boolean)
   {
-    
+    if(visible)
+    {
+      displayHTML('container-form', 'none');
+      displayHTML('project-selector', 'block');
+    }else
+    {
+      this.loginForm.reset();
+      displayHTML('project-selector', 'none');
+      displayHTML('container-form', 'block');
+    }
   }
 }

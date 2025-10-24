@@ -2,6 +2,7 @@ import { Component, input } from '@angular/core';
 import Project from '../../models/Project';
 import { ProjectService } from '../../services/project-service';
 import { Router } from '@angular/router';
+import { setValueToField } from '../../commons/utils';
 
 @Component({
   selector: 'app-project-card-component',
@@ -44,7 +45,9 @@ project = input<Project>();
         console.log('Button not found');
       }
 
-      window.location.reload();
+      //window.location.reload();
+      setValueToField('i_search_project', '');
+      this.projectService.refillFiltered();
       this.router.navigate(['dashboard']);
     }
     

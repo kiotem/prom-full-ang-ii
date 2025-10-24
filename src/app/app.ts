@@ -3,6 +3,7 @@ import { Router, RouterOutlet } from '@angular/router';
 import { UserService } from './services/user-service';
 import { StorageService } from './services/storage-service';
 import { BnNgIdleService } from 'bn-ng-idle';
+import { ProjectService } from './services/project-service';
 
 
 @Component({
@@ -14,8 +15,8 @@ import { BnNgIdleService } from 'bn-ng-idle';
 export class App implements OnInit {
   protected readonly title = signal('prom-full-ang-ii');
 
-  constructor(public userService: UserService, private router: Router, private storageService: StorageService, private bnIdle: BnNgIdleService){
-      if(this.userService.isLoggedIn())
+  constructor(public userService: UserService, private router: Router, private storageService: StorageService, private bnIdle: BnNgIdleService, private projectService: ProjectService){
+      if(this.userService.isLoggedIn() && this.projectService.getSelected())
       {
         let last_path = this.storageService.getItem('last_path');
         if(last_path)
@@ -27,7 +28,7 @@ export class App implements OnInit {
       {
           console.log('User not logged in');
           this.router.navigate(['login']);
-      } 
+      }
 
             //vencimiento en 24 horas
       let expirationDate = new Date();

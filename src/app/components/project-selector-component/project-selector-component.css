@@ -47,7 +47,7 @@
     height: 550px;
     background-color: white;
     border-radius: 14px;
-    box-shadow: 0 0 3px gainsboro;
+    box-shadow: 0 0 8px gainsboro;
     padding: 20px;
 }
 
@@ -58,7 +58,7 @@
     border-radius: 12px;
     overflow: auto; 
     height: calc(100% - 60px); 
-    max-height: 500px;  
+    max-height: 480px;  
 }
 
 .button-selector a
