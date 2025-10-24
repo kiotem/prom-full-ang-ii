@@ -1,7 +1,7 @@
 <div class="main-container">
 
     <div style="position: absolute; top: 20px; left: 20px; z-index: 100; display: inline-flex; justify-content: space-between;" >
-        <input type="text" id="i_search" name="i_search" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar:" class="input-search" style=" width: 180px;">
+        <input type="text" id="i_search" name="i_search" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar:" class="input-search" autocomplete="off" style=" width: 180px;">
 
         <div style="display: flex; align-items: center; margin-left:-10px; width: 200px;" >
             <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 180px;" (change)="onChangeStatus($event)">
