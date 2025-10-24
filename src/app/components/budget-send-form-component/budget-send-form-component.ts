@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Output } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatStepperModule } from '@angular/material/stepper';
 import { BudgetSendFormService } from '../../services/budget-send-form-service';
@@ -22,10 +22,12 @@ export default interface BudgetSendFormInterface
 })
 export class BudgetSendFormComponent {
 
+  @Output() finishedAction = new EventEmitter<any>();
+
   stepNumber: number = 0;
   stepText: string[] = ['Creando presupuesto', 'Confirmando envío', 'Creando Link', 'Enviando Link', 'Finalizando...'];
 
-  constructor(public budgetSendFormService: BudgetSendFormService, private propertiesQuotationService: PropertiesQuotationService, private saleService: SaleService, private wompiService: WompiService, private whatsAppService: WhatsAppService, private pdfEstadoCuenta: PDFEstadoCuentaService, private linkService: LinkService)
+  constructor(public budgetSendFormService: BudgetSendFormService, private propertiesQuotationService: PropertiesQuotationService, private saleService: SaleService, private wompiService: WompiService, private whatsAppService: WhatsAppService, private pdfEstadoCuenta: PDFEstadoCuentaService, private linkService: LinkService, private cdr: ChangeDetectorRef)
   {
     // Initialization logic can go here
   }
@@ -38,14 +40,10 @@ export class BudgetSendFormComponent {
     this.createSale();
   }
 
-  sendSuccessfully(): void {
-    console.log('Budget sent successfully!');
-    // Additional logic after successful send can be added here
-  }
 
   createSale(): void {
     console.log('Creating sale...');
-    this.stepNumber = 1;
+    this.nextStep();
    
     let jsonData = this.propertiesQuotationService.separationForm.value;
 
@@ -81,11 +79,11 @@ export class BudgetSendFormComponent {
     });
   }
 
-  
   getSale(id: string): void
   {
     console.log('Getting sale with ID:', id);
-    this.stepNumber = 2;
+    this.nextStep();
+
     this.saleService.downloadSale({ search: id, searchBy: 'id'}, (data, success) => {
       if(success)
       {
@@ -96,10 +94,10 @@ export class BudgetSendFormComponent {
 
         if(this.propertiesQuotationService.sale)
         {
-          //this.createWompiLink();
+          this.createWompiLink();
           this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, [], 'whatsapp');
+          //this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, [], 'open');
         }
-        
       }else
       {
         console.error('Error downloading sale');
@@ -109,7 +107,8 @@ export class BudgetSendFormComponent {
 
   createWompiLink(): void
   {
-    this.stepNumber = 3;
+    this.nextStep();
+
     this.wompiService.createLink(
       'Separación de propiedad',
       'Lote ' + this.propertiesQuotationService.property.code,
@@ -142,7 +141,7 @@ export class BudgetSendFormComponent {
 
   saveLink(wompiObject: any): void
   {
-    this.stepNumber = 4;
+    this.nextStep();
 
     let saleObject = this.propertiesQuotationService.getJsonWhatsApp();
 
@@ -161,24 +160,29 @@ export class BudgetSendFormComponent {
 
   sendWompiLinktToWhatsApp(wompiId: string): void 
   {
-    this.stepNumber = 5;
+    this.nextStep();
 
     if(this.propertiesQuotationService.property.code)
+    {
+      this.whatsAppService.sendSeparationLink(wompiId, this.propertiesQuotationService.client, this.propertiesQuotationService.property.code, this.propertiesQuotationService.project.name, (data, success) => {
+        if(success)
+        {
+          //alert('Link de pago enviado exitosamente al WhatsApp del cliente');
+          console.log('WhatsApp Link message sent successfully:', data);
 
-    this.whatsAppService.sendSeparationLink(wompiId, this.propertiesQuotationService.client, this.propertiesQuotationService.property.code, this.propertiesQuotationService.project.name, (data, success) => {
-      if(success)
-      {
-        //alert('Link de pago enviado exitosamente al WhatsApp del cliente');
-        console.log('WhatsApp message sent successfully:', data);
-      }
-      else
-      {
-        //alert('Error al enviar el link de pago al WhatsApp del cliente');
-        console.error('Error sending WhatsApp message:', data);
-      }
-    });
+          this.sendFinished();
+        }
+        else
+        {
+          //alert('Error al enviar el link de pago al WhatsApp del cliente');
+          console.error('Error Link sending WhatsApp message:', data);
+        }
+      });
+    }else{
+      console.error('Property code not found, cannot send WhatsApp message');
+    }
+
   }
-
 
   getStepText(): string 
   {
@@ -189,5 +193,18 @@ export class BudgetSendFormComponent {
       return '';
     }
     
+  }
+
+  nextStep(): void
+  {
+    this.stepNumber++;
+    this.cdr.detectChanges();
+  }
+
+  
+  sendFinished(): void {
+    console.log('Budget sent successfully!');
+    // Additional logic after successful send can be added here
+    this.finishedAction.emit({});
   }
 }

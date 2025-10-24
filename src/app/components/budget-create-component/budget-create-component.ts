@@ -1,7 +1,6 @@
-import { Component, ViewChild } from '@angular/core';
+import { ChangeDetectorRef, Component, EventEmitter, Output, ViewChild } from '@angular/core';
 import { PropertiesQuotationService } from '../../services/properties-quotation-service';
 import { PropertyQuoteFormComponent } from '../property-quote-form-component/property-quote-form-component';
-import { PropertyCardComponent } from '../property-card-component/property-card-component';
 import { PropertyQuoteCardComponent } from '../property-quote-card-component/property-quote-card-component';
 import { DatePipe, DecimalPipe } from '@angular/common';
 import ClientSearchInterface, { ClientSearchComponent } from "../client-search-component/client-search-component";
@@ -11,11 +10,7 @@ import PropertySearchInterface, { PropertySearchComponent } from '../property-se
 import Property from '../../models/Property';
 import AgentSearchInterface, { AgentSearchComponent } from '../agent-search-component/agent-search-component';
 import Agent from '../../models/Agent';
-import { BudgetsListPage } from "../../pages/budgets-list-page/budgets-list-page";
 import BudgetSendFormInterface, { BudgetSendFormComponent } from '../budget-send-form-component/budget-send-form-component';
-import { WompiService } from '../../services/wompi-service';
-import { WhatsAppService } from '../../services/whatsapp-service';
-import { PDFEstadoCuentaService } from '../../services/pdf-estado-cuenta-service';
 
 @Component({
   selector: 'app-budget-create-component',
@@ -28,8 +23,10 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
 {
   @ViewChild(PropertyQuoteFormComponent, { static: false }) propertyQuoteFormComponent!: PropertyQuoteFormComponent;
   @ViewChild(BudgetSendFormComponent, { static: false }) budgetSendFormComponent!: BudgetSendFormComponent;
+
+  @Output() sendSuccessfullyAction = new EventEmitter<any>();
   
-  constructor(public propertiesQuotationService: PropertiesQuotationService)
+  constructor(public propertiesQuotationService: PropertiesQuotationService, private cdr: ChangeDetectorRef)
   {
     console.log('BudgetCreateComponent initialized');
   }
@@ -39,10 +36,12 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
     this.propertiesQuotationService.agent = agent;
 
     this.showAgentSearch(false);
+    this.propertyQuoteFormComponent.process();
   }
   cancelSearchAgent(): void {
     console.log('Cancel search agent action triggered');
     this.showAgentSearch(false);
+    
   }
 
   selectProperty(property: Property): void {
@@ -85,10 +84,8 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
       this.showPropertySearch(true);
       //displayHTML('property-search-component', 'block');
     }
-  }
 
-  sendSuccessfully() {
-    console.log('Budget sent successfully from BC!');
+    this.propertyQuoteFormComponent.process();
   }
 
   showPropertySearch(visible: boolean) 
@@ -144,11 +141,13 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
       {
         console.log('Separation form is invalid. Cannot proceed to send budget.');
         return;
-      }else{
+        
+      }else
+      {
         this.budgetSendFormComponent.startSendProcess({});
       }
-      
-    }else{
+    }else
+    {
       displayHTML('budget-create-component', 'block');
       displayHTML('budget-send-form-component', 'none');
     }
@@ -162,11 +161,45 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
   onSend()
   {
     // Logic to create a new budget
-    this.showBudgetSendForm(true);
+    if(this.propertiesQuotationService.separationForm.invalid)
+    {
+      console.log('Separation form is invalid. Cannot proceed to send budget.');
+    }else{
+      console.log('Separation form is valid. Proceeding to send budget.');
+      this.propertyQuoteFormComponent.process();
+      this.showBudgetSendForm(true);
+    }
+    
   } 
 
   onCancel()
   {
-    // Logic to cancel budget creation  
+    // Logic to cancel budget creation 
+    this.propertiesQuotationService.reset();
+    displayHTML('budget-create-component', 'none'); 
+
+    this.propertiesQuotationService.reset();
+    this.propertyQuoteFormComponent.restart();
+    this.cdr.detectChanges();
+  }
+
+  onDestroy()
+  {
+    // Logic to clean up resources
+    //displayHTML('budget-create-component', 'none');
+  }
+
+  sendSuccessfully()
+  {
+    console.log('Budget sent successfully from BC!');
+    console.log('Returning to budgets list page.');
+
+    displayHTML('budget-send-form-component', 'none');
+
+     this.propertyQuoteFormComponent.restart();
+    this.propertiesQuotationService.reset();
+    this.cdr.detectChanges();
+
+    this.sendSuccessfullyAction.emit({});
   }
 }

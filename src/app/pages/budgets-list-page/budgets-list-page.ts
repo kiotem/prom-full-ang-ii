@@ -12,9 +12,10 @@ import { Router } from '@angular/router';
 import { SaleService } from '../../services/sale-service';
 import { LoaderService } from '../../services/loader-service';
 import { PDFEstadoCuentaService } from '../../services/pdf-estado-cuenta-service';
-import { getTextFromField } from '../../commons/utils';
+import { displayHTML, getTextFromField } from '../../commons/utils';
 import Sale from '../../models/Sale';
 import { BudgetCreateComponent } from '../../components/budget-create-component/budget-create-component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-budgets-list-page',
@@ -55,12 +56,6 @@ export class BudgetsListPage implements OnInit
     console.log('Component initialized with range:', this.range.value);
     //this.list();
     this.download();
-  }
-
-
-  goCreate(): void{
-    console.log("Go to create new quotation");
-    this.router.navigate(['properties/quotation']);
   }
 
   onKeyup(event: KeyboardEvent): void
@@ -155,18 +150,42 @@ export class BudgetsListPage implements OnInit
       searchBy: searchBy
     }
 
-    this.salesService.downloadSale(json, (data, success) => {
-      if (success) {
+    this.salesService.downloadSale(json, (data, success) => 
+    {
+      if (success) 
+      {
         let sale = data.result.sale;
         let payments = data.result.payments;
         let quotas = data.result.quotas;
 
         this.pdfService.createEstadoIndividual(sale, quotas, payments, type);
         this.loaderService.hide();
-      } else {
+      } else 
+      {
         console.error('Failed to download sale data');
         this.loaderService.hide();
       }
     });
+  }
+
+  showCreateBudget(visible: boolean) 
+  {
+    visible ? displayHTML('budget-create-component', 'block') : displayHTML('budget-create-component', 'none');
+
+  }
+  
+  createSaleSuccessfully(): void
+  {
+    console.log('Sale created successfully Aqui en BudgetList!');
+    this.download();
+    this.showCreateBudget(false);
+    this.cdr.detectChanges();
+
+      Swal.fire({
+        icon: 'success',
+        title: 'Proceso exitoso',
+        text: '¡Cotización creada exitosamente!',
+        confirmButtonText: 'OK'
+      });
   }
 }
