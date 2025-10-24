@@ -13,6 +13,9 @@ import AgentSearchInterface, { AgentSearchComponent } from '../agent-search-comp
 import Agent from '../../models/Agent';
 import { BudgetsListPage } from "../../pages/budgets-list-page/budgets-list-page";
 import BudgetSendFormInterface, { BudgetSendFormComponent } from '../budget-send-form-component/budget-send-form-component';
+import { WompiService } from '../../services/wompi-service';
+import { WhatsAppService } from '../../services/whatsapp-service';
+import { PDFEstadoCuentaService } from '../../services/pdf-estado-cuenta-service';
 
 @Component({
   selector: 'app-budget-create-component',
@@ -24,6 +27,7 @@ import BudgetSendFormInterface, { BudgetSendFormComponent } from '../budget-send
 export class BudgetCreateComponent implements ClientSearchInterface, PropertySearchInterface, AgentSearchInterface, BudgetSendFormInterface
 {
   @ViewChild(PropertyQuoteFormComponent, { static: false }) propertyQuoteFormComponent!: PropertyQuoteFormComponent;
+  @ViewChild(BudgetSendFormComponent, { static: false }) budgetSendFormComponent!: BudgetSendFormComponent;
   
   constructor(public propertiesQuotationService: PropertiesQuotationService)
   {
@@ -129,6 +133,27 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
     }
   }
 
+  showBudgetSendForm(visible: boolean) 
+  {
+    if(visible) 
+    {
+      displayHTML('budget-create-component', 'none');
+      displayHTML('budget-send-form-component', 'block');
+
+      if(this.propertiesQuotationService.separationForm.invalid)
+      {
+        console.log('Separation form is invalid. Cannot proceed to send budget.');
+        return;
+      }else{
+        this.budgetSendFormComponent.startSendProcess({});
+      }
+      
+    }else{
+      displayHTML('budget-create-component', 'block');
+      displayHTML('budget-send-form-component', 'none');
+    }
+  }
+
   launch()
   {
     // Logic to launch the budget creation process
@@ -137,6 +162,7 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
   onSend()
   {
     // Logic to create a new budget
+    this.showBudgetSendForm(true);
   } 
 
   onCancel()

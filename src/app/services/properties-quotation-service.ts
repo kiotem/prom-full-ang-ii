@@ -200,7 +200,7 @@ export class PropertiesQuotationService {
       count++;
     }
 
-    for (let i = 0; i < this.finalNumberOfQuotasValue; i++) 
+    for(let i = 0; i < this.finalNumberOfQuotasValue; i++) 
     {
       this.quotas.push({
         id: `ordinaria-${i + 1}`,
