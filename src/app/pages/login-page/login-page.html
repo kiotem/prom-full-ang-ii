@@ -15,7 +15,7 @@
 
     <div class="fondo"></div>
 
-    <div class="container-form">
+    <div class="container-form" style="display: none;">
         <div align="center">
             <img src="/imgs/logo_pmfull_black.png" alt="Image" style="width: 200px; height: auto; ">
         </div>
@@ -39,8 +39,6 @@
                 
                 <div class='button-big' style='margin-top: 80px; height:90px; display: block;' align='center' id='bt_login'>
                     <a (click)="onSubmit()" >Iniciar Sesión</a>
-
-                    <!--<a (click)="testFunction()" >Test</a>-->
                 </div>
             </div>
         </form>
@@ -49,10 +47,24 @@
             GRUPO EMPRESARIAL PROMOTORAS FULL &copy; 2025
         </div>
     </div>
+
+
+<div id="project-selector" style="display: block;">
+    <div id="panel-project-selector">
+        <div  id="close-project-selector"><a (click)="closeProjectSelector()"><i class="fa fa-times"></i></a></div>
+            <div style="text-align: center; font-size: 14px; z-index: 100; color: #333333;">SELECCIONA UN PROYECTO</div>
+        <div id="panel-project-selector-content">
+            @for(p of projectService.getProjects(); track $index)
+            {
+                <app-project-card-component [project]="p"></app-project-card-component>
+            }
+        </div>
+    </div>
+</div>
+
 </body>
 </html>
 
 <!--<app-verification-code-component></app-verification-code-component>-->
 
 <app-loader-component></app-loader-component>
-<app-project-selector-component></app-project-selector-component>

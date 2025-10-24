@@ -21,8 +21,11 @@
     left: 50%; 
     transform: translate(-50%, -50%);
     padding: 80px;
-    border-radius: 20px;
-    background-color: aliceblue;
+    /*border-radius: 20px;*/
+    background-color: white;
+    border-radius: 14px;
+    box-shadow: 0 0 8px gainsboro;
+    /*background-color: aliceblue;*/
 }
 
 .input-login

@@ -10,12 +10,13 @@ import { ProjectService } from '../../services/project-service';
 import Swal from 'sweetalert2';
 import { LoginService } from '../../services/login-service';
 import { ProjectSelectorComponent } from "../../components/project-selector-component/project-selector-component";
+import { ProjectCardComponent } from '../../components/project-card-component/project-card-component';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, LoaderComponent, ProjectSelectorComponent],
+  imports: [ReactiveFormsModule, LoaderComponent, ProjectCardComponent],
   templateUrl: './login-page.html',
-  styleUrl: './login-page.css'
+  styleUrls: ['./login-page.css', '../../components/project-selector-component/project-selector-component.css']
 })
 export class LoginPage {
 tempUser: any;
@@ -133,21 +134,14 @@ tempUser: any;
             //console.log('TempUser', this.tempUser);
 
             this.userService.setTempUser(this.tempUser);
-            //this.storageService.setItem('tempUser', JSON.stringify(this.tempUser));
             this.projectService.fill(response.result.projects);
 
             //this.storageService.setItem('vendorsList', JSON.stringify(response.result.vendorsList));
 
             this.loaderService.hide();
 
-            //quitar  directo
-            
-            //let tempUser = this.storageService.getItem('tempUser');
             if(this.userService.confirmLogin())
             {
-              //this.storageService.setItem('user', tempUser);
-              //this.storageService.removeItem('tempUser');
-
               this.doDashboard();
             } 
             
@@ -180,24 +174,13 @@ tempUser: any;
     this.router.navigate(['/dashboard']);
   }
 
-  testFunction() {
-/*
-    this.loaderService.show();
-    this.projectService.getProjectsByUser({}).subscribe({
-        next: (response) => 
-          {      
-            console.log('Projects successful', response);
-            this.loaderService.hide();
+  closeProjectSelector()
+  {
+    
+  }
 
-            this.cdr.detectChanges(); // Trigger change detection to update the view
-          },
-        error: (error) => 
-        {
-          this.loaderService.hide();
-          console.error('Projects failed', error);
-
-        }
-      });
-      */
+  showProjectSelector()
+  {
+    
   }
 }
