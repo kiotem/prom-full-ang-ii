@@ -11,15 +11,17 @@ import PropertySearchInterface, { PropertySearchComponent } from '../property-se
 import Property from '../../models/Property';
 import AgentSearchInterface, { AgentSearchComponent } from '../agent-search-component/agent-search-component';
 import Agent from '../../models/Agent';
+import { BudgetsListPage } from "../../pages/budgets-list-page/budgets-list-page";
+import BudgetSendFormInterface, { BudgetSendFormComponent } from '../budget-send-form-component/budget-send-form-component';
 
 @Component({
   selector: 'app-budget-create-component',
-  imports: [PropertyQuoteFormComponent, PropertyQuoteCardComponent, DatePipe, DecimalPipe, ClientSearchComponent, PropertySearchComponent, AgentSearchComponent],
+  imports: [PropertyQuoteFormComponent, PropertyQuoteCardComponent, DatePipe, DecimalPipe, ClientSearchComponent, PropertySearchComponent, BudgetSendFormComponent, AgentSearchComponent, BudgetSendFormComponent],
   templateUrl: './budget-create-component.html',
   styleUrls: ['./budget-create-component.css', '../../../styles/reports.css']
 })
 
-export class BudgetCreateComponent implements ClientSearchInterface, PropertySearchInterface, AgentSearchInterface
+export class BudgetCreateComponent implements ClientSearchInterface, PropertySearchInterface, AgentSearchInterface, BudgetSendFormInterface
 {
   @ViewChild(PropertyQuoteFormComponent, { static: false }) propertyQuoteFormComponent!: PropertyQuoteFormComponent;
   
@@ -27,6 +29,7 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
   {
     console.log('BudgetCreateComponent initialized');
   }
+
   selectAgent(agent: Agent): void {
     console.log('Selected agent received BC:', agent);
     this.propertiesQuotationService.agent = agent;
@@ -78,6 +81,10 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
       this.showPropertySearch(true);
       //displayHTML('property-search-component', 'block');
     }
+  }
+
+  sendSuccessfully() {
+    console.log('Budget sent successfully from BC!');
   }
 
   showPropertySearch(visible: boolean) 
