@@ -169,7 +169,6 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
       this.propertyQuoteFormComponent.process();
       this.showBudgetSendForm(true);
     }
-    
   } 
 
   onCancel()
@@ -181,12 +180,6 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
     this.propertiesQuotationService.reset();
     this.propertyQuoteFormComponent.restart();
     this.cdr.detectChanges();
-  }
-
-  onDestroy()
-  {
-    // Logic to clean up resources
-    //displayHTML('budget-create-component', 'none');
   }
 
   sendSuccessfully()

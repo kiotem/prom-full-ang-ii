@@ -152,7 +152,7 @@ export class BudgetsListPage implements OnInit
 
     this.salesService.downloadSale(json, (data, success) => 
     {
-      if (success) 
+      if(success) 
       {
         let sale = data.result.sale;
         let payments = data.result.payments;
@@ -160,6 +160,13 @@ export class BudgetsListPage implements OnInit
 
         this.pdfService.createEstadoIndividual(sale, quotas, payments, type);
         this.loaderService.hide();
+        if(type == 'whatsapp')
+        {
+          Swal.fire({
+            icon: 'success',
+            title: '¡Proceso ejecutado!',
+          });
+        }
       } else 
       {
         console.error('Failed to download sale data');

@@ -32,7 +32,7 @@ export class ClientsListPage implements OnInit
 
   ngOnInit(): void {
     // Logic to execute on component initialization
-    this.getClients({});
+    this.download({});
   }
 
   goCreate() {
@@ -40,7 +40,8 @@ export class ClientsListPage implements OnInit
     this.router.navigate(['clients/create']);
   }
 
-    getClients(json: any) {
+  download(json: any):void 
+  {
     this.clientService.getClients(json).subscribe({
       next: (data) => {
         console.log('Clients fetched successfully:', data);

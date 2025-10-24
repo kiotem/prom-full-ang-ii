@@ -34,12 +34,8 @@ export class BudgetSendFormComponent {
 
   startSendProcess(data: any): void {
     console.log('Starting budget send process...');
-    // Simulate sending process
-    //this.budgetSendFormService.executeStep(1);
-
     this.createSale();
   }
-
 
   createSale(): void {
     console.log('Creating sale...');
@@ -69,12 +65,10 @@ export class BudgetSendFormComponent {
         }else
         {
           console.error('Error in sale creation response:', response);
-          alert('Error al crear la cotización: ' + result.message);
         }
       }else
       {
         console.error('Error creating sale');
-        alert('Error al crear la cotización');
       }
     });
   }
@@ -96,7 +90,6 @@ export class BudgetSendFormComponent {
         {
           this.createWompiLink();
           this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, [], 'whatsapp');
-          //this.pdfEstadoCuenta.createEstadoIndividual(this.propertiesQuotationService.sale, this.propertiesQuotationService.quotas, [], 'open');
         }
       }else
       {
@@ -153,7 +146,6 @@ export class BudgetSendFormComponent {
       }else
       {
         console.error('Error saving link:', data);
-        //alert('Error al guardar el link de pago');
       }
     });
   }
@@ -167,7 +159,6 @@ export class BudgetSendFormComponent {
       this.whatsAppService.sendSeparationLink(wompiId, this.propertiesQuotationService.client, this.propertiesQuotationService.property.code, this.propertiesQuotationService.project.name, (data, success) => {
         if(success)
         {
-          //alert('Link de pago enviado exitosamente al WhatsApp del cliente');
           console.log('WhatsApp Link message sent successfully:', data);
 
           this.sendFinished();
@@ -181,7 +172,6 @@ export class BudgetSendFormComponent {
     }else{
       console.error('Property code not found, cannot send WhatsApp message');
     }
-
   }
 
   getStepText(): string 
@@ -192,7 +182,6 @@ export class BudgetSendFormComponent {
     }else{
       return '';
     }
-    
   }
 
   nextStep(): void
@@ -201,7 +190,6 @@ export class BudgetSendFormComponent {
     this.cdr.detectChanges();
   }
 
-  
   sendFinished(): void {
     console.log('Budget sent successfully!');
     // Additional logic after successful send can be added here
