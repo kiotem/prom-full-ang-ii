@@ -1,7 +1,7 @@
 <div id="project-selector" style="display: block;">
     <div id="panel-project-selector">
         <div  id="close-project-selector"><a (click)="closeProjectSelector()"><i class="fa fa-times"></i></a></div>
-        <div style="font-size: 24px; margin-bottom: 20px;" align="center">SELECCIONAR PROYECTO</div>
+            <div style="text-align: center; font-size: 14px; z-index: 100; color: #333333;">SELECCIONAR PROYECTO</div>
         <div id="panel-project-selector-content">
             @for(p of projectService.getProjects(); track $index)
             {

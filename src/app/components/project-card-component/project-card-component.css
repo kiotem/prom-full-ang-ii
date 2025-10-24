@@ -1,7 +1,7 @@
+/*
 .project-card 
 {
     align-items: center;
-    /*border: 1px solid var(--color-a);*/
     border-radius: 15px;
     background-color: var(--color-a);
     padding: 12px;
@@ -39,5 +39,47 @@
         color: white;
     }
 }
+*/
 
+.project-card
+{
+    display: flex;
+    align-items: center; 
+    border-bottom: 0.5px solid #f3f3f3; 
+    padding: 10px; 
+    padding-right: 20px; 
+    border-radius: 0px;
+
+    #project-logo
+    {
+        width: 80px;
+        margin-right: 10px;
+    }
+
+    #project-title
+    {
+        font-size: 16px; 
+        margin-top: 2px; 
+        color: black;
+    }
+
+    #project-location
+    {
+        font-size: 13px; 
+        margin-top: 4px; 
+        color: var(--gray);
+    }
+}
+
+.project-card:hover
+{
+    background-color: #f9f9f9;
+    cursor: pointer;
+}
+
+.project-card:active
+{
+    background-color: #f3f3f3;
+    cursor: pointer;
+}
 

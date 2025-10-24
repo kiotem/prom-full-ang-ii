@@ -25,5 +25,6 @@ export default interface Project{
     propertiesGroup?: any[];
     propertyTypes?: any[];
     photo?: string;
+    logo?: string;
     status?: string;
 }

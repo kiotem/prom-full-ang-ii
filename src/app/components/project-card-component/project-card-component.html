@@ -1,9 +1,9 @@
 <a (click)="changeProject(project())">
     <div class="project-card">
-        <div id="project-location" style="font-size: 14px; margin-bottom: 10px;" align="right">{{project()?.city}}</div>
-        <img src="imgs/img_project_selector_2.jpeg" style="width: 220px; height: 150px; object-fit: cover; border-radius: 8px; margin-right: 16px;">
+        <img src="{{project()?.logo}}" id="project-logo">
         <div>
-            <div id="project-title">{{project()?.name}}</div>
+            <div class="project-title"><b>{{project()?.name?.toUpperCase()}}</b></div>
+            <div class="project-location">{{project()?.city}}</div>
         </div>
     </div>
 </a>
