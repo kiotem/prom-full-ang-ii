@@ -9,10 +9,11 @@ import { tooglePasswordVisibility } from '../../commons/controls';
 import { ProjectService } from '../../services/project-service';
 import Swal from 'sweetalert2';
 import { LoginService } from '../../services/login-service';
+import { ProjectSelectorComponent } from "../../components/project-selector-component/project-selector-component";
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, LoaderComponent],
+  imports: [ReactiveFormsModule, LoaderComponent, ProjectSelectorComponent],
   templateUrl: './login-page.html',
   styleUrl: './login-page.css'
 })
@@ -25,6 +26,7 @@ tempUser: any;
   launchVerificationCode: boolean;
 
   //@ViewChild(VerificationCodeComponent) verificationCodeChild: VerificationCodeComponent | undefined;
+
 
   constructor(private renderer: Renderer2, private loaderService: LoaderService, private userService: UserService, private cdr: ChangeDetectorRef, private storageService: StorageService, private router: Router, public projectService: ProjectService, private loginService: LoginService) {
     this.launchVerificationCode = false; // Initialize the flag for verification code component

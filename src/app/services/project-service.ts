@@ -27,7 +27,6 @@ export class ProjectService {
   {
     // This method is not needed in services, remove it.
     // If you need to perform initialization logic, do it in the constructor or create a separate init method.
-    
   }
 
   fill(projects: Project[]): void 
