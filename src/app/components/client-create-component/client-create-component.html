@@ -1,1 +1,117 @@
-<p>client-create-component works!</p>
+<div id="client-create-component" style="display: block;">
+    <div id="client-create-box">
+        <div style="text-align: center; font-size: 14px; z-index: 100; color: #333333; margin-top: 10px;">
+            CREACIÓN DE CLIENTE
+        </div>
+
+        <div style="display: flex; flex-direction: row; align-items: center;"></div>
+        <form [formGroup]="clientForm" style="width: 90%; max-width: 300px; padding: 30px; margin-top: 10px;" autocomplete="off">
+
+            <div class="flex-container">
+                <div class="field-row">
+                    <label for="i_pmsType">Tipo de documento</label>
+                    <div style="display: flex; align-items: center; margin-left:0px; width: 150px;" >
+                        <select id="i_pmsType" name="i_pmsType"  formControlName="pmsType" class="select-field" style="width: 240px;">
+                            <option value="CC">CÉDULA</option>
+                            <option value="NIT">NIT</option>
+                            <option value="PS">PASAPORTE</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field-row">
+                    <label for="i_number">Número documento *</label>
+                    <input type="text" id="i_number" name="i_number" class="input-field" style="width: 150px;" required formControlName="pmsId">
+                </div>
+            </div>
+            
+            <div class="field-row" style="margin-top: 10px;">
+                <label for="i_name">Nombre *</label>
+                <input type="text" id="i_name" name="i_name" class="input-field" formControlName="name">
+            </div>
+
+        <div class="flex-container" style="margin-top: 10px;">
+            <div class="field-row">
+                <label for="i_last_name_1">Primer apellido *</label>
+                <input type="text" id="i_last_name_1" name="i_last_name_1" required formControlName="lastName1" class="input-field" style="width: 230px;">
+            </div>
+            <div class="field-row" style="margin-left: 100px;">
+                <label for="i_last_name_2">Segundo apellido</label>
+                <input type="text" id="i_last_name_2" name="i_last_name_2" required formControlName="lastName2" class="input-field" style="width: 280px;">
+            </div>
+        </div>
+
+        
+        <div class="flex-container" style="margin-top: 10px;">
+            <div class="field-row">
+                <label for="i_phone">Celular *</label>
+                <input type="text" id="i_phone" name="i_phone" required formControlName="phone" class="input-field" style="width: 230px;">
+            </div>
+        <div class="field-row" style="margin-left: 100px;">
+            <label for="i_email">Correo electrónico *</label>
+            <input type="email" id="i_email" name="i_email" required formControlName="email" class="input-field" style="width: 280px;">
+        </div>
+        </div>
+        
+        
+        <div class="field-row" style="margin-top: 10px;">
+            <label for="i_address">Dirección *</label>
+            <input type="text" id="i_address" name="i_address" class="input-field" formControlName="address" style="width: 400px;">
+        </div>
+
+                
+            <div class="flex-container">
+                <div class="field-row">
+                    <label for="l_state">Departamento</label>
+                    <div style="display: flex; align-items: center; margin-left:0px; width: 250px;" >
+                        <select id="i_state" name="i_state"  formControlName="state" class="select-field" style="width: 250px;">
+                            <option value="" disabled selected>Seleccione un departamento</option>
+                            <option value="Amazonas">Amazonas</option>
+                            <option value="Antioquia">Antioquia</option>
+                            <option value="Arauca">Arauca</option>
+                            <option value="Atlántico">Atlántico</option>
+                            <option value="Bolívar">Bolívar</option>
+                            <option value="Boyacá">Boyacá</option>
+                            <option value="Caldas">Caldas</option>
+                            <option value="Caquetá">Caquetá</option>
+                            <option value="Casanare">Casanare</option>
+                            <option value="Cauca">Cauca</option>
+                            <option value="Cesar">Cesar</option>
+                            <option value="Chocó">Chocó</option>
+                            <option value="Córdoba">Córdoba</option>
+                            <option value="Cundinamarca">Cundinamarca</option>
+                            <option value="Guainía">Guainía</option>
+                            <option value="Guaviare">Guaviare</option>
+                            <option value="Huila">Huila</option>
+                            <option value="La Guajira">La Guajira</option>
+                            <option value="Magdalena">Magdalena</option>
+                            <option value="Meta">Meta</option>
+                            <option value="Nariño">Nariño</option>
+                            <option value="Norte de Santander">Norte de Santander</option>
+                            <option value="Putumayo">Putumayo</option>
+                            <option value="Quindío">Quindío</option>
+                            <option value="Risaralda">Risaralda</option>
+                            <option value="San Andrés y Providencia">San Andrés y Providencia</option>
+                            <option value="Santander">Santander</option>
+                            <option value="Sucre">Sucre</option>
+                            <option value="Tolima">Tolima</option>
+                            <option value="Valle del Cauca">Valle del Cauca</option>
+                            <option value="Vaupés">Vaupés</option>
+                            <option value="Vichada">Vichada</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="field-row" style="margin-left: 100px;">
+                    <label for="i_city">Ciudad *</label>
+                    <input type="text" id="i_city" name="i_city" required formControlName="city" class="input-field" style="width: 280px;">
+                </div>
+            </div>
+
+            <div class="button" id='bt_create' style="margin-top: 30px;">
+                <a (click)="onCancel()" ><i class="fa-regular fa-xmark"></i>&nbsp;Cancelar</a>&nbsp;&nbsp;
+                <a (click)="onSubmit()" ><i class="fa-regular fa-floppy-disk"></i>&nbsp;Guardar datos</a>
+            </div>   
+        </form> 
+    </div>
+</div>

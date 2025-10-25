@@ -19,12 +19,26 @@ export class ClientService implements OnInit {
     
   }
 
-
-  create(data: Client)
-  {
-      console.log('downloadProjects method called');
-      return this.http.post<any>(API_URL+'createClient', data, httpOptions);
-  }
+  /*
+    create(data: Client)
+    {
+        console.log('downloadProjects method called');
+        return this.http.post<any>(API_URL+'createClient', data, httpOptions);
+    }
+  */
+    create(data: Client, callback : (data: any, success: boolean) => void)
+    {
+      this.http.post<any>(API_URL+'createClient', data, httpOptions).subscribe({
+        next: (data) => {
+          //console.log('Sale created successfully:', data);
+          callback(data, true);
+        },
+        error: (error) => {
+          //console.error('Error creating sale:', error);
+          callback(error, false);
+        }
+      });
+    }
 
   getClients(json: any)
   {

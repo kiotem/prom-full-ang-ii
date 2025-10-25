@@ -63,6 +63,7 @@ handleSubmit() {
     if(this.clientForm.valid) 
       {
 
+        /*
         this.loaderService.show();
 
         let jsonData = this.clientForm.value;
@@ -99,6 +100,7 @@ handleSubmit() {
             // Handle login error, e.g., show an error message
           }
         });
+        */
     }else
     {
       console.error('Form is invalid');

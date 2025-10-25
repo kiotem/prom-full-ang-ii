@@ -42,13 +42,14 @@ export class BudgetsListPage implements OnInit
     this.range.setValue({start: new Date(startDate), end: new Date(endDate)});
     console.log('Initial range:', this.range.value);
     
+    /*
     this.range.valueChanges.subscribe(newValue => {
     console.log('Reactive Form value changed:', newValue);
       if(!this.range.invalid) 
       {
         this.download();
       }
-    });
+    });*/
   }
 
 

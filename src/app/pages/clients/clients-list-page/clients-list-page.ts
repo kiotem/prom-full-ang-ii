@@ -4,10 +4,12 @@ import { ProjectSelectorComponent } from '../../../components/project-selector-c
 import { LoaderComponent } from '../../../components/loader-component/loader-component';
 import { ClientService } from '../../../services/client-service';
 import { Router } from '@angular/router';
+import { ClientCreateComponent } from '../../../components/client-create-component/client-create-component';
+import { displayHTML } from '../../../commons/utils';
 
 @Component({
   selector: 'app-clients-list-page',
-  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent],
+  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, ClientCreateComponent],
   templateUrl: './clients-list-page.html',
   styleUrls: ['./clients-list-page.css', '../../../../styles/reports.css']
 })
@@ -35,11 +37,6 @@ export class ClientsListPage implements OnInit
     this.download({});
   }
 
-  goCreate() {
-    // Logic to navigate to the client creation page
-    this.router.navigate(['clients/create']);
-  }
-
   download(json: any):void 
   {
     this.clientService.getClients(json).subscribe({
@@ -55,6 +52,10 @@ export class ClientsListPage implements OnInit
         console.error('Error fetching clients:', error);
       }
     });
+  }
+
+  showClientCreate(visible: boolean): void {
+    displayHTML('client-create-component', visible ? 'block' : 'none');
   }
 
 

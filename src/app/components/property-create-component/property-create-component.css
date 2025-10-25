@@ -1,13 +1,14 @@
 #property-create-component
 {
     position: absolute; 
-    top: 0;
+    top: 40px;
     left: 0;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(20px);
     min-width: 100%; 
-    min-height: 100%; 
-    z-index: 40000;
+    min-height: calc(100% - 40px); 
+    z-index: 18000;
     color: gray;
+    overflow-y: hidden;
 
     #property-create-box
     {

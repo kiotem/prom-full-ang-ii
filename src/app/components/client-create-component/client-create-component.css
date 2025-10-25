@@ -1,0 +1,26 @@
+#client-create-component
+{
+    position: absolute; 
+    top: 40px;
+    left: 0;
+    backdrop-filter: blur(15px);
+    min-width: 100%; 
+    min-height: calc(100% - 40px); 
+    z-index: 18000;
+    color: gray;
+    overflow-y: hidden;
+
+    #client-create-box
+    {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 620px;
+        height: 600px;
+        background-color: white;
+        border-radius: 14px;
+        box-shadow: 0 0 8px gainsboro;
+        padding: 20px;
+    }
+}
