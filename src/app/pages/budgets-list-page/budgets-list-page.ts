@@ -179,7 +179,6 @@ export class BudgetsListPage implements OnInit
   showCreateBudget(visible: boolean) 
   {
     visible ? displayHTML('budget-create-component', 'block') : displayHTML('budget-create-component', 'none');
-
   }
   
   createSaleSuccessfully(): void

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import Project from '../../models/Project';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { LoaderComponent } from '../loader-component/loader-component';
@@ -7,6 +7,7 @@ import { LoaderService } from '../../services/loader-service';
 import { PropertyService } from '../../services/property-service';
 import { displayHTML, getNumberFromField } from '../../commons/utils';
 import Swal from 'sweetalert2';
+import Property from '../../models/Property';
 
 @Component({
   selector: 'app-property-create-component',
@@ -15,6 +16,8 @@ import Swal from 'sweetalert2';
   styleUrl: './property-create-component.css'
 })
 export class PropertyCreateComponent {
+    @Output() propertyCreatedAction = new EventEmitter<any>();
+  
     currentProject: Project | undefined;
     propertyForm: FormGroup;
     name: FormControl;
@@ -127,13 +130,23 @@ export class PropertyCreateComponent {
         if(success) {
           console.log('Property created successfully:', data);
           //alert('Propiedad creada exitosamente');
+
+          let jsonData = data.result.data;
+
+          let property = jsonData as Property;
+          /*
           Swal.fire({
             icon: 'success',
             title: 'Éxito',
             text: 'Propiedad creada exitosamente'
           });
 
+          this.propertyCreatedAction.emit(data);
+
           displayHTML('property-create-component', 'none');
+          */
+
+          this.propertyCreatedAction.emit(property);
 
           this.propertyForm.reset();
 

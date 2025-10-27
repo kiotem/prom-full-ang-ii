@@ -6,6 +6,8 @@ import { ClientService } from '../../../services/client-service';
 import { Router } from '@angular/router';
 import { ClientCreateComponent } from '../../../components/client-create-component/client-create-component';
 import { displayHTML } from '../../../commons/utils';
+import Swal from 'sweetalert2';
+import Client from '../../../models/Client';
 
 @Component({
   selector: 'app-clients-list-page',
@@ -58,6 +60,21 @@ export class ClientsListPage implements OnInit
     displayHTML('client-create-component', visible ? 'block' : 'none');
   }
 
+clientCreated(client: Client): void {
+    console.log('Client created event received in ClientsListPage', client);
+    //this.download({});
 
+    this.download({});
+    this.showClientCreate(false);
+    this.cdr.detectChanges();
+    
+    Swal.fire({
+      icon: 'success',
+      title: 'Proceso exitoso',
+      text: '¡Cliente creado exitosamente!',
+      confirmButtonText: 'OK'
+    });
+
+  }
 
 }

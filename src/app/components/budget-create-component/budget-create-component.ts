@@ -11,10 +11,12 @@ import Property from '../../models/Property';
 import AgentSearchInterface, { AgentSearchComponent } from '../agent-search-component/agent-search-component';
 import Agent from '../../models/Agent';
 import BudgetSendFormInterface, { BudgetSendFormComponent } from '../budget-send-form-component/budget-send-form-component';
+import { ClientCreateComponent } from '../client-create-component/client-create-component';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-budget-create-component',
-  imports: [PropertyQuoteFormComponent, PropertyQuoteCardComponent, DatePipe, DecimalPipe, ClientSearchComponent, PropertySearchComponent, BudgetSendFormComponent, AgentSearchComponent, BudgetSendFormComponent],
+  imports: [PropertyQuoteFormComponent, PropertyQuoteCardComponent, DatePipe, DecimalPipe, ClientSearchComponent, PropertySearchComponent, BudgetSendFormComponent, AgentSearchComponent, BudgetSendFormComponent, ClientCreateComponent],
   templateUrl: './budget-create-component.html',
   styleUrls: ['./budget-create-component.css', '../../../styles/reports.css']
 })
@@ -194,5 +196,25 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
     this.cdr.detectChanges();
 
     this.sendSuccessfullyAction.emit({});
+  }
+
+  clientCreated(client: Client): void {
+    console.log('Client created event received in BudgetCreateComponent:', client);
+
+    this.propertiesQuotationService.setClient(client);
+
+    this.propertyQuoteFormComponent.process();
+
+    displayHTML('client-create-component', 'none');
+    displayHTML('budget-create-component', 'block');
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Proceso exitoso',
+      text: '¡Cliente creado exitosamente!',
+      confirmButtonText: 'OK'
+    });
+
+    this.cdr.detectChanges();
   }
 }

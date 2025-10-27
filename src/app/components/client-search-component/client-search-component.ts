@@ -103,11 +103,13 @@ export class ClientSearchComponent implements OnInit
   doCreateNewClient() {
     console.log('Create new client action triggered');
     // Implement the logic to create a new client
+    displayHTML('client-search-component','none');
+    displayHTML('client-create-component','block');
   } 
 
   doCancel() {
     console.log('Cancel action triggered');
-    this.router.navigate(['/dashboard']);
-    //displayHTML('client-search-component','none');
+    //this.router.navigate(['/dashboard']);
+    displayHTML('client-search-component','none');
   }
 }

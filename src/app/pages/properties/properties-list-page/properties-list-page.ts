@@ -8,6 +8,8 @@ import { LoaderService } from '../../../services/loader-service';
 import { Router } from '@angular/router';
 import { PropertyCreateComponent } from "../../../components/property-create-component/property-create-component";
 import { displayHTML } from '../../../commons/utils';
+import Property from '../../../models/Property';
+import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-properties-list-page',
@@ -108,5 +110,19 @@ export class PropertiesListPage implements OnInit
 
   goMap(): void {
     this.router.navigate(['properties/map']);
+  }
+
+  propertyCreated(property: Property): void {
+    console.log('Property created event received in PropertiesListPage', property);
+    displayHTML('property-create-component', 'none');
+
+    Swal.fire({
+    icon: 'success',
+    title: 'Éxito',
+    text: 'Propiedad creada exitosamente'
+    });
+          
+    this.checkFilter();
+    this.cdr.detectChanges();
   }
 }

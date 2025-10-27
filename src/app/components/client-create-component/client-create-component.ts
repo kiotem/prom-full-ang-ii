@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { ClientService } from '../../services/client-service';
 import { LoaderService } from '../../services/loader-service';
 import { displayHTML } from '../../commons/utils';
 import Swal from 'sweetalert2';
+import Client from '../../models/Client';
 
 @Component({
   selector: 'app-client-create-component',
@@ -11,7 +12,10 @@ import Swal from 'sweetalert2';
   templateUrl: './client-create-component.html',
   styleUrl: './client-create-component.css'
 })
-export class ClientCreateComponent {
+export class ClientCreateComponent 
+{
+  @Output() clientCreatedAction = new EventEmitter<any>();
+
   clientForm: FormGroup;
   pmsType: FormControl;
   pmsId: FormControl;
@@ -60,18 +64,17 @@ export class ClientCreateComponent {
             this.clientService.create(this.clientForm.value, (data: any, success: boolean) => {
               if(success) {
                 console.log('Client created successfully:', data);
-                //alert('Propiedad creada exitosamente');
-                Swal.fire({
-                  icon: 'success',
-                  title: 'Éxito',
-                  text: 'Cliente creado exitosamente'
-                });
+                let jsonData = data.result.data;
+
+                let client = jsonData as Client;
       
-                displayHTML('property-create-component', 'none');
+                //displayHTML('property-create-component', 'none');
       
                 this.clientForm.reset();
       
                 //refrescar listado
+                this.clientCreatedAction.emit(client);
+
               } else {
                 console.error('Error creating property');
                 alert('Error al crear la propiedad');
