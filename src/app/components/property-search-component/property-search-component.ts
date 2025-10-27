@@ -46,14 +46,12 @@ export class PropertySearchComponent implements OnInit {
     this.search();
   }
 
-  doCreate()
+  doCreateProperty()
   {
-
-  }
-
-  doCancel()
-  {
-
+    console.log('Create Property do');
+    displayHTML('property-search-component','none');
+    displayHTML('property-create-component','block');
+    
   }
 
   search() 
@@ -87,6 +85,7 @@ export class PropertySearchComponent implements OnInit {
         {
           this.propertyService.properties[i].amount = this.propertyService.properties[i].area * meterValue; // Example calculation
         }
+        
 
         this.cdr.detectChanges();
       },

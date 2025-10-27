@@ -13,10 +13,12 @@ import Agent from '../../models/Agent';
 import BudgetSendFormInterface, { BudgetSendFormComponent } from '../budget-send-form-component/budget-send-form-component';
 import { ClientCreateComponent } from '../client-create-component/client-create-component';
 import Swal from 'sweetalert2';
+import { PropertyCreateComponent } from '../property-create-component/property-create-component';
+import { ProjectService } from '../../services/project-service';
 
 @Component({
   selector: 'app-budget-create-component',
-  imports: [PropertyQuoteFormComponent, PropertyQuoteCardComponent, DatePipe, DecimalPipe, ClientSearchComponent, PropertySearchComponent, BudgetSendFormComponent, AgentSearchComponent, BudgetSendFormComponent, ClientCreateComponent],
+  imports: [PropertyQuoteFormComponent, PropertyQuoteCardComponent, DatePipe, DecimalPipe, ClientSearchComponent, PropertySearchComponent, BudgetSendFormComponent, AgentSearchComponent, BudgetSendFormComponent, ClientCreateComponent, PropertyCreateComponent],
   templateUrl: './budget-create-component.html',
   styleUrls: ['./budget-create-component.css', '../../../styles/reports.css']
 })
@@ -28,7 +30,7 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
 
   @Output() sendSuccessfullyAction = new EventEmitter<any>();
   
-  constructor(public propertiesQuotationService: PropertiesQuotationService, private cdr: ChangeDetectorRef)
+  constructor(public propertiesQuotationService: PropertiesQuotationService, private cdr: ChangeDetectorRef, private projectService: ProjectService)
   {
     console.log('BudgetCreateComponent initialized');
   }
@@ -67,6 +69,7 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
     //throw new Error('Method not implemented.');
     console.log('Cancel search property action triggered');
     this.showPropertySearch(false);
+    displayHTML('budget-create-component', 'block');
   }
 
   cancelSearchClient(): void {
@@ -215,6 +218,33 @@ export class BudgetCreateComponent implements ClientSearchInterface, PropertySea
       confirmButtonText: 'OK'
     });
 
+    this.cdr.detectChanges();
+  }
+
+  propertyCreated(property: Property): void {
+
+    let meterValue = this.projectService.getSelected()?.meterValue || 0;
+
+    property.amount = property.area * meterValue;
+
+    console.log('Property created event received in BudgetCreateComponent:', property);
+
+    this.propertiesQuotationService.property = property;
+
+    if(this.propertyQuoteFormComponent)
+    {
+      this.propertyQuoteFormComponent.process();
+    }
+
+    Swal.fire({
+    icon: 'success',
+    title: 'Éxito',
+    text: 'Propiedad creada exitosamente'
+    });
+
+    this.propertyQuoteFormComponent.process();
+    displayHTML('property-create-component', 'none');
+    displayHTML('budget-create-component', 'block');
     this.cdr.detectChanges();
   }
 }
