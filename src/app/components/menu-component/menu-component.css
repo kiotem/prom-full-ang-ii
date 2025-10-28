@@ -118,11 +118,13 @@ ul, ol{
 {
     position: absolute;
     font-family: 'Montserrat', sans-serif;
-    font-size: 13px;
-    color: var(--gray);
+    font-size: 17px;
+    /*color: var(--gray);*/
+    color: black;
+    font-weight: bold;
     bottom: 20px;
     left: 20px;
-    text-transform: uppercase;
+    /*text-transform: uppercase;*/
 }
 
 /*

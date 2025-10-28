@@ -47,7 +47,8 @@
 </div>
 
 <div class="button" style="position: absolute; top: 30px; right: 20px; z-index: 100;">
-    <a (click)="goCreate()"><i class="fa-solid fa-plus"></i>&nbsp;Crear nuevo</a>
+    <a (click)="goCreate()"><i class="fa-solid fa-plus"></i>&nbsp;Crear nuevo</a>&nbsp;
+    <a (click)="checkFilters()"><i class="fa-regular fa-arrows-rotate"></i></a>
 </div>
 
 
@@ -55,40 +56,36 @@
 
     <div class="row-header">
         <div class="col" style="max-width: 30px;" align="right"></div>
-        <div class="col" style="max-width: 150px;">ID</div>
-        <div class="col" style="max-width: 110px;">PLATAFORMA</div>
+        <div class="col" style="max-width: 110px;">ID</div>
+        <div class="col" style="max-width: 100px;">PLATAFORM.</div>
         <div class="col" style="max-width: 90px;">VALOR</div>
         <div class="col" style="max-width: 90px;">LOTE</div>
         <div class="col" style="max-width: 150px;">PROYECTO</div>
         <div class="col" style="max-width: 200px;">CLIENTE</div>
         <div class="col" style="max-width: 100px;">CONCEPTO</div>
-        <div class="col" style="max-width: 140px;">VENCIMIENTO</div>
+        <div class="col" style="max-width: 240px;">VENCIMIENTO</div>
         <div class="col" style="max-width: auto;">ESTADO</div>
     </div>
 
     <div class="table-content">
-        <!--
-        @for (item of this.propertyService.propertiesFiltered; track $index) 
+        
+        @for (item of this.linkService.links; track $index) 
         {
-            
             <div class="row">
-                <div class="col" style="max-width: 30px;" align="center"><i class="fa fa-home" style="font-size: 14px;"></i></div>
-                <div class="col" style="max-width: 50px;" align="right">{{item.code}}</div>
-                <div class="col" style="max-width: 150px;">{{item.objectId}}</div>
-                <div class="col" style="max-width: 100px;">{{item.area}}</div>
-                <div class="col" style="max-width: 90px;">{{item.width}}</div>
-                <div class="col" style="max-width: 90px;">{{item.depth}}</div>
-                <div class="col" style="max-width: 200px;">{{convertTimeToLocal(item.updatedAt)}}</div>
+                <div class="col" style="max-width: 30px;" align="center"><i class="fa-regular fa-money-check-dollar" style="font-size: 14px;"></i></div>
+                <div class="col" style="max-width: 110px;" align="right">{{item.linkId}}</div>
+                <div class="col" style="max-width: 100px;">{{item.platform}}</div>
+                <div class="col" style="max-width: 90px;">$ {{item.amount | number : '1.0-0'}} </div>
+                <div class="col" style="max-width: 90px;">{{item.propertyCode}}</div>
+                <div class="col" style="max-width: 150px;">{{item.projectName}}</div>
+                <div class="col" style="max-width: 200px;">{{item.client.name}} {{item.client.lastName1}} </div>
+                <div class="col" style="max-width: 100px;">{{item.concept}}</div>
+                <div class="col" style="max-width: 240px;">{{convertTimeToLocal(item.expiresAt.iso)}}</div>
                 <div class="col" style="max-width: auto;">{{item.status}}</div>
-                @if(item.agent != '' && item.agent != undefined) {
-                    <div class="col-image"><img src="imgs/img_profile_demo.jpeg" style="width: 30px; height: 30px; object-fit: cover; border-radius: 100px; margin-right: 10px;"></div>
-                }@else {
-                    <div class="col-image">&nbsp;</div>
-                }
             </div>
         
         }
-            -->
+            
     </div>
 </div>
 

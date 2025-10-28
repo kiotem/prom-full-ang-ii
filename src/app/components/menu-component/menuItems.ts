@@ -10,53 +10,6 @@ export default class MenuItems {
         "subitems":[]
     },
     {
-        "id": 'properties',
-        "name": "Propiedades",
-        "icon": "fa fa-home",
-        "router": "properties/list",
-        "title": "Propiedades",
-        "is_action": true,
-        "subitems":[
-            /*
-            {
-                "id": 'properties_map',
-                "name": "Mapa",
-                "icon": "fa-solid fa-map",
-                "router": "properties/map",
-                "is_action": true,
-                "title": "Propiedades / Mapa",
-                "subitems":[]
-            },
-            {
-                "id": 'properties_list',
-                "name": "Listar",
-                "icon": "fa-solid fa-clipboard-list",
-                "router": "properties/list",
-                "is_action": true,
-                "title": "Propiedades / Listar",
-                "subitems":[]
-            },
-            {
-                "id": 'properties_cotizar',
-                "name": "Cotizar",
-                "icon": "fa-solid fa-house-laptop",
-                "router": "properties/quotation",
-                "is_action": true,
-                "title": "Propiedades / Cotizar",
-                "subitems":[]
-            },
-            {
-                "id": 'properties_create',
-                "name": "Crear",
-                "icon": "fa-solid fa-plus",
-                "router": "properties/create",
-                "title": "Propiedades / Crear",
-                "is_action": true,
-                "subitems":[]
-            }*/
-        ]
-    },
-    {
         "id": 'properties_cotizar',
         "name": "Cotizaciones",
         "icon": "fa-solid fa-house-laptop",
@@ -86,30 +39,10 @@ export default class MenuItems {
                 "id": 'paymentLinks',
                 "name": "Links de pago",
                 "icon": "fa-regular fa-money-check-dollar",
-                "router": "-",
-                "title": "-",
+                "router": "links/list",
+                "title": "Links de pago",
                 "is_action": true,
-                "subitems":
-                [
-                    {
-                        "id": 'paymentLinksList',
-                        "name": "Listar",
-                        "icon": "fa-regular fa-clipboard-list",
-                        "router": "links/list",
-                        "title": "Links de pago / Listar",
-                        "is_action": true,
-                        "subitems":[]
-                    },
-                    {
-                        "id": 'paymentLinksCreate',
-                        "name": "Crear",
-                        "icon": "fa-solid fa-plus",
-                        "router": "paymentLinks/create",
-                        "title": "Links de pago / Crear",
-                        "is_action": true,
-                        "subitems":[]
-                    }
-                ]
+                "subitems":[]
             },
             {
                 "id": 'vehicles_add',
@@ -121,6 +54,15 @@ export default class MenuItems {
                 "subitems":[]
             }
         ]
+    },
+    {
+        "id": 'properties',
+        "name": "Propiedades",
+        "icon": "fa fa-home",
+        "router": "properties/list",
+        "title": "Propiedades",
+        "is_action": true,
+        "subitems":[]
     },
     {
         "id": 'clients',
@@ -352,26 +294,7 @@ export default class MenuItems {
                 "router": "-",
                 "title": "-",
                 "is_action": true,
-                "subitems":[
-                    {
-                        "id": 'users_list',
-                        "name": "Listar",
-                        "icon": "fa-regular fa-address-card",
-                        "router": "-",
-                        "title": "-",
-                        "is_action": true,
-                        "subitems":[]
-                    },
-                    {
-                        "id": 'users_add',
-                        "name": "Crear",
-                        "icon": "fa-regular fa-plus",
-                        "router": "-",
-                        "title": "-",
-                        "is_action": true,
-                        "subitems":[]
-                    }
-                ]
+                "subitems":[]
             },
             {
                 "id": 'settings_agents',
@@ -380,26 +303,7 @@ export default class MenuItems {
                 "router": "-",
                 "title": "-",
                 "is_action": true,
-                "subitems":[
-                    {
-                        "id": 'agents_list',
-                        "name": "Listar",
-                        "icon": "fa-regular fa-address-card",
-                        "router": "-",
-                        "title": "-",
-                        "is_action": true,
-                        "subitems":[]
-                    },
-                    {
-                        "id": 'agents_add',
-                        "name": "Crear",
-                        "icon": "fa-regular fa-plus",
-                        "router": "-",
-                        "title": "-",
-                        "is_action": true,
-                        "subitems":[]
-                    }
-                ]
+                "subitems":[]
             },
             {
                 "id": 'projects',
@@ -408,26 +312,7 @@ export default class MenuItems {
                 "router": "-",
                 "title": "-",
                 "is_action": true,
-                "subitems":[
-                    {
-                        "id": 'project_list',
-                        "name": "Listar",
-                        "icon": "fa-regular fa-city",
-                        "router": "-",
-                        "title": "-",
-                        "is_action": true,
-                        "subitems":[]
-                    },
-                    {
-                        "id": 'operation_add',
-                        "name": "Crear",
-                        "icon": "fa-regular fa-plus",
-                        "router": "-",
-                        "title": "-",
-                        "is_action": true,
-                        "subitems":[]
-                    }
-                ]
+                "subitems":[]
             },
             {
                 "id": 'templates',

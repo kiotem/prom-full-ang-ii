@@ -232,7 +232,8 @@ export class PropertiesQuotationService {
       clientPhone: this.client.phone,
       clientEmail: this.client.email,
       propertyCode: this.property.code,
-      projectName: this.project.name
+      projectName: this.project.name,
+      projectId: this.project.objectId
     }
   }
 

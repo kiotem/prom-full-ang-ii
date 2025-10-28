@@ -61,33 +61,19 @@ export class LinkService
     */
   }
 
-  /*
-  savePaymentLink(sale: Sale, wompiObject: any, callback: (success: boolean, data: any) => void)
+  download(data: any, callback : (sucess: boolean, linkResponse: any) => void)
   {
-    let json = 
-    {
-      saleObject: sale,
-      wompiObject: wompiObject
-    };
-    
-    console.log('savePaymentLink method called');
-    this.http.post<any>(API_URL+'savePaymentLink', json, httpOptions).subscribe(
-      response => 
-      {
-        console.log('Payment link saved successfully:', response);
+    console.log('downloadLinks method called');
+    this.http.post<any>(API_URL+'linksList', data, httpOptions).subscribe(
+      response => {
+        console.log('Links downloaded successfully:', response);
         callback(true, response);
       },
       error => 
       {
-        console.error('Error saving payment link:', error);
+        console.error('Error downloading links:', error);
         callback(false, error);
       }
     );
-  }*/
-
-  download(data: any)
-  {
-    console.log('downloadLinks method called');
-    return this.http.post<any>(API_URL+'getLinks', data, httpOptions);
   }
 }
