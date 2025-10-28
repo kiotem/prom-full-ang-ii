@@ -44,7 +44,7 @@
             <div class="col" style="max-width: 180px;">FECHA</div>
             <div class="col" style="max-width: 120px;">CÉDULA</div>
             <div class="col" style="max-width: 200px;">CLIENTE</div>
-            <div class="col" style="max-width: 100px;">VALOR</div>
+            <div class="col" style="max-width: 100px;" align="right">VALOR</div>
             <div class="col" style="max-width: auto;">ASESOR</div>
             <div class="col" style="max-width: 150px;">FASE</div>
             <div class="col" style="max-width: 150px;">&nbsp;</div>
@@ -60,7 +60,7 @@
                     <div class="col" style="max-width: 180px;">{{convertTimeToLocal(item.createdAt)}}</div>
                     <div class="col" style="max-width: 120px;">{{item.client.pmsId | number: '1.0-0'}}</div>
                     <div class="col" style="max-width: 200px;">{{item.client.name}} {{item.client.lastName1}}</div>
-                    <div class="col" style="max-width: 100px;">${{item.amount | number: '1.0-0' }}</div>
+                    <div class="col" style="max-width: 100px;" align="right">${{item.amount | number: '1.0-0' }}</div>
                     <div class="col" style="max-width: auto;">{{item.agent.name}} {{item.agent.lastName1}}</div>
                     <div class="col" style="max-width: 150px;">{{item.phase}}</div>
                     <div class="col-button button-circle-table" style="max-width: 150px;  display: flex;">

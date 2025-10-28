@@ -58,7 +58,7 @@
         <div class="col" style="max-width: 30px;" align="right"></div>
         <div class="col" style="max-width: 110px;">ID</div>
         <div class="col" style="max-width: 100px;">PLATAFORM.</div>
-        <div class="col" style="max-width: 90px;">VALOR</div>
+        <div class="col" style="max-width: 90px;" align="right">VALOR</div>
         <div class="col" style="max-width: 90px;">LOTE</div>
         <div class="col" style="max-width: 150px;">PROYECTO</div>
         <div class="col" style="max-width: 200px;">CLIENTE</div>
@@ -75,7 +75,7 @@
                 <div class="col" style="max-width: 30px;" align="center"><i class="fa-regular fa-money-check-dollar" style="font-size: 14px;"></i></div>
                 <div class="col" style="max-width: 110px;" align="right">{{item.linkId}}</div>
                 <div class="col" style="max-width: 100px;">{{item.platform}}</div>
-                <div class="col" style="max-width: 90px;">$ {{item.amount | number : '1.0-0'}} </div>
+                <div class="col" style="max-width: 90px;" align="right">$ {{item.amount | number : '1.0-0'}} </div>
                 <div class="col" style="max-width: 90px;">{{item.propertyCode}}</div>
                 <div class="col" style="max-width: 150px;">{{item.projectName}}</div>
                 <div class="col" style="max-width: 200px;">{{item.client.name}} {{item.client.lastName1}} </div>
