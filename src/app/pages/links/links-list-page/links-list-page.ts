@@ -67,9 +67,17 @@ export class LinksListPage
     console.log('Go to create link page');
   }
 
+  onDestroy()
+  {
+    console.log('LinksListPage destroyed');
+    this.linkService.reset();
+    this.cdr.detectChanges();
+  }
+
   goSearch()
   {
     console.log('Go to search links page');
+    this.checkFilters();
   }
 
   checkFilters()

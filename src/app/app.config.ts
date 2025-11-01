@@ -1,18 +1,10 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners, provideZonelessChangeDetection } from '@angular/core';
 import { provideRouter } from '@angular/router';
-
 import { routes } from './app.routes';
 import { provideHttpClient } from '@angular/common/http';
-
 import { provideHighcharts } from 'highcharts-angular';
-
-import { NgModule, LOCALE_ID } from '@angular/core';
 import { ES_LOCALE_PROVIDER, US_LOCALE_PROVIDER } from '../locale/es';
-import { MatDatepickerModule } from '@angular/material/datepicker';
-import { MatNativeDateModule } from '@angular/material/core';
 import { provideSweetAlert2 } from '@sweetalert2/ngx-sweetalert2';
-    // ... otras importaciones
-
 
 export const appConfig: ApplicationConfig = {
 

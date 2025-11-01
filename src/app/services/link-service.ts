@@ -51,6 +51,11 @@ export class LinkService
     // Logic to delete a link
   }
 
+  reset(): void 
+  {
+    this.links = [];
+  }
+
   fill(links: Link[]): void 
   {
     this.links = links;

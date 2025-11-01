@@ -30,12 +30,14 @@ export class App implements OnInit {
           this.router.navigate(['login']);
       }
 
+      /*
             //vencimiento en 24 horas
       let expirationDate = new Date();
       expirationDate.setHours(expirationDate.getHours() + 24);
 
       console.log('Expiration Date:', expirationDate.toISOString());
       console.log('Expiration Date:', expirationDate.toLocaleDateString() + ' ' + expirationDate.toLocaleTimeString());
+      */
   }
 
   ngOnInit(): void {
