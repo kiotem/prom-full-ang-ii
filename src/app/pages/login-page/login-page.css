@@ -1,85 +1,261 @@
-::-webkit-input-placeholder { color: var(--gray); opacity: 0.6;} /* WebKit */
-:-moz-placeholder { color: var(--gray); opacity: 0.6; } /* Firefox 18- */
-::-moz-placeholder { color: var(--gray); opacity: 0.6; } /* Firefox 19+ */
-:-ms-input-placeholder { color: var(--gray); opacity: 0.6; } /* IE 10+ */
+/* Global Styles */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    overflow: hidden;
+}
 
-.fondo 
-{
-    background: url('/imgs/render_green.jpeg') no-repeat center center; 
+/* Background */
+.fondo {
+    background: url('/imgs/render_green.jpeg') no-repeat center center;
     background-size: cover;
     position: fixed;
     min-width: 100%;
     min-height: 100%;
+    z-index: 1;
 }
 
-.container-form {
-    position: absolute;
-    width: 350px;
-    height: 70%;
-    z-index: 10;
-    top: 50%; 
-    left: 50%; 
+/* Login Container */
+.login-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
     transform: translate(-50%, -50%);
-    padding: 80px;
-    /*border-radius: 20px;*/
-    background-color: white;
-    border-radius: 14px;
-    box-shadow: 0 0 8px gainsboro;
-    /*background-color: aliceblue;*/
+    z-index: 10;
+    padding: 2rem;
+    box-sizing: border-box;
 }
 
-.input-login
-{
-    color: black;
-    width: 100%;
-    padding: 3px 0px 3px 5px;
+/* Login Card */
+.login-card {
     background: white;
-    height: 34px;
-    outline: 0;
-    padding-left: 5px;
-    font-family: 'Montserrat', sans-serif;
-    font-size: 16px;
-    border-radius: 0px;
-    border: none;
-    border-bottom: 2.5px solid var(--color-b);
-    -webkit-box-shadow: inset 0px 0px 0px var(--background);
-	box-shadow: inset 0px 0px 0px var(--background);
-} 
+    border-radius: 20px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    padding: 3rem;
+    width: 450px;
+    position: relative;
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
 
-.input-login:hover
-{ 
-    background: white;
-    border: none;
-    border-bottom: 2.5px solid var(--color-a);
-
-} 
-
-#div_footer
-{
-    position: absolute; 
-    bottom: 5px; 
-    width: 300px; 
-    left: calc(50% - 150px);
-    bottom: 30px;
-    color: gray; 
-    font-size: 12px; 
+/* Login Header */
+.login-header {
     text-align: center;
+    margin-bottom: 2.5rem;
 }
 
-@media (max-width: 500px) {
+.login-logo {
+    width: 180px;
+    height: auto;
+    margin-bottom: 1.5rem;
+}
 
-    .container-form {
-        width: 300px;
-        padding-left: 120px;
-        padding-right: 120px;
-        border-radius: 0;
-    }
+.login-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: var(--color-a);
+    margin: 0 0 0.5rem 0;
+}
 
-    .input-login {
-        font-size: 14px;
-    }
+.login-subtitle {
+    font-size: 1rem;
+    color: var(--gray);
+    margin: 0;
+    font-weight: 400;
+}
 
-    #div_footer {
-        font-size: 10px;
+/* Form Styles */
+.login-form {
+    width: 100%;
+}
+
+.form-content {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.form-label {
+    font-size: 0.875rem;
+    font-weight: 600;
+    color: var(--color-a);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.form-label i {
+    color: var(--color-b);
+    font-size: 0.9rem;
+}
+
+.form-input {
+    width: 100%;
+    padding: 1rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    background: white;
+    color: var(--color-a);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: var(--color-a);
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.form-input:hover {
+    border-color: var(--color-b);
+}
+
+.form-input::placeholder {
+    color: var(--gray);
+    opacity: 0.7;
+}
+
+/* Checkbox Group */
+.checkbox-group {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    margin-top: 0.5rem;
+}
+
+.checkbox-input {
+    width: 1.2rem;
+    height: 1.2rem;
+    accent-color: var(--color-a);
+}
+
+.checkbox-label {
+    font-size: 0.875rem;
+    color: var(--gray);
+    cursor: pointer;
+    user-select: none;
+}
+
+/* Login Button */
+.login-button {
+    background: var(--color-a);
+    color: white;
+    border: none;
+    padding: 1rem 2rem;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    text-transform: none;
+    letter-spacing: 0;
+}
+
+.login-button:hover {
+    background: var(--color-b);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.login-button:active {
+    transform: translateY(0);
+}
+
+/* Login Footer */
+.login-footer {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e2e8f0;
+    color: var(--gray);
+    font-size: 0.75rem;
+    font-weight: 400;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .login-container {
+        padding: 1rem;
     }
+    
+    .login-card {
+        padding: 2rem;
+        max-width: none;
+        border-radius: 16px;
+    }
+    
+    .login-logo {
+        width: 150px;
+    }
+    
+    .login-title {
+        font-size: 1.75rem;
+    }
+    
+    .form-input {
+        padding: 0.875rem;
+        font-size: 0.9rem;
+    }
+    
+    .login-button {
+        padding: 0.875rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .login-card {
+        padding: 1.5rem;
+    }
+    
+    .login-logo {
+        width: 120px;
+    }
+    
+    .login-title {
+        font-size: 1.5rem;
+    }
+    
+    .login-subtitle {
+        font-size: 0.875rem;
+    }
+}
+
+/* Legacy compatibility */
+.container-form {
+    display: none;
+}
+
+/* Placeholder styles for better consistency */
+::-webkit-input-placeholder { 
+    color: var(--gray); 
+    opacity: 0.7;
+} 
+:-moz-placeholder { 
+    color: var(--gray); 
+    opacity: 0.7; 
+} 
+::-moz-placeholder { 
+    color: var(--gray); 
+    opacity: 0.7; 
+} 
+:-ms-input-placeholder { 
+    color: var(--gray); 
+    opacity: 0.7; 
 }

@@ -80,7 +80,6 @@
     <div class="links-list">
         <!-- List Header -->
         <div class="list-header">
-            <div class="header-col id-col">ID</div>
             <div class="header-col platform-col">Plataforma</div>
             <div class="header-col amount-col">Valor</div>
             <div class="header-col property-col">Lote</div>
@@ -95,10 +94,6 @@
         <div class="list-content">
             @for (item of this.linkService.links; track $index) {
                 <div class="link-row">
-                    <div class="row-col id-col">
-                        <i class="fas fa-link link-icon"></i>
-                        <span class="link-id">{{item.linkId}}</span>
-                    </div>
                     <div class="row-col platform-col">
                         <span class="platform-badge">{{item.platform}}</span>
                     </div>

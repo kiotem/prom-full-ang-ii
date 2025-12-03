@@ -131,23 +131,28 @@
     align-items: center;
     justify-content: center;
     font-size: 1.2rem;
-    color: white;
+    background: transparent;
+    border: 2px solid;
 }
 
 .sales-kpi .kpi-icon {
-    background: #64748b;
+    border-color: #64748b;
+    color: #64748b;
 }
 
 .revenue-kpi .kpi-icon {
-    background: #6b7280;
+    border-color: #6b7280;
+    color: #6b7280;
 }
 
 .properties-kpi .kpi-icon {
-    background: #475569;
+    border-color: #475569;
+    color: #475569;
 }
 
 .clients-kpi .kpi-icon {
-    background: #71717a;
+    border-color: #71717a;
+    color: #71717a;
 }
 
 .kpi-content {
@@ -318,20 +323,24 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
     font-size: 0.9rem;
+    background: transparent;
+    border: 2px solid;
 }
 
 .activity-icon.sale {
-    background: #64748b;
+    border-color: #64748b;
+    color: #64748b;
 }
 
 .activity-icon.payment {
-    background: #6b7280;
+    border-color: #6b7280;
+    color: #6b7280;
 }
 
 .activity-icon.client {
-    background: #475569;
+    border-color: #475569;
+    color: #475569;
 }
 
 .activity-info {
@@ -380,11 +389,12 @@
     width: 2.5rem;
     height: 2.5rem;
     border-radius: 50%;
-    background: #71717a;
+    background: transparent;
+    border: 2px solid #71717a;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: white;
+    color: #71717a;
     font-size: 0.9rem;
 }
 
