@@ -1,102 +1,161 @@
 <div id="budget-create-component" style="display: none;">
+  <div class="modal-overlay">
+    <div class="modal-container">
+      <!-- Header -->
+      <div class="modal-header">
+        <h2 class="modal-title">
+          <i class="fas fa-file-invoice-dollar"></i>
+          Crear Nueva Cotización
+        </h2>
+        <button class="close-btn" (click)="onCancel()">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
 
-    <div id="side-container" style="display: flex; align-items: center; margin-top: 30px; margin-left: 30px;">
-        <div id="side-a" style="width: 350px;">
-
-            <div id="panel-client-name" style="background-color: #fbfbfb; min-width: 280px; box-shadow: 0 0 4px #bbbbbb; border-radius: 10px; padding: 10px;  color: #444444; display:block;" >
-                <div style="display: flex; align-items: center; " class="project-card">
-                    <i class="fa-regular fa-user-viewfinder" style="font-size: 36px; margin-right: 15px; color: var(--color-b);"></i>
-                    <div>
-                        <div style="font-size: 14px;"><b>{{ this.propertiesQuotationService.client.name.toUpperCase() }}&nbsp;{{ this.propertiesQuotationService.client.lastName1.toUpperCase() }}</b></div>
-                        <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">CC. {{ this.propertiesQuotationService.client.pmsId }}</div>
-                        <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">{{ this.propertiesQuotationService.client.email }}</div>
-                    </div>
-                </div>
-
-                <div class="button-small" style="margin-top: 0px; text-align: right;">
-                    <a (click)="showClientSearch(true)">Cambiar</a>
-                </div>
-            </div>   
-
-            <div id="panel-property-name" style="margin-top: 15px; background-color: #fbfbfb; min-width: 280px; box-shadow: 0 0 4px #bbbbbb; border-radius: 10px; padding: 10px;  color: #444444; display:block;" >
-                <div align="left">
-                    <div style="display: flex; align-items: center;  padding-right: 20px; " class="project-card">
-                        <i class="fa-regular fa-house-blank" style="font-size: 36px; margin-right: 15px; color: var(--color-b);"></i>
-                        <div>                            
-                            <div style="font-size: 15px;"><b>{{ this.propertiesQuotationService.property.code?.toUpperCase() }}</b></div>
-                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Área: {{ this.propertiesQuotationService.property.area }} m2</div>
-                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Valor: ${{ this.propertiesQuotationService.property.amount | number: '1.0-0' }}</div>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="button-small" style="margin-top: 0px; text-align: right;">
-                    <a (click)="showPropertySearch(true)">Cambiar</a>
-                </div>
+      <!-- Content -->
+      <div class="modal-content">
+        <!-- Left Column -->
+        <div class="left-column">
+          <!-- Client Panel -->
+          <div class="info-card client-card">
+            <div class="card-header">
+              <i class="fas fa-user"></i>
+              <span>Cliente</span>
+              <button class="change-btn" (click)="showClientSearch(true)">
+                <i class="fas fa-edit"></i>
+                Cambiar
+              </button>
             </div>
-
-
-            <div id="panel-agent-name" style="margin-top: 15px; background-color: #fbfbfb; min-width: 280px; box-shadow: 0 0 4px #bbbbbb; border-radius: 10px; padding: 10px;  color: #444444; display:block;" >
-                <div align="left">
-                    <div style="display: flex; align-items: center;  padding-right: 20px; " class="project-card">
-                        <i class="fa-regular fa-user-tie" style="font-size: 36px; margin-right: 15px; color: var(--color-b);"></i>
-                        <div>
-                            <div style="font-size: 15px;"><b>{{ this.propertiesQuotationService.agent.name }} {{ this.propertiesQuotationService.agent.lastName1 }} {{ this.propertiesQuotationService.agent.lastName2 }}</b></div>
-                            <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">CC. {{ this.propertiesQuotationService.agent.pmsId }}&nbsp;&nbsp;[Asesor]</div>
-                            <!--<div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Asesor</div>-->
-                            <!--
-                                <div style="font-size: 15px;"><b>{{ this.propertiesQuotationService.property.code?.toUpperCase() }}</b></div>
-                                <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Área: {{ this.propertiesQuotationService.property.area }} m2</div>
-                                <div style="font-size: 14px; margin-top: 0px; color: var(--gray);">Valor: ${{ this.propertiesQuotationService.property.amount | number: '1.0-0' }}</div>
-                            -->
-                        </div>
-                    </div>
+            <div class="card-content">
+              <div class="client-info">
+                <h4 class="client-name">{{ this.propertiesQuotationService.client.name.toUpperCase() }} {{ this.propertiesQuotationService.client.lastName1.toUpperCase() }}</h4>
+                <div class="client-details">
+                  <span class="detail-item">
+                    <i class="fas fa-id-card"></i>
+                    CC. {{ this.propertiesQuotationService.client.pmsId }}
+                  </span>
+                  <span class="detail-item">
+                    <i class="fas fa-envelope"></i>
+                    {{ this.propertiesQuotationService.client.email }}
+                  </span>
                 </div>
-
-                <div class="button-small" style="margin-top: 0px; text-align: right;">
-                    <a (click)="showAgentSearch(true)">Cambiar</a>
-                </div>
+              </div>
             </div>
+          </div>   
 
+          <!-- Property Panel -->
+          <div class="info-card property-card">
+            <div class="card-header">
+              <i class="fas fa-home"></i>
+              <span>Propiedad</span>
+              <button class="change-btn" (click)="showPropertySearch(true)">
+                <i class="fas fa-edit"></i>
+                Cambiar
+              </button>
+            </div>
+            <div class="card-content">
+              <div class="property-info">
+                <h4 class="property-code">{{ this.propertiesQuotationService.property.code?.toUpperCase() }}</h4>
+                <div class="property-details">
+                  <span class="detail-item">
+                    <i class="fas fa-ruler-combined"></i>
+                    Área: {{ this.propertiesQuotationService.property.area }} m²
+                  </span>
+                  <span class="detail-item">
+                    <i class="fas fa-dollar-sign"></i>
+                    Valor: ${{ this.propertiesQuotationService.property.amount | number: '1.0-0' }}
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <!-- Agent Panel -->
+          <div class="info-card agent-card">
+            <div class="card-header">
+              <i class="fas fa-user-tie"></i>
+              <span>Asesor</span>
+              <button class="change-btn" (click)="showAgentSearch(true)">
+                <i class="fas fa-edit"></i>
+                Cambiar
+              </button>
+            </div>
+            <div class="card-content">
+              <div class="agent-info">
+                <h4 class="agent-name">{{ this.propertiesQuotationService.agent.name }} {{ this.propertiesQuotationService.agent.lastName1 }} {{ this.propertiesQuotationService.agent.lastName2 }}</h4>
+                <div class="agent-details">
+                  <span class="detail-item">
+                    <i class="fas fa-id-badge"></i>
+                    CC. {{ this.propertiesQuotationService.agent.pmsId }}
+                  </span>
+                  <span class="role-badge">
+                    <i class="fas fa-briefcase"></i>
+                    Asesor
+                  </span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="quote-card-container">
             <app-property-quote-card-component></app-property-quote-card-component>
-
+          </div>
         </div>
 
-        <div id="side-b" style="width: 400px; margin-left: 30px;">
+        <!-- Middle Column -->
+        <div class="middle-column">
+          <div class="form-container">
             <app-property-quote-form-component></app-property-quote-form-component>
+          </div>
         </div>
 
-        <div id="side-c" style="width: 380px; margin-left: 30px;">
-            <div id="property-quotas-box">
-                <div class="row-header">
-                    <div class="col" style="max-width: 30px;" align="right"></div>
-                    <div class="col" style="max-width: auto;">Concepto</div>
-                    <div class="col" style="max-width: 80px;">Fecha</div>
-                    <div class="col" style="max-width: 80px;" align="right">Valor</div>
-                </div>
-
-                @for(quota of this.propertiesQuotationService.quotas; track $index)
-                {
-                    @if(quota.dueDate)
-                    {
-                        <div class="row">
-                            <div class="col" style="max-width: 30px;" align="center">{{quota.number}}</div>
-                            <div class="col" style="max-width: auto;">{{quota.type}}</div>
-                            <div class="col" style="max-width: 80px;">{{ quota.dueDate | date: 'dd/MM/yyyy' }}</div>
-                            <div class="col" style="max-width: 80px;" align="right">${{quota.amount | number : '1.0-0' : 'en-US'}}</div>
-                        </div>
-                    }
+        <!-- Right Column -->
+        <div class="right-column">
+          <div class="quotas-section">
+            <div class="section-header">
+              <i class="fas fa-calculator"></i>
+              <h3>Plan de Pagos</h3>
+            </div>
+            
+            <div class="quotas-table">
+              <div class="table-header">
+                <div class="header-cell number">#</div>
+                <div class="header-cell concept">Concepto</div>
+                <div class="header-cell date">Fecha</div>
+                <div class="header-cell amount">Valor</div>
+              </div>
+              
+              <div class="table-content">
+                @for(quota of this.propertiesQuotationService.quotas; track $index) {
+                  @if(quota.dueDate) {
+                    <div class="table-row">
+                      <div class="table-cell number">{{quota.number}}</div>
+                      <div class="table-cell concept">{{quota.type}}</div>
+                      <div class="table-cell date">{{ quota.dueDate | date: 'dd/MM/yyyy' }}</div>
+                      <div class="table-cell amount">${{quota.amount | number : '1.0-0' : 'en-US'}}</div>
+                    </div>
+                  }
                 }
+              </div>
             </div>
-
-            <div class="button" style="margin-top: 20px; text-align: right; padding-right: 10px;">
-                <a (click)="onCancel()">Cancelar</a>
-                &nbsp;<a (click)="onSend()">Guardar datos</a>
-            </div>
-
+          </div>
         </div>
+      </div>
 
+      <!-- Footer -->
+      <div class="modal-footer">
+        <button class="btn-secondary" (click)="onCancel()">
+          <i class="fas fa-times"></i>
+          Cancelar
+        </button>
+        <button class="btn-primary" (click)="onSend()">
+          <i class="fas fa-save"></i>
+          Guardar Cotización
+        </button>
+      </div>
     </div>
+  </div>
 </div>
 
 <app-client-search-component (selectAction)="selectClient($event)" (cancelAction)="cancelSearchClient()"></app-client-search-component>
