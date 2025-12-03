@@ -125,4 +125,53 @@ export class PropertiesListPage implements OnInit
     this.checkFilter();
     this.cdr.detectChanges();
   }
+
+  confirmDeleteProperty(property: Property): void {
+    Swal.fire({
+      title: '¿Eliminar propiedad?',
+      html: `
+        <div style="text-align: left; margin: 20px 0;">
+          <p><strong>Código:</strong> ${property.code}</p>
+          <p><strong>ID:</strong> ${property.objectId}</p>
+          <p><strong>Área:</strong> ${property.area} m²</p>
+          <p><strong>Dimensiones:</strong> ${property.width}m x ${property.depth}m</p>
+          <p><strong>Estado:</strong> ${property.status}</p>
+        </div>
+        <p style="color: #e74c3c; font-weight: 500;">Esta acción no se puede deshacer.</p>
+      `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#e74c3c',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
+      focusCancel: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteProperty(property);
+      }
+    });
+  }
+
+  deleteProperty(property: Property): void {
+    // Aquí iría la lógica real para eliminar la propiedad
+    // Por ejemplo: this.propertyService.deleteProperty(property.objectId)
+    
+    // Simulación de eliminación exitosa
+    console.log('Eliminando propiedad:', property);
+    
+    // Mostrar confirmación de eliminación
+    Swal.fire({
+      icon: 'success',
+      title: 'Propiedad eliminada',
+      text: 'La propiedad ha sido eliminada exitosamente.',
+      confirmButtonText: 'OK',
+      timer: 2000,
+      timerProgressBar: true
+    }).then(() => {
+      // Recargar la lista después de eliminar
+      this.checkFilter();
+    });
+  }
 }

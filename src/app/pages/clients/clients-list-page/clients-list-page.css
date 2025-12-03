@@ -497,3 +497,44 @@
         background-position: -200% 0;
     }
 }
+
+/* Custom SweetAlert2 Styles for Delete Confirmation */
+.swal2-popup .swal2-title {
+    font-family: 'Montserrat', sans-serif !important;
+    font-size: 1.5rem !important;
+    color: var(--dark) !important;
+}
+
+.swal2-popup .swal2-html-container {
+    font-family: 'Montserrat', sans-serif !important;
+    line-height: 1.5 !important;
+}
+
+.swal2-confirm {
+    background-color: #e74c3c !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 500 !important;
+    padding: 12px 24px !important;
+}
+
+.swal2-confirm:hover {
+    background-color: #c0392b !important;
+    transform: translateY(-1px) !important;
+}
+
+.swal2-cancel {
+    background-color: #6c757d !important;
+    border: none !important;
+    border-radius: 8px !important;
+    font-family: 'Montserrat', sans-serif !important;
+    font-weight: 500 !important;
+    padding: 12px 24px !important;
+    margin-right: 10px !important;
+}
+
+.swal2-cancel:hover {
+    background-color: #5a6268 !important;
+    transform: translateY(-1px) !important;
+}

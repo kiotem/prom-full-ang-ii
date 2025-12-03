@@ -74,7 +74,53 @@ clientCreated(client: Client): void {
       text: '¡Cliente creado exitosamente!',
       confirmButtonText: 'OK'
     });
+  }
 
+  confirmDeleteClient(client: Client): void {
+    Swal.fire({
+      title: '¿Eliminar cliente?',
+      html: `
+        <div style="text-align: left; margin: 20px 0;">
+          <p><strong>Nombre:</strong> ${client.name} ${client.lastName1} ${client.lastName2}</p>
+          <p><strong>Documento:</strong> ${client.pmsId}</p>
+          <p><strong>Email:</strong> ${client.email}</p>
+        </div>
+        <p style="color: #e74c3c; font-weight: 500;">Esta acción no se puede deshacer.</p>
+      `,
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#e74c3c',
+      cancelButtonColor: '#6c757d',
+      confirmButtonText: 'Sí, eliminar',
+      cancelButtonText: 'Cancelar',
+      reverseButtons: true,
+      focusCancel: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        this.deleteClient(client);
+      }
+    });
+  }
+
+  deleteClient(client: Client): void {
+    // Aquí iría la lógica real para eliminar el cliente
+    // Por ejemplo: this.clientService.deleteClient(client.objectId)
+    
+    // Simulación de eliminación exitosa
+    console.log('Eliminando cliente:', client);
+    
+    // Mostrar confirmación de eliminación
+    Swal.fire({
+      icon: 'success',
+      title: 'Cliente eliminado',
+      text: 'El cliente ha sido eliminado exitosamente.',
+      confirmButtonText: 'OK',
+      timer: 2000,
+      timerProgressBar: true
+    }).then(() => {
+      // Recargar la lista después de eliminar
+      this.download({});
+    });
   }
 
 }
