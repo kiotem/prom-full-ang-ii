@@ -12,7 +12,10 @@ html {
       primary: mat.$azure-palette,
       tertiary: mat.$blue-palette,
     ),
-    typography: Roboto,
+    typography: (
+      brand-family: 'Montserrat',
+      plain-family: 'Montserrat',
+    ),
     density: 0,
         filled-active-indicator-height: 0,
     filled-focus-active-indicator-height: 0,

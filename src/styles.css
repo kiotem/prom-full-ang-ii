@@ -43,14 +43,28 @@
 
 
 
+/* Using Montserrat from Google Fonts instead of local file */
+/*
 @font-face {
   font-family: 'CustomFont';
   src: url('./assets/fonts/monserrat-variable.otf');
 }
+*/
 
 *{
     padding: 0px;
     margin: 0px;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Ensure all form elements use Montserrat */
+input, textarea, select, button {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Ensure all heading and text elements use Montserrat */
+h1, h2, h3, h4, h5, h6, p, span, div, label {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
 }
 
 body 
@@ -59,16 +73,36 @@ body
     width: auto;
     margin: 0 auto;
     color: black;
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     height: 100%;
     padding: 0;
     box-sizing: border-box;
+}
+
+/* Set Montserrat as default font for all elements */
+*, *::before, *::after {
+    font-family: inherit;
 }
 
 html
 {
     background-color: var(--background);
     color: black;
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+}
+
+/* Override Angular Material and other component fonts */
+.mat-mdc-form-field, .mat-mdc-input-element, .mat-mdc-select, .mat-mdc-button,
+.mat-mdc-dialog-container, .mat-mdc-snack-bar-container, .mat-mdc-tooltip,
+.mdc-text-field__input, .mdc-floating-label, .mdc-line-ripple,
+.mat-calendar, .mat-datepicker-content, .mat-option, .mat-select-value,
+.mat-tab-label, .mat-tab-body, .mat-header-cell, .mat-cell {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+}
+
+/* Ensure all components inherit Montserrat */
+.mdc-text-field, .mat-mdc-text-field-wrapper, .mat-mdc-form-field-wrapper {
+    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
 }
 
 .button-big a
@@ -391,7 +425,7 @@ select::-ms-expand {
 }
 /*
 html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
 */
 
 .swal2-confirm {
