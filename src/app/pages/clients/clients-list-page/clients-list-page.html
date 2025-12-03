@@ -1,49 +1,116 @@
-<div class="main-container">
+<div class="main-container modern-layout">
 
-<div style="position: absolute; top: 20px; left: 20px; z-index: 100; display: inline-flex; justify-content: space-between;" >
-    <input type="text" id="i_search" name="i_search" class="form-control" (keyup)="onKeyup($event)" placeholder="Buscar:" class="input-search" style=" width: 180px;">
-
-    <div style="display: flex; align-items: center; margin-left:-10px; width: 200px;" >
-    <select type="text" id="s_status" name="s_status" class="form-control" placeholder="Buscar:" class="select-search" style="margin-left: 20px; width: 180px;" (change)="onChangeStatus($event)">
-        <option value="All">TODOS</option>
-    </select>
+<!-- Modern Header Section -->
+<div class="page-header">
+    <div class="search-filters">
+        <div class="search-box">
+            <i class="fa fa-search search-icon"></i>
+            <input type="text" id="i_search" name="i_search" (keyup)="onKeyup($event)" placeholder="Buscar clientes..." class="modern-search-input">
+        </div>
+        
+        <div class="filter-box">
+            <i class="fa fa-filter filter-icon"></i>
+            <select id="s_status" name="s_status" class="modern-select" (change)="onChangeStatus($event)">
+                <option value="All">Todos los clientes</option>
+            </select>
+        </div>
     </div>
     
-</div>
-
-<div class="button" style="position: absolute; top: 28px; right: 20px; z-index: 100;">
-    <a (click)="showClientCreate(true)"><i class="fa-solid fa-plus"></i>&nbsp;Crear nuevo</a>&nbsp;
-    <a (click)="download({})"><i class="fa-regular fa-arrows-rotate"></i></a>
-</div>
-
-
-<div class="properties-list" style="position: absolute; top: 75px; z-index: 100; width: 100%; height: calc(100% - 130px);">
-
-    <div class="row-header">
-        <div class="col" style="max-width: 30px;" align="right"></div>
-        <div class="col" style="max-width: 90px;">ID</div>
-        <div class="col" style="max-width: 90px;">DOCUMENTO</div>
-        <div class="col" style="max-width: auto;">NOMBRES</div>
-        <div class="col" style="max-width: 200px;">APELLIDOS</div>
-        <div class="col" style="max-width: 120px;">CIUDAD</div>
-        <div class="col" style="max-width: 100px;">TELÉFONO</div>
-        <div class="col" style="max-width: 200px;">EMAIL</div>
+    <div class="action-buttons">
+        <button class="btn-refresh" (click)="download({})" title="Actualizar">
+            <i class="fa fa-sync-alt"></i>
+        </button>
+        <button class="btn-primary" (click)="showClientCreate(true)">
+            <i class="fa fa-plus"></i>
+            <span>Nuevo Cliente</span>
+        </button>
     </div>
+</div>
 
-    <div class="table-content">
-        @for (item of this.clientService.clients; track $index) 
-        {
-            <div class="row">
-                <div class="col" style="max-width: 30px;" align="center"><i class="fa fa-user" style="font-size: 14px;"></i></div>
-                <div class="col" style="max-width: 90px;">{{item.objectId}}</div>
-                <div class="col" style="max-width: 90px;">{{item.pmsId}}</div>
-                <div class="col" style="max-width: auto;">{{item.name}}</div>
-                <div class="col" style="max-width: 200px;">{{item.lastName1}} {{item.lastName2}}</div>
-                <div class="col" style="max-width: 120px;">{{item.city}}</div>
-                <div class="col" style="max-width: 100px;">{{item.phone}}</div>
-                <div class="col" style="max-width: 200px;">{{item.email}}</div>
-            </div>
+
+<!-- Modern Clients Grid -->
+<div class="clients-container">
+    <div class="clients-list">
+        <div class="list-header">
+            <div class="header-col doc-col">Documento</div>
+            <div class="header-col name-col">Nombre Completo</div>
+            <div class="header-col city-col">Ciudad</div>
+            <div class="header-col contact-col">Contacto</div>
+            <div class="header-col status-col">Estado</div>
+            <div class="header-col actions-col">Acciones</div>
+        </div>
         
+        <div class="list-content">
+            @for (item of this.clientService.clients; track $index) 
+            {
+                <div class="client-row">
+                    <div class="row-col doc-col">
+                        <span class="client-doc">{{item.pmsId}}</span>
+                    </div>
+                    
+                    <div class="row-col name-col">
+                        <div class="client-name-info">
+                            <span class="primary-name">{{item.name}} {{item.lastName1}}</span>
+                            <span class="secondary-name">{{item.lastName2}}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="row-col city-col">
+                        <span class="client-city">
+                            <i class="fa fa-map-marker-alt"></i>
+                            {{item.city}}
+                        </span>
+                    </div>
+                    
+                    <div class="row-col contact-col">
+                        <div class="client-contact">
+                            <div class="contact-item">
+                                <i class="fa fa-envelope"></i>
+                                <span>{{item.email}}</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="fa fa-phone"></i>
+                                <span>{{item.phone}}</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="row-col status-col">
+                        <span class="status-badge active">Activo</span>
+                    </div>
+                    
+                    <div class="row-col actions-col">
+                        <div class="client-actions">
+                            <button class="action-btn view" title="Ver detalles">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="action-btn edit" title="Editar">
+                                <i class="fas fa-pen"></i>
+                            </button>
+                            <button class="action-btn contact" title="Contactar">
+                                <i class="fab fa-whatsapp"></i>
+                            </button>
+                            <button class="action-btn delete" title="Eliminar">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+        
+        @if (this.clientService.clients.length === 0) {
+            <div class="empty-state">
+                <div class="empty-icon">
+                    <i class="fa fa-users"></i>
+                </div>
+                <h3>No hay clientes registrados</h3>
+                <p>Comienza agregando tu primer cliente</p>
+                <button class="btn-primary" (click)="showClientCreate(true)">
+                    <i class="fa fa-plus"></i>
+                    Agregar Cliente
+                </button>
+            </div>
         }
     </div>
 </div>
