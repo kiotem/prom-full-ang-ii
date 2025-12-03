@@ -1,93 +1,260 @@
-#select_project_button
-{
-    position: absolute; 
-    right: 15px; 
-    bottom: 13px; 
-    z-index: 20000; 
-    font-size: 12px;
-    text-align: end;
+/* Project Selector Button */
+.project-selector-button {
+    position: fixed;
+    right: 2rem;
+    bottom: 2rem;
+    z-index: 19000;
 }
 
-#project-selector
-{
-    position: absolute; 
-    visibility: visible; 
-    top: 0;
-    left: 0;
-    backdrop-filter: blur(10px);
-    min-width: 100%; 
-    min-height: 100%; 
-    z-index: 20000;
-    color: gray;
-}
-
-#close-project-selector a
-{
-    position: absolute; 
-    top: 15px; 
-    right: 15px; 
-    font-size: 24px; 
-    color: var(--color-a); 
+.project-button {
+    background: var(--color-a);
+    color: white;
+    border: none;
+    padding: 0.75rem 1.25rem;
+    border-radius: 12px;
+    font-size: 0.875rem;
+    font-weight: 600;
     cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: 'Montserrat', sans-serif;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
 }
 
-#close-project-selector a:hover
-{
-    color: var(--color-b); 
+.project-button:hover {
+    background: var(--color-b);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
+.project-button i:first-child {
+    font-size: 1rem;
+}
 
-#panel-project-selector
-{
+.project-button i:last-child {
+    font-size: 0.8rem;
+    transition: transform 0.3s ease;
+}
+
+.project-button:hover i:last-child {
+    transform: rotate(180deg);
+}
+
+/* Project Modal Overlay */
+.project-modal-overlay {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(10px);
+    z-index: 20000;
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Project Modal Container */
+.project-modal-container {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 450px;
-    height: 550px;
-    background-color: white;
-    border-radius: 14px;
-    box-shadow: 0 0 8px gainsboro;
-    padding: 20px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 25px 80px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 600px;
+    max-height: 80vh;
+    overflow: hidden;
 }
 
-#panel-project-selector-content
-{
-    margin-top: 10px;
-    border: 0.8px solid #f3f3f3;
-    border-radius: 12px;
-    overflow: auto; 
-    height: calc(100% - 60px); 
-    max-height: 480px;  
+/* Project Modal Header */
+.project-modal-header {
+    padding: 2rem 2rem 1rem 2rem;
+    border-bottom: 1px solid #e2e8f0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
 }
 
-.button-selector a
-{
-    width: 80px;
-    height: 25px;
-    font-family: 'Montserrat', sans-serif;
-    font-size:12px;
+.project-modal-title {
+    font-size: 1.5rem;
+    font-weight: 700;
     color: var(--color-a);
-    text-decoration: none;
-    padding-left: 12px;
-    padding-right: 12px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-radius: 8px;
-    text-transform: uppercase;
-    border: 1px solid var(--color-a);
-    background: #eff6f9;
+    margin: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
 }
 
-.button-selector a:hover
-{
+.project-modal-title i {
+    color: var(--color-b);
+    font-size: 1.25rem;
+}
+
+.project-modal-close {
+    background: white;
+    border: 1px solid #e2e8f0;
+    color: var(--color-a);
+    font-size: 1rem;
     cursor: pointer;
-    background: var(--hover-color, var(--color-a));
-    color: var(--white);
-    text-decoration: none;
+    padding: 0.75rem;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    width: 2.75rem;
+    height: 2.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Montserrat', sans-serif;
 }
 
-.button-selector a:active
-{
-    background: var(--hover-color, var(--color-b));
+.project-modal-close:hover {
+    background: var(--color-a);
+    color: white;
+    border-color: var(--color-a);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Search Section */
+.project-search-section {
+    padding: 1.5rem 2rem;
+    background: white;
+}
+
+.search-box {
+    position: relative;
+    width: 100%;
+}
+
+.search-icon {
+    position: absolute;
+    left: 1rem;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--gray);
+    font-size: 1rem;
+    z-index: 1;
+}
+
+.project-search-input {
+    width: 100%;
+    padding: 1rem 1rem 1rem 3rem;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-family: 'Montserrat', sans-serif;
+    background: #f8fafc;
+    color: var(--color-a);
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.project-search-input:focus {
+    outline: none;
+    border-color: var(--color-a);
+    background: white;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.project-search-input:hover {
+    border-color: var(--color-b);
+    background: white;
+}
+
+.project-search-input::placeholder {
+    color: var(--gray);
+    opacity: 0.7;
+}
+
+/* Projects Grid */
+.projects-grid {
+    padding: 1rem 2rem 2rem 2rem;
+    max-height: 50vh;
+    overflow-y: auto;
+    background: white;
+}
+
+/* Custom Scrollbar */
+.projects-grid::-webkit-scrollbar {
+    width: 8px;
+}
+
+.projects-grid::-webkit-scrollbar-track {
+    background: #f1f5f9;
+    border-radius: 4px;
+}
+
+.projects-grid::-webkit-scrollbar-thumb {
+    background: #cbd5e1;
+    border-radius: 4px;
+}
+
+.projects-grid::-webkit-scrollbar-thumb:hover {
+    background: #94a3b8;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .project-modal-container {
+        width: 95%;
+        max-height: 85vh;
+    }
+    
+    .project-modal-header {
+        padding: 1.5rem;
+    }
+    
+    .project-modal-title {
+        font-size: 1.25rem;
+    }
+    
+    .project-search-section {
+        padding: 1rem 1.5rem;
+    }
+    
+    .projects-grid {
+        padding: 1rem 1.5rem 1.5rem 1.5rem;
+        max-height: 45vh;
+    }
+    
+    .project-selector-button {
+        right: 1rem;
+        bottom: 1rem;
+    }
+    
+    .project-button {
+        padding: 0.875rem 1rem;
+        font-size: 0.8rem;
+    }
+    
+    .project-button span {
+        display: none;
+    }
+}
+
+/* Legacy Support */
+#select_project_button {
+    /* Inherits from .project-selector-button */
+}
+
+#project-selector {
+    /* Inherits from .project-modal-overlay */
+}
+
+#panel-project-selector {
+    /* No longer needed - replaced by .project-modal-container */
+}
+
+#panel-project-selector-content {
+    /* No longer needed - replaced by .projects-grid */
+}
+
+.button-selector {
+    /* No longer needed - replaced by .project-selector-button */
 }
