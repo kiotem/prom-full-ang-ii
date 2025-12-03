@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { MenuComponent } from '../../components/menu-component/menu-component';
 import { ProjectSelectorComponent } from "../../components/project-selector-component/project-selector-component";
 import { HighchartsChartComponent, ChartConstructorType } from 'highcharts-angular';
@@ -9,6 +9,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatInputModule } from '@angular/material/input';
+import { CommonModule } from '@angular/common';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 import { HttpClient } from '@angular/common/http';
@@ -16,13 +17,13 @@ import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [MenuComponent, ProjectSelectorComponent, HighchartsChartComponent, LoaderComponent, MatInputModule, MatDatepickerModule],
+  imports: [MenuComponent, ProjectSelectorComponent, HighchartsChartComponent, LoaderComponent, MatInputModule, MatDatepickerModule, CommonModule],
   templateUrl: './dashboard-page.html',
   styleUrls: ['./dashboard-page.css', '../../../styles/reports.css'],
   providers: [provideNativeDateAdapter()],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class DashboardPage 
+export class DashboardPage implements OnInit 
 {
   chartOptions: Highcharts.Options = {
     chart: {
@@ -62,6 +63,12 @@ export class DashboardPage
   updateFlag: boolean = false; // Optional
   oneToOneFlag: boolean = true; // Optional, defaults to false
 
+  // KPI Properties
+  totalSales: number = 0;
+  totalRevenue: number = 0;
+  totalProperties: number = 0;
+  totalClients: number = 0;
+
   chartOptionsPayments: Highcharts.Options = {
     chart: {
         type: 'column'
@@ -93,6 +100,26 @@ export class DashboardPage
   };
 
     constructor(private http: HttpClient) {}
+
+    ngOnInit() {
+      this.loadDashboardData();
+    }
+
+    loadDashboardData() {
+      this.loadKPIData();
+    }
+
+    refreshData() {
+      this.loadDashboardData();
+    }
+
+    loadKPIData() {
+      // Load sample KPI data - in real app, this would come from services
+      this.totalSales = 127;
+      this.totalRevenue = 45750000;
+      this.totalProperties = 89;
+      this.totalClients = 234;
+    }
 
     genDataArray(): any[] {
       const data = [];
