@@ -54,13 +54,15 @@
     backdrop-filter: blur(10px);
     z-index: 20000;
     font-family: 'Montserrat', sans-serif;
-    display: none; /* Hidden by default */
+    /*visibility: hidden;*/
+    /*display: none; /* Hidden by default */
 }
 
 /* Override to show when explicitly set */
+/*
 .project-modal-overlay[style*="display: block"] {
     display: block !important;
-}
+}*/
 
 /* Project Modal Container */
 .project-modal-container {

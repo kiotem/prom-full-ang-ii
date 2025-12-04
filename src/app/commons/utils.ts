@@ -42,6 +42,18 @@ export function displayHTML(elementId: string, display: string): boolean {
   return false;
 }
 
+export function visibilityHTML(elementId: string, visibility: string): boolean {
+  const element = document.getElementById(elementId);
+  if(element)
+  {
+    element.style.visibility = visibility;
+    return true;
+  }
+
+  return false;
+}
+
+
 export function setValueToField(fieldName: string, value: any): boolean {
   const field = document.getElementById(fieldName) as HTMLInputElement;
   if(field) 

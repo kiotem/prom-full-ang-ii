@@ -10,7 +10,7 @@ import { ProjectService } from '../../services/project-service';
 import Swal from 'sweetalert2';
 import { LoginService } from '../../services/login-service';
 import { ProjectSelectorComponent } from "../../components/project-selector-component/project-selector-component";
-import { displayHTML } from '../../commons/utils';
+import { displayHTML, visibilityHTML } from '../../commons/utils';
 
 @Component({
   selector: 'app-login-page',
@@ -99,7 +99,10 @@ tempUser: any;
           {
             //this.doDashboard();
             this.loginForm.reset();
-            this.showProjectSelector(true);
+            //this.showProjectSelector(true);
+            displayHTML('container-form', 'none');
+            this.projectService.showPanel = true;
+            visibilityHTML('project-selector', 'visible');
           } 
           
           /*

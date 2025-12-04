@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
+import { ChangeDetectorRef, Component } from '@angular/core';
 import MenuItems from './menuItems';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user-service';
 import { MenuService } from '../../services/menu-service';
 import { StorageService } from '../../services/storage-service';
+import { displayHTML } from '../../commons/utils';
+import { ProjectService } from '../../services/project-service';
 
 @Component({
   selector: 'app-menu-component',
@@ -14,7 +16,7 @@ import { StorageService } from '../../services/storage-service';
 export class MenuComponent {
   menuItems = MenuItems.items;
 
-  constructor(private router: Router, private userService: UserService, public menuService: MenuService, private storageService: StorageService) {
+  constructor(private router: Router, private userService: UserService, public menuService: MenuService, private storageService: StorageService, private cdr: ChangeDetectorRef, public projectService: ProjectService) {
     console.log('Menu component initialized: '+this.menuItems.length + ' items loaded');
   
   }
@@ -52,4 +54,13 @@ export class MenuComponent {
       this.menuService.setPathPage(item.title);
     }
   }
+
+    openProjectSelector()
+    {
+      this.projectService.refillFiltered();
+      
+      displayHTML('project-selector', 'block');
+      this.cdr.detectChanges();
+    }
+  
 }

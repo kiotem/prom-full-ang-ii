@@ -12,6 +12,7 @@ export class ProjectService {
   projects: Project[] = [];
   projectsFiltered: Project[] = [];
   selectedProject: Project | undefined;
+  showPanel: boolean = false;
 
   constructor(private http: HttpClient, public storageService: StorageService) {
     this.projects = [];
