@@ -10,14 +10,13 @@ import { ProjectService } from '../../services/project-service';
 import Swal from 'sweetalert2';
 import { LoginService } from '../../services/login-service';
 import { ProjectSelectorComponent } from "../../components/project-selector-component/project-selector-component";
-import { ProjectCardComponent } from '../../components/project-card-component/project-card-component';
 import { displayHTML } from '../../commons/utils';
 
 @Component({
   selector: 'app-login-page',
-  imports: [ReactiveFormsModule, LoaderComponent, ProjectCardComponent],
+  imports: [ReactiveFormsModule, LoaderComponent, ProjectSelectorComponent],
   templateUrl: './login-page.html',
-  styleUrls: ['./login-page.css', '../../components/project-selector-component/project-selector-component.css']
+  styleUrls: ['./login-page.css']
 })
 export class LoginPage {
 tempUser: any;
@@ -43,6 +42,8 @@ tempUser: any;
   ngOnInit(): void {
     // Component initialization logic
     this.storageService.clear();
+
+    this.showProjectSelector(false);
   }
 
   ngOnDestroy(): void 
@@ -171,14 +172,7 @@ tempUser: any;
     this.router.navigate(['/dashboard']);
   }
 
-  onKeyup(event: any) 
-  {
-    console.log(event.target.value);
-    
-      const searchValue = (event.target as HTMLInputElement).value;
-      this.projectService.getProjectsFiltered(searchValue);
-      this.cdr.detectChanges();
-  }
+
 
   showProjectSelector(visible: boolean)
   {

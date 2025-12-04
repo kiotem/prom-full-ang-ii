@@ -48,6 +48,17 @@ project = input<Project>();
       //window.location.reload();
       setValueToField('i_search_project', '');
       this.projectService.refillFiltered();
+
+      //agregad0
+      let projectSelector = document.getElementById('project-selector');
+
+        if(projectSelector) 
+        {
+          projectSelector.style.display = 'none';
+        }
+
+      //fin agregado
+
       this.router.navigate(['dashboard']);
     }
     
