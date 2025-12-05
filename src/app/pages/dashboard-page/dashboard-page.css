@@ -155,6 +155,11 @@
     color: #71717a;
 }
 
+.payments-kpi .kpi-icon {
+    border-color: #f59e0b;
+    color: #f59e0b;
+}
+
 .kpi-content {
     flex: 1;
     display: flex;
@@ -195,6 +200,10 @@
 
 .kpi-trend.neutral {
     color: #6b7280;
+}
+
+.kpi-trend.warning {
+    color: #f59e0b;
 }
 
 /* Dashboard Grid */

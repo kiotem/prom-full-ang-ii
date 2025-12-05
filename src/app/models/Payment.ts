@@ -1,6 +1,9 @@
+import Sale from "./Sale";
+
 export default interface Payment {
   objectId: string;
   saleId: string;
+  sale?: Sale;
   amount: number;
   paymentMethd: string;
   transactionId: string;

@@ -27,11 +27,11 @@ export default class MenuItems {
         "is_action": false,
         "subitems":[
             {
-                "id": 'vehicles_list',
-                "name": "Registrar Pago",
+                "id": 'payments',
+                "name": "Pagos",
                 "icon": "fa-regular fa-credit-card",
-                "router": "-",
-                "title": "-",
+                "router": "payments/list",
+                "title": "Pagos",
                 "is_action": true,
                 "subitems":[]
             },

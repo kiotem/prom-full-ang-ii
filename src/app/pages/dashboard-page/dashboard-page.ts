@@ -68,6 +68,7 @@ export class DashboardPage implements OnInit
   totalRevenue: number = 0;
   totalProperties: number = 0;
   totalClients: number = 0;
+  pendingPayments: number = 0;
 
   chartOptionsPayments: Highcharts.Options = {
     chart: {
@@ -119,6 +120,7 @@ export class DashboardPage implements OnInit
       this.totalRevenue = 45750000;
       this.totalProperties = 89;
       this.totalClients = 234;
+      this.pendingPayments = 18750000;
     }
 
     genDataArray(): any[] {

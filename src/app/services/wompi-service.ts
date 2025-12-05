@@ -38,7 +38,7 @@ export class WompiService {
         "expires_at": expires_at, // Fecha de expiración del link de pago en formato ISO 8601 (YYYY-MM-DDTHH:MM:SSZ)
         "currency": "COP",  //Únicamente está disponible pesos colombianos (COP) current el momento. En el futuro soportaremos mas monedas
         "amount_in_cents": (amount*100),
-        "sku": sku // Si el pago current por un monto especifico, si no lo incluyes el pagador podrá elegir el valor a pagar,
+        "sku": sku 
     };
 
     this.http.post<any>(API_URL_WOMPI_TEST+'payment_links', this.linkData, httpWompiOptions).subscribe(

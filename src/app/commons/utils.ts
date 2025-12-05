@@ -64,3 +64,9 @@ export function setValueToField(fieldName: string, value: any): boolean {
 
   return false;
 }
+
+  export function convertTimeToLocal(time: any): string 
+  {
+      const date = new Date(time);
+      return date.toLocaleString();
+  }

@@ -1,0 +1,134 @@
+<div class="main-container modern-layout">
+
+<!-- Modern Header Section -->
+<div class="page-header">
+    <div class="search-filters">
+        <div class="search-box">
+            <i class="fas fa-search search-icon"></i>
+            <input 
+                type="text" 
+                id="i_search" 
+                name="i_search" 
+                class="modern-search-input" 
+                (keyup)="onKeyUp($event)" 
+                placeholder="Buscar links de pago...">
+        </div>
+        
+        <div class="filter-box">
+            <select 
+                id="s_status" 
+                name="s_status" 
+                class="modern-select" 
+                (change)="onChangeStatus($event)">
+                <option value="All">Buscar por</option>
+                <option value="cc">Cédula</option>
+                <option value="lastname">Apellido</option>
+                <option value="property">Propiedad</option>
+                <option value="project">Proyecto</option>
+                <option value="id">ID Ticket</option>
+            </select>
+        </div>
+        
+        <div class="date-range-box">
+            <mat-form-field (click)="picker3.open()" class="mat-mdc-form-field-infix-date-range">
+                <mat-date-range-input [rangePicker]="picker3" class="mat-field-input-date-range" [formGroup]="range">
+                    <input matStartDate placeholder="Desde" formControlName="start" readonly required>
+                    <input matEndDate placeholder="Hasta" formControlName="end" readonly required>
+                </mat-date-range-input>
+                <mat-date-range-picker #picker3></mat-date-range-picker>
+            </mat-form-field>
+            <button class="date-picker-btn" (click)="picker3.open()">
+                <i class="far fa-calendar-alt"></i>
+            </button>
+        </div>
+        
+        <div class="filter-box">
+            <select 
+                class="modern-select" 
+                (change)="onChangeStatus($event)">
+                <option value="All">Todos</option>
+                <option value="pending">Pendientes</option>
+                <option value="approved">Aprobados</option>
+                <option value="declined">Declinados</option>
+                <option value="expired">Expirados</option>
+                <option value="cancelled">Cancelados</option>
+                <option value="error">Erroneos</option>
+            </select>
+        </div>
+        
+        <button class="search-btn" (click)="goSearch()">
+            <i class="fas fa-search"></i>
+            Buscar
+        </button>
+    </div>
+    
+    <div class="action-buttons">
+        <button class="btn-primary" (click)="goCreate()">
+            <i class="fas fa-plus"></i>
+            Crear nuevo
+        </button>
+        <button class="btn-refresh" (click)="checkFilters()">
+            <i class="fas fa-sync-alt"></i>
+        </button>
+    </div>
+</div>
+
+
+<!-- Links Container -->
+<div class="links-container">
+    <!-- Links List -->
+    <div class="links-list">
+        <!-- List Header -->
+        <div class="list-header">
+            <div class="header-col date-col">Fecha</div>
+            <div class="header-col platform-col">Plataforma</div>
+            <div class="header-col amount-col">Valor</div>
+            <div class="header-col property-col">Lote</div>
+            <div class="header-col client-col">Cliente</div>
+            <!--<div class="header-col concept-col">Concepto</div>-->
+            <div class="header-col status-col">Estado</div>
+        </div>
+        
+        <!-- List Content -->
+         <!--
+        <div class="list-content">
+            @for (item of this.linkService.links; track $index) {
+                <div class="link-row">
+                    <div class="row-col platform-col">
+                        <span class="platform-badge">{{item.platform}}</span>
+                    </div>
+                    <div class="row-col amount-col">
+                        <span class="amount-value">${{item.amount | number : '1.0-0'}}</span>
+                    </div>
+                    <div class="row-col property-col">
+                        <span class="property-code">{{item.propertyCode}}</span>
+                    </div>
+                    <div class="row-col project-col">
+                        <span class="project-name">{{item.projectName}}</span>
+                    </div>
+                    <div class="row-col client-col">
+                        <div class="client-info">
+                            <span class="client-name">{{item.client.name}} {{item.client.lastName1}}</span>
+                        </div>
+                    </div>
+                    <div class="row-col concept-col">
+                        <span class="concept-text">{{item.concept}}</span>
+                    </div>
+                    <div class="row-col expires-col">
+                        <span class="expires-date">{{convertTimeToLocal(item.expiresAt.iso)}}</span>
+                    </div>
+                    <div class="row-col status-col">
+                        <span class="status-badge status-{{item.status.toLowerCase()}}">{{item.status}}</span>
+                    </div>
+                </div>
+            }
+        </div>
+        -->
+    </div>
+</div>
+
+</div>
+
+<app-menu-component></app-menu-component>
+<app-project-selector-component></app-project-selector-component>
+<app-loader-component></app-loader-component>

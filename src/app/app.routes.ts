@@ -10,6 +10,7 @@ import { LinksListPage } from './pages/links/links-list-page/links-list-page';
 import { PropertiesQuotationPage } from './pages/properties/properties-quotation-page/properties-quotation-page';
 import { PropertiesQuotationListPage } from './pages/reports/properties-quotation-list-page/properties-quotation-list-page';
 import { BudgetsListPage } from './pages/budgets-list-page/budgets-list-page';
+import { PaymentsListPage } from './pages/payments/payments-list-page/payments-list-page';
 
 export const routes: Routes = 
 [
@@ -48,6 +49,10 @@ export const routes: Routes =
     {
         path: 'clients/create',
         component: ClientsCreatePage
+    },
+    {
+        path: 'payments/list',
+        component: PaymentsListPage
     },
     {
         path: 'links/list',

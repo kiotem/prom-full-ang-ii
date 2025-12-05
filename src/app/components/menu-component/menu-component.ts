@@ -55,12 +55,4 @@ export class MenuComponent {
     }
   }
 
-    openProjectSelector()
-    {
-      this.projectService.refillFiltered();
-      
-      displayHTML('project-selector', 'block');
-      this.cdr.detectChanges();
-    }
-  
 }
