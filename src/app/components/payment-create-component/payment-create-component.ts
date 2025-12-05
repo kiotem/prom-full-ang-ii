@@ -28,9 +28,9 @@ export class PaymentCreateComponent {
     
     this.amount = new FormControl('', [Validators.required, Validators.min(0.01)]);
     this.paymentMethod = new FormControl('Efectivo', [Validators.required]);
-    this.description = new FormControl('', [Validators.required]);
-    this.clientName = new FormControl('', [Validators.required]);
-    this.projectName = new FormControl('', [Validators.required]);
+    this.description = new FormControl('');
+    this.clientName = new FormControl('');
+    this.projectName = new FormControl('');
     this.paymentType = new FormControl('Cuota', [Validators.required]);
     this.quotaNumber = new FormControl('');
     this.reference = new FormControl('', [Validators.required]);
