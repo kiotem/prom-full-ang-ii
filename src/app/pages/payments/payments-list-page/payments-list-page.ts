@@ -7,11 +7,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { ProjectService } from '../../../services/project-service';
-import { Utils } from '../../../commons/utils';
+import { Utils, displayHTML } from '../../../commons/utils';
+import { PaymentCreateComponent } from '../../../components/payment-create-component/payment-create-component';
 
 @Component({
   selector: 'app-payments-list-page',
-  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, MatInputModule, MatDatepickerModule, ReactiveFormsModule],
+  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, MatInputModule, MatDatepickerModule, ReactiveFormsModule, PaymentCreateComponent],
   templateUrl: './payments-list-page.html',
   styleUrls: ['./payments-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css'],
   providers: [provideNativeDateAdapter()],
@@ -53,7 +54,14 @@ export class PaymentsListPage
 
 goCreate() 
   {
-    console.log('Go to create link page');
+    console.log('Opening payment create modal');
+    displayHTML('payment-create-component', 'block');
+  }
+
+  paymentCreated(payment: any): void {
+    console.log('Payment created event received:', payment);
+    // Aquí podrías agregar el pago a una lista o refrescar los datos
+    this.cdr.detectChanges();
   }
 
   onDestroy()

@@ -5,7 +5,6 @@ import jsPDF from 'jspdf';
 import Quota from '../models/Quota';
 import Property from '../models/Property';
 import autoTable from 'jspdf-autotable';
-import Payment from '../models/Payment';
 import { HttpClient } from '@angular/common/http';
 import WhatsApp from '../models/WhatsApp';
 import { WhatsAppService } from './whatsapp-service';
@@ -17,7 +16,7 @@ export class PDFEstadoCuentaService
 {
   sale: Sale | undefined;
   quotas: Quota[] | undefined;
-  payments: Payment[] | undefined;
+  payments: any[] | undefined;
   destiny: string | undefined;
 
   doc: jsPDF;
@@ -28,7 +27,7 @@ export class PDFEstadoCuentaService
     // Initialization code if needed
   }
 
-  createEstadoIndividual(sale: Sale, quotas: Quota[], payments: Payment[], destiny: string): void
+  createEstadoIndividual(sale: Sale, quotas: Quota[], payments: any[], destiny: string): void
   {
     this.doc = new jsPDF();
 
