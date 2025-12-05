@@ -1,0 +1,40 @@
+<div class="user-profile" (click)="onProfileClick($event)">
+  <div class="user-avatar">
+    <div class="avatar-circle">
+      <i class="fas fa-user"></i>
+    </div>
+  </div>
+  
+  <div class="user-info">
+    <div class="user-name">{{ user?.name || 'Usuario' }}</div>
+    <div class="user-role">{{ user?.role || 'Usuario' }}</div>
+  </div>
+  
+  <div class="dropdown-icon">
+    <i class="fas fa-chevron-down" [class.rotated]="showDropdown"></i>
+  </div>
+
+  <!-- Dropdown Menu -->
+  <div class="user-dropdown" [class.show]="showDropdown">
+    <div class="dropdown-header">
+      <div class="user-details">
+        <div class="user-name-full">{{ user?.name || 'Usuario' }}</div>
+        <div class="user-email">{{ user?.email || 'usuario@sistema.com' }}</div>
+      </div>
+    </div>
+    
+    <div class="dropdown-divider"></div>
+    
+    <div class="dropdown-options">
+      <button class="dropdown-option" (click)="goToProfile()">
+        <i class="fas fa-user-cog"></i>
+        <span>Mi Perfil</span>
+      </button>
+      
+      <button class="dropdown-option" (click)="logout()">
+        <i class="fas fa-sign-out-alt"></i>
+        <span>Cerrar Sesión</span>
+      </button>
+    </div>
+  </div>
+</div>

@@ -15,11 +15,12 @@ import { PDFEstadoCuentaService } from '../../services/pdf-estado-cuenta-service
 import { displayHTML, getTextFromField } from '../../commons/utils';
 import Sale from '../../models/Sale';
 import { BudgetCreateComponent } from '../../components/budget-create-component/budget-create-component';
+import { UserProfileComponent } from '../../components/user-profile-component/user-profile-component';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-budgets-list-page',
-  imports: [MenuComponent, LoaderComponent, ProjectSelectorComponent, MatInputModule, MatDatepickerModule, ReactiveFormsModule, LoaderComponent, DecimalPipe, MatTooltipModule, BudgetCreateComponent],
+  imports: [MenuComponent, LoaderComponent, ProjectSelectorComponent, MatInputModule, MatDatepickerModule, ReactiveFormsModule, LoaderComponent, DecimalPipe, MatTooltipModule, BudgetCreateComponent, UserProfileComponent],
   templateUrl: './budgets-list-page.html',
   styleUrls: ['./budgets-list-page.css', '../../../styles/reports.css', '../../../styles/forms.css'],
   providers: [provideNativeDateAdapter()],

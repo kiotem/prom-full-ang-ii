@@ -7,13 +7,14 @@ import { LoaderComponent } from "../../../components/loader-component/loader-com
 import { LoaderService } from '../../../services/loader-service';
 import { Router } from '@angular/router';
 import { PropertyCreateComponent } from "../../../components/property-create-component/property-create-component";
+import { UserProfileComponent } from '../../../components/user-profile-component/user-profile-component';
 import { displayHTML } from '../../../commons/utils';
 import Property from '../../../models/Property';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-properties-list-page',
-  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, PropertyCreateComponent],
+  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, PropertyCreateComponent, UserProfileComponent],
   templateUrl: './properties-list-page.html',
   styleUrls: ['./properties-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css']
 })

@@ -3,6 +3,7 @@ import { MenuComponent } from '../../components/menu-component/menu-component';
 import { ProjectSelectorComponent } from "../../components/project-selector-component/project-selector-component";
 import { HighchartsChartComponent, ChartConstructorType } from 'highcharts-angular';
 import { LoaderComponent } from '../../components/loader-component/loader-component';
+import { UserProfileComponent } from '../../components/user-profile-component/user-profile-component';
 import { ClientSearchComponent } from '../../components/client-search-component/client-search-component';
 import { MatSlideToggleModule } from '@angular/material/slide-toggle';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -17,7 +18,7 @@ import autoTable from 'jspdf-autotable';
 
 @Component({
   selector: 'app-dashboard-page',
-  imports: [MenuComponent, ProjectSelectorComponent, HighchartsChartComponent, LoaderComponent, MatInputModule, MatDatepickerModule, CommonModule],
+  imports: [MenuComponent, ProjectSelectorComponent, HighchartsChartComponent, LoaderComponent, UserProfileComponent, MatInputModule, MatDatepickerModule, CommonModule],
   templateUrl: './dashboard-page.html',
   styleUrls: ['./dashboard-page.css', '../../../styles/reports.css'],
   providers: [provideNativeDateAdapter()],

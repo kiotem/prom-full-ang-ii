@@ -1,16 +1,16 @@
 /* Project Selector Button */
 .project-selector-button {
     position: fixed;
-    right: 2rem;
-    bottom: 2rem;
-    z-index: 19000;
+    right: 15px;
+    top: 7px;
+    z-index: 35000;
 }
 
 .project-button {
     background: var(--color-a);
     color: white;
     border: none;
-    padding: 0.75rem 1.25rem;
+    padding: 8px 10px;
     border-radius: 12px;
     font-size: 0.875rem;
     font-weight: 600;

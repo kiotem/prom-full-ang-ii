@@ -6,10 +6,11 @@ import { MenuService } from '../../services/menu-service';
 import { StorageService } from '../../services/storage-service';
 import { displayHTML } from '../../commons/utils';
 import { ProjectService } from '../../services/project-service';
+import { UserProfileComponent } from '../user-profile-component/user-profile-component';
 
 @Component({
   selector: 'app-menu-component',
-  imports: [],
+  imports: [UserProfileComponent],
   templateUrl: './menu-component.html',
   styleUrl: './menu-component.css'
 })
