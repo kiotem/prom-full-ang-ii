@@ -1,16 +1,17 @@
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Output, OnInit } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { LoaderService } from '../../services/loader-service';
 import { displayHTML } from '../../commons/utils';
 import Swal from 'sweetalert2';
 
 @Component({
   selector: 'app-payment-create-component',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './payment-create-component.html',
   styleUrl: './payment-create-component.css'
 })
-export class PaymentCreateComponent {
+export class PaymentCreateComponent implements OnInit {
   @Output() paymentCreatedAction = new EventEmitter<any>();
 
   paymentForm: FormGroup;
@@ -22,6 +23,8 @@ export class PaymentCreateComponent {
   paymentType: FormControl;
   quotaNumber: FormControl;
   reference: FormControl;
+  bankEntity: FormControl;
+  bankAccount: FormControl;
 
   constructor(public loaderService: LoaderService) {
     console.log('PaymentCreate component initialized');  
@@ -34,6 +37,8 @@ export class PaymentCreateComponent {
     this.paymentType = new FormControl('Cuota', [Validators.required]);
     this.quotaNumber = new FormControl('');
     this.reference = new FormControl('', [Validators.required]);
+    this.bankEntity = new FormControl('');
+    this.bankAccount = new FormControl('');
 
     this.paymentForm = new FormGroup({
       amount: this.amount,
@@ -43,8 +48,35 @@ export class PaymentCreateComponent {
       projectName: this.projectName,
       paymentType: this.paymentType,
       quotaNumber: this.quotaNumber,
-      reference: this.reference
+      reference: this.reference,
+      bankEntity: this.bankEntity,
+      bankAccount: this.bankAccount
     });
+  }
+
+  ngOnInit(): void {
+    // Subscribe to payment method changes
+    this.paymentMethod.valueChanges.subscribe(value => {
+      this.updateBankFieldsValidation(value);
+    });
+  }
+
+  updateBankFieldsValidation(paymentMethod: string): void {
+    if (paymentMethod === 'Transferencia') {
+      this.bankEntity.setValidators([Validators.required]);
+      this.bankAccount.setValidators([Validators.required]);
+    } else {
+      this.bankEntity.clearValidators();
+      this.bankAccount.clearValidators();
+      this.bankEntity.setValue('');
+      this.bankAccount.setValue('');
+    }
+    this.bankEntity.updateValueAndValidity();
+    this.bankAccount.updateValueAndValidity();
+  }
+
+  get isTransferencia(): boolean {
+    return this.paymentMethod.value === 'Transferencia';
   }
 
   onSubmit(): void {

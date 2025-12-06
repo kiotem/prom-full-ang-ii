@@ -7,14 +7,15 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { LinkService } from '../../../services/link-service';
-import { getTextFromField } from '../../../commons/utils';
+import { LinkCreateComponent } from '../../../components/link-create-component/link-create-component';
+import { getTextFromField, displayHTML } from '../../../commons/utils';
 import { DecimalPipe } from '@angular/common';
 import Project from '../../../models/Project';
 import { ProjectService } from '../../../services/project-service';
 
 @Component({
   selector: 'app-links-list-page',
-  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, MatInputModule, MatDatepickerModule, ReactiveFormsModule, DecimalPipe],
+  imports: [MenuComponent, ProjectSelectorComponent, LoaderComponent, LinkCreateComponent, MatInputModule, MatDatepickerModule, ReactiveFormsModule, DecimalPipe],
   templateUrl: './links-list-page.html',
   styleUrls: ['./links-list-page.css', '../../../../styles/reports.css', '../../../../styles/forms.css'],
   providers: [provideNativeDateAdapter()],
@@ -65,6 +66,13 @@ export class LinksListPage
   goCreate() 
   {
     console.log('Go to create link page');
+    displayHTML('link-create-component', 'block');
+  }
+
+  linkCreated(event: any): void {
+    console.log('Link created successfully:', event);
+    // Refresh the links list or handle the new link
+    this.checkFilters();
   }
 
   onDestroy()

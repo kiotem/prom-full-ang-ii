@@ -1,0 +1,158 @@
+<div id="link-create-component" class="modal-overlay" style="display: none;">
+    <div class="modal-container">
+        <div class="modal-header">
+            <h2 class="modal-title">
+                <i class="fas fa-link"></i>
+                Crear Link de Pago
+            </h2>
+            <button class="modal-close" (click)="onCancel()">
+                <i class="fas fa-times"></i>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <form [formGroup]="linkForm" autocomplete="off">
+                <div class="form-grid">
+                    <!-- Amount -->
+                    <div class="form-group">
+                        <label for="amount" class="form-label">
+                            <i class="fas fa-dollar-sign"></i>
+                            Monto
+                        </label>
+                        <input 
+                            type="number" 
+                            id="amount" 
+                            name="amount" 
+                            formControlName="amount" 
+                            class="form-input"
+                            placeholder="Ingrese el monto"
+                            step="0.01"
+                            min="1">
+                    </div>
+
+                    <!-- Currency -->
+                    <div class="form-group">
+                        <label for="currency" class="form-label">
+                            <i class="fas fa-money-bill"></i>
+                            Moneda
+                        </label>
+                        <select 
+                            id="currency" 
+                            name="currency" 
+                            formControlName="currency" 
+                            class="form-select">
+                            <option value="COP">COP - Peso Colombiano</option>
+                            <option value="USD">USD - Dólar Americano</option>
+                        </select>
+                    </div>
+
+                    <!-- Client Name -->
+                    <div class="form-group">
+                        <label for="clientName" class="form-label">
+                            <i class="fas fa-user"></i>
+                            Nombre del Cliente
+                        </label>
+                        <input 
+                            type="text" 
+                            id="clientName" 
+                            name="clientName" 
+                            formControlName="clientName" 
+                            class="form-input"
+                            placeholder="Ingrese el nombre del cliente">
+                    </div>
+
+                    <!-- Client Email -->
+                    <div class="form-group">
+                        <label for="clientEmail" class="form-label">
+                            <i class="fas fa-envelope"></i>
+                            Email del Cliente
+                        </label>
+                        <input 
+                            type="email" 
+                            id="clientEmail" 
+                            name="clientEmail" 
+                            formControlName="clientEmail" 
+                            class="form-input"
+                            placeholder="cliente@ejemplo.com">
+                    </div>
+
+                    <!-- Property Code -->
+                    <div class="form-group">
+                        <label for="propertyCode" class="form-label">
+                            <i class="fas fa-home"></i>
+                            Código de Propiedad
+                        </label>
+                        <input 
+                            type="text" 
+                            id="propertyCode" 
+                            name="propertyCode" 
+                            formControlName="propertyCode" 
+                            class="form-input"
+                            placeholder="Ej: PROP-001">
+                    </div>
+
+                    <!-- Platform -->
+                    <div class="form-group">
+                        <label for="platform" class="form-label">
+                            <i class="fas fa-credit-card"></i>
+                            Plataforma de Pago
+                        </label>
+                        <select 
+                            id="platform" 
+                            name="platform" 
+                            formControlName="platform" 
+                            class="form-select">
+                            <option value="Wompi">Wompi</option>
+                            <option value="PayU">PayU</option>
+                            <option value="Mercado Pago">Mercado Pago</option>
+                        </select>
+                    </div>
+
+                    <!-- Expiration Days -->
+                    <div class="form-group">
+                        <label for="expirationDays" class="form-label">
+                            <i class="fas fa-calendar-alt"></i>
+                            Días de Expiración
+                        </label>
+                        <input 
+                            type="number" 
+                            id="expirationDays" 
+                            name="expirationDays" 
+                            formControlName="expirationDays" 
+                            class="form-input"
+                            placeholder="Días hasta que expire"
+                            min="1"
+                            max="30">
+                    </div>
+
+                    <!-- Concept -->
+                    <div class="form-group full-width">
+                        <label for="concept" class="form-label">
+                            <i class="fas fa-comment"></i>
+                            Concepto del Pago
+                        </label>
+                        <textarea 
+                            id="concept" 
+                            name="concept" 
+                            formControlName="concept" 
+                            class="form-textarea"
+                            placeholder="Descripción del concepto del pago"
+                            rows="3"></textarea>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="modal-actions">
+            <button type="button" class="btn-cancel" (click)="onCancel()">
+                <i class="fas fa-times"></i>
+                Cancelar
+            </button>
+            <button type="button" class="btn-save" (click)="onSubmit()" [disabled]="linkForm.invalid">
+                <i class="fas fa-link"></i>
+                Crear Link
+            </button>
+        </div>
+    </div>
+</div>

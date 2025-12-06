@@ -114,6 +114,40 @@
                         placeholder="Ej: Cuota #12">
                 </div>
 
+                <!-- Bank Entity -->
+                <div class="form-group" *ngIf="isTransferencia">
+                    <label for="bankEntity" class="form-label">
+                        <i class="fas fa-university"></i>
+                        Entidad Bancaria
+                    </label>
+                    <select 
+                        id="bankEntity" 
+                        name="bankEntity" 
+                        formControlName="bankEntity" 
+                        class="form-select">
+                        <option value="">Seleccione una entidad</option>
+                        <option value="Bancolombia">Bancolombia</option>
+                        <option value="Davivienda">Davivienda</option>
+                    </select>
+                </div>
+
+                <!-- Bank Account -->
+                <div class="form-group" *ngIf="isTransferencia">
+                    <label for="bankAccount" class="form-label">
+                        <i class="fas fa-credit-card"></i>
+                        Cuenta Bancaria
+                    </label>
+                    <select 
+                        id="bankAccount" 
+                        name="bankAccount" 
+                        formControlName="bankAccount" 
+                        class="form-select">
+                        <option value="">Seleccione una cuenta</option>
+                        <option value="123-345-434">123-345-434</option>
+                        <option value="4343-323-434">4343-323-434</option>
+                    </select>
+                </div>
+
                 <!-- Reference -->
                 <div class="form-group">
                     <label for="reference" class="form-label">
